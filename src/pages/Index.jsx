@@ -8,11 +8,12 @@ import ResponsiveWrapper from "../components/ResponsiveWrapper";
 import Exhibit from "../components/Exhibit";
 import BrandStory from "../components/BrandStory";
 import Epilogue from "../components/Epilogue";
+import Footer from "../components/Footer"; // ✅ 追加
 import "../styles/base.css";
 
 export default function Index({ isMorning }) {
   useEffect(() => {
-    // 🌿 ページ初回ロード時フェード演出（軽量版）
+    // 🌿 ページ初回ロード時フェード演出（軽量GSAP）
     (async () => {
       const { gsap } = await import("gsap");
       const { ScrollTrigger } = await import("gsap/ScrollTrigger");
@@ -55,6 +56,8 @@ export default function Index({ isMorning }) {
               <section id="store-night"><StoreNight isMorning={isMorning} /></section>
               <section id="exhibit"><Exhibit isMorning={isMorning} /></section>
               <section id="story"><BrandStory isMorning={isMorning} /></section>
+
+              {/* 🌕 Epilogue – 光の余香 */}
               <section id="epilogue"><Epilogue isMorning={isMorning} /></section>
             </>
           }
@@ -66,11 +69,16 @@ export default function Index({ isMorning }) {
               <section id="store-night"><StoreNight isMorning={isMorning} /></section>
               <section id="exhibit"><Exhibit isMorning={isMorning} /></section>
               <section id="story"><BrandStory isMorning={isMorning} /></section>
+
+              {/* 🌕 Epilogue – 光の余香 */}
               <section id="epilogue"><Epilogue isMorning={isMorning} /></section>
             </>
           }
         />
       </main>
+
+      {/* 🌸 Footer（文字だけのボタン＋スラッシュ区切り） */}
+      <Footer isMorning={isMorning} /> 
     </div>
   );
 }

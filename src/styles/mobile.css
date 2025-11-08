@@ -1,0 +1,19 @@
+import { useEffect } from "react";
+import "./style.css";
+
+export default function App() {
+  useEffect(() => {
+    if (window.innerWidth <= 768) {
+      import("./styles/mobile.css");
+    }
+  }, []);
+
+  return (
+    <>
+      <Hero />
+      <Lead />
+      <StoreMorning />
+      <StoreNight />
+    </>
+  );
+}

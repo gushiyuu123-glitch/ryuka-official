@@ -1,0 +1,130 @@
+/* ==============================
+   🌸 琉香 – Footer（静寂と光の区切り）
+============================== */
+.footer {
+  text-align: center;
+  padding: 6rem 0rem 4.5rem;
+  font-family: "Shippori Mincho B1", serif;
+  position: relative;
+  border-top: 1px solid rgba(200, 200, 200, 0.12);
+  overflow: hidden;
+  z-index: 1;
+  transition: background 1.6s ease, color 1.6s ease;
+}
+
+/* ☀️ 朝モード */
+.footer.day {
+  background: linear-gradient(to top, #f8f7f4 0%, #fcfbfa 100%);
+  color: #3f3f3f;
+}
+
+/* 🌙 夜モード */
+.footer.night {
+  background: radial-gradient(circle at 50% 0%, #1b1a18, #0a0a0a 90%);
+  color: #fff4d4;
+}
+
+/* --- ロゴ --- */
+.footer-logo {
+  font-size: 1.5rem;
+  letter-spacing: 0.24em;
+  margin-bottom: 2rem;
+  opacity: 0.85;
+  transition: opacity 0.8s ease, filter 1.2s ease;
+}
+.footer-logo:hover {
+  opacity: 1;
+  filter: brightness(1.08);
+}
+
+/* --- ナビゲーション（スラッシュ区切り） --- */
+.footer-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 3.2rem;
+}
+
+/* 各リンクスタイル */
+.footer-nav a {
+  position: relative;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  color: inherit;
+  opacity: 0.7;
+  transition:
+    opacity 0.8s ease,
+    text-shadow 1.2s ease,
+    letter-spacing 1s ease;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  cursor: pointer;
+}
+
+/* スラッシュ（柔らかく透ける） */
+.footer-nav a:not(:last-child)::after {
+  content: "/";
+  margin: 0 0.7rem;
+  color: currentColor;
+  opacity: 0.3;
+  transition: opacity 0.6s ease;
+}
+.footer-nav a:hover::after {
+  opacity: 0.45;
+}
+
+/* ☀️ 朝 hover */
+.footer.day .footer-nav a:hover {
+  opacity: 1;
+  text-shadow: 0 0 8px rgba(150, 210, 202, 0.35);
+  letter-spacing: 0.12em;
+}
+
+/* 🌙 夜 hover */
+.footer.night .footer-nav a:hover {
+  opacity: 1;
+  text-shadow: 0 0 10px rgba(232, 179, 126, 0.35);
+  letter-spacing: 0.12em;
+}
+
+/* --- クレジット --- */
+.footer-credit {
+  font-size: 0.8rem;
+  opacity: 0.72;
+  letter-spacing: 0.05em;
+  margin-top: 2rem;
+  font-family: "Poppins", sans-serif;
+  transition: opacity 1s ease;
+}
+.footer-credit:hover {
+  opacity: 0.9;
+}
+
+/* --- 夜の呼吸光（琥珀の余韻） --- */
+@keyframes footerGlow {
+  0% { opacity: 0.04; transform: translateX(-50%) scale(1); }
+  50% { opacity: 0.08; transform: translateX(-50%) scale(1.04); }
+  100% { opacity: 0.04; transform: translateX(-50%) scale(1); }
+}
+.footer.night::after {
+  content: "";
+  position: absolute;
+  bottom: -60%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180%;
+  height: 180%;
+  background: radial-gradient(
+    circle at 50% 100%,
+    rgba(255, 220, 150, 0.05),
+    transparent 70%
+  );
+  animation: footerGlow 9s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}

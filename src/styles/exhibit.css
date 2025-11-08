@@ -1,0 +1,440 @@
+/* =============================
+   🌿 Exhibit Section – Brand Optimized
+============================= */
+.exhibit {
+  position: relative;
+  padding: 10rem 8%;
+  overflow: hidden;
+  background: #f9f8f5;
+  transition: background 1.3s ease, color 1.3s ease;
+  isolation: isolate;
+  z-index: 1;
+}
+.exhibit.night {
+  background: #12100d;
+  color: #e8e4dc;
+}
+
+/* =============================
+   🎥 背景動画
+============================= */
+.product-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  opacity: 0.3;
+  filter: blur(1.5px) brightness(1.05);
+  pointer-events: none;
+  transition: opacity 2s ease, filter 2s ease;
+}
+.product-bg.morning {
+  opacity: 0.36;
+  filter: blur(1.2px) brightness(1.1) saturate(0.95);
+}
+.product-bg.night {
+  opacity: 0.25;
+  filter: blur(1.8px) brightness(0.9) saturate(0.85);
+}
+
+/* =============================
+   🪞 タイトル
+============================= */
+.exhibit-title {
+  text-align: center;
+  font-family: "Shippori Mincho B1", serif;
+  font-size: 1.8rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 6rem;
+  position: relative;
+  z-index: 2;
+}
+.exhibit-title span {
+  display: block;
+  font-size: 0.9rem;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 0.12em;
+  margin-top: 0.4rem;
+  opacity: 0.75;
+}
+
+/* =============================
+   ✨ 商品展示（交互フェード）
+============================= */
+.exhibit-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+  margin-bottom: 8rem;
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 1.4s ease, transform 1.4s ease;
+  will-change: transform, opacity;
+}
+.exhibit-item.reverse {
+  flex-direction: row-reverse;
+}
+
+/* 🎐 交互フェード効果 */
+.exhibit-item[data-dir="right"] .image {
+  transform: translateX(60px);
+  opacity: 0;
+  transition: transform 1.4s ease, opacity 1.4s ease;
+}
+.exhibit-item[data-dir="left"] .image {
+  transform: translateX(-60px);
+  opacity: 0;
+  transition: transform 1.4s ease, opacity 1.4s ease;
+}
+.exhibit-item.show {
+  opacity: 1;
+}
+.exhibit-item.show[data-dir="right"] .image,
+.exhibit-item.show[data-dir="left"] .image {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* =============================
+   📜 テキスト
+============================= */
+.exhibit-item .caption {
+  flex: 1;
+  text-align: left;
+}
+.exhibit-item .caption h3 {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.08em;
+  color: #c6a67a;
+  margin-bottom: 1rem;
+}
+.exhibit-item .caption p {
+  font-family: "Shippori Mincho B1", serif;
+  line-height: 2;
+  color: #2f2f2f;
+  margin-bottom: 1.4rem;
+}
+.exhibit.night .caption p {
+  color: #e8e4dc;
+}
+
+/* =============================
+   🧴 画像スタイル（洗練版）
+============================= */
+.exhibit-item .image {
+  flex: 1;
+  position: relative;
+}
+.exhibit-item .image img {
+  width: 82%;
+  border-radius: 0.8rem; /* ← シャープに */
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.08),
+    0 0 40px rgba(198, 166, 122, 0.08);
+  transition: transform 1.2s ease, filter 1.2s ease, box-shadow 1.2s ease;
+  animation: scentDrift 10s ease-in-out infinite;
+}
+.exhibit-item:hover .image img {
+  transform: scale(1.04);
+  filter: brightness(1.06) contrast(1.05);
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.12),
+    0 0 60px rgba(198, 166, 122, 0.18);
+}
+.exhibit-item .image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 60% 40%, rgba(255, 255, 255, 0.12), transparent 70%);
+  opacity: 0;
+  transform: scale(1.2);
+  transition: opacity 1.6s ease, transform 1.6s ease;
+  pointer-events: none;
+}
+.exhibit-item:hover .image::after {
+  opacity: 0.35;
+  transform: scale(1.05);
+}
+/* =============================
+   💌 Postcard 特別展示（最適化済み）
+============================= */
+.exhibit-item.postcard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  background: linear-gradient(to right, #faf9f6, #ecebe8);
+  border-radius: 0px;
+  padding: 4rem 6rem;
+  margin: 0rem auto 0rem;
+  max-width: 1500px;
+  overflow: hidden;
+  isolation: isolate;
+  box-shadow: 0 0 48px rgba(198,166,122,0.12);
+  transition:
+    opacity 2.8s ease-out,
+    transform 2.8s cubic-bezier(0.22,1,0.36,1),
+    box-shadow 2s ease;
+  opacity: 0;
+  transform: scale(0.97) translateY(60px);
+  will-change: opacity, transform;
+}
+.exhibit-item.postcard.show {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition-delay: 0.3s;
+}
+.exhibit-item.postcard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 64px rgba(198,166,122,0.25);
+}
+
+/* =============================
+   🌙 Night Mode 調和補正
+============================= */
+.exhibit.night .postcard {
+  background: linear-gradient(to right, #1b1814, #100e0c);
+  box-shadow: 0 0 60px rgba(255,210,150,0.05);
+}
+.exhibit.night .postcard .caption h3 {
+  color: #e4c88a;
+  text-shadow: 0 0 6px rgba(0,0,0,0.45);
+}
+.exhibit.night .postcard .caption p {
+  color: #dcd3be;
+  opacity: 0.95;
+  text-shadow: 0 0 4px rgba(0,0,0,0.3);
+}
+.exhibit.night .postcard .caption span {
+  color: #dcd3be;
+}
+
+/* =============================
+   🌫️ 光とミストの呼吸層
+============================= */
+.exhibit-item.postcard::before,
+.exhibit-item.postcard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.35;
+  animation: driftLight 24s ease-in-out infinite alternate;
+  z-index: 1;
+}
+.exhibit-item.postcard::before {
+  background: radial-gradient(circle at 60% 40%, rgba(198,166,122,0.14), transparent 80%);
+}
+.exhibit-item.postcard::after {
+  background: radial-gradient(circle at 35% 70%, rgba(168,216,209,0.08), transparent 80%);
+  animation-delay: 12s;
+}
+
+/* ミスト漂い（淡くする） */
+.exhibit-item.postcard .mist-layer {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.08), transparent 65%),
+    radial-gradient(circle at 40% 65%, rgba(198,166,122,0.05), transparent 75%);
+  animation: mistFlow 30s ease-in-out infinite alternate;
+  mix-blend-mode: overlay;
+  opacity: 0.25;
+  filter: blur(4px);
+  z-index: 1;
+  pointer-events: none;
+}
+/* =============================
+   💫 Postcard リンクボタン調整
+============================= */
+.exhibit-item.postcard .brand-link {
+  display: inline-block;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  border: none;
+  background: transparent;
+  position: relative;
+  left: -0.8rem; /* ← 少し左に寄せる */
+  transition: color 0.4s ease, text-shadow 0.6s ease, transform 0.3s ease;
+}
+
+.exhibit.day .postcard .brand-link {
+  color: #4e7f7a;
+  text-shadow: 0 0 6px rgba(160, 220, 210, 0.35);
+  background: #e7d2a5; /* ← 🌅 朝の背景色ここ */
+  padding: 0.6rem 1.8rem;
+  border-radius: 999px;
+}
+
+.exhibit.night .postcard .brand-link {
+  color: #000000;
+  text-shadow: 0 0 6px rgba(230, 180, 100, 0.35);
+  background: #e7d2a5; /* ← 🌙 夜の背景色ここ */
+  padding: 0.6rem 1.8rem;
+  border-radius: 999px;
+}
+
+/* =============================
+   🌫️ アニメーション
+============================= */
+@keyframes driftLight {
+  0% { opacity: 0.25; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.03); }
+  100% { opacity: 0.25; transform: scale(1); }
+}
+@keyframes mistFlow {
+  0% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(1.04); }
+  100% { opacity: 0.2; transform: scale(1); }
+}
+
+/* =============================
+   💫 フェード演出（香りが漂うように）
+============================= */
+.exhibit-item.postcard .image {
+  opacity: 0;
+  transform: scale(0.9);
+  transition:
+    opacity 3.2s ease-out 0.4s,
+    transform 3.2s cubic-bezier(0.22,1,0.36,1) 0.4s;
+}
+.exhibit-item.postcard.show .image {
+  opacity: 1;
+  transform: scale(1);
+}
+.exhibit-item.postcard .caption h3,
+.exhibit-item.postcard .caption p {
+  opacity: 0;
+  transform: translateY(25px);
+  transition:
+    opacity 2s ease-out 0.9s,
+    transform 2s ease-out 0.9s;
+}
+.exhibit-item.postcard.show .caption h3,
+.exhibit-item.postcard.show .caption p {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =============================
+   ✨ 共通要素
+============================= */
+.brand-link {
+  display: inline-block;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 0.1em;
+  font-size: 0.85rem;
+  padding: 0.7rem 2rem;
+  border-radius: 999px;
+  border: 1px solid rgba(168,216,209,0.35);
+  color: #2f2f2f;
+  text-decoration: none;
+  transition: all 0.4s ease;
+}
+.brand-link:hover {
+  transform: translateY(-3px);
+}
+
+/* =============================
+   💨 アニメーション群
+============================= */
+@keyframes scentDrift {
+  0%, 100% { filter: brightness(1.02) saturate(0.98); transform: translateY(0); }
+  50% { filter: brightness(1.05) saturate(1.1); transform: translateY(-6px); }
+}
+@keyframes driftLight {
+  0% { transform: scale(1); opacity: 0.35; }
+  50% { transform: scale(1.06); opacity: 0.65; }
+  100% { transform: scale(1.04); opacity: 0.45; }
+}
+@keyframes mistFlow {
+  0% { transform: translateY(0) scale(1); opacity: 0.3; }
+  50% { transform: translateY(-2%) scale(1.05); opacity: 0.5; }
+  100% { transform: translateY(1%) scale(1.02); opacity: 0.35; }
+}
+
+/* =============================
+   🫧 ウォーターマーク除去
+============================= */
+.exhibit::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3%;
+  background: radial-gradient(
+    circle at 90% 95%,
+    rgba(255,255,255,0.9) 0%,
+    rgba(255,255,255,0.55) 35%,
+    rgba(255,255,255,0.15) 70%,
+    transparent 100%
+  );
+  mix-blend-mode: lighten;
+  pointer-events: none;
+  z-index: 3;
+}
+.exhibit.night::after {
+  background: radial-gradient(
+    circle at 90% 95%,
+    rgba(18,16,13,0.8) 0%,
+    rgba(18,16,13,0.55) 40%,
+    rgba(18,16,13,0.3) 90%,
+    transparent 100%
+  );
+  mix-blend-mode: multiply;
+}
+/* ==============================
+   💎 Exhibit End Signature
+============================== */
+.exhibit-end {
+  width: 100%;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #bca77e;
+  opacity: 0.9;
+  margin-top: 8rem;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 3;
+  animation: exhibitEndFade 2.5s ease 0.4s both;
+}
+
+@keyframes exhibitEndFade {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 0.9; transform: translateY(0); }
+}
+
+/* ☀ 朝モード — 明るい金白トーン */
+.exhibit.day .exhibit-end {
+  color: #a48b5a;
+  text-shadow:
+    0 1px 3px rgba(255, 255, 255, 0.6),
+    0 0 6px rgba(180, 150, 100, 0.25);
+  opacity: 0.95;
+}
+
+/* 🌙 夜モード — 琥珀光＋柔らかグロー */
+.exhibit.night .exhibit-end {
+  color: #e8b37e;
+  text-shadow:
+    0 0 8px rgba(232, 179, 126, 0.4),
+    0 0 20px rgba(232, 179, 126, 0.15);
+  opacity: 0.92;
+}
+.exhibit-item.postcard .image img {
+  max-width: 1200px; /* ← ここが画像サイズの上限！ */
+  border-radius: 0.6rem;
+  transition: transform 1.5s ease, filter 1.5s ease;
+}

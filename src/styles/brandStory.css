@@ -1,0 +1,292 @@
+/* ================================
+ 🌿 BrandStory.css – Ryuka Fragrance (Vite + React)
+================================ */
+
+/* ==================================
+ 🌅 Base Structure
+================================= */
+.brand-story {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #faf8f5 0%, #f3f0ea 60%, #eee9e1 100%);
+  color: #2e2e2e;
+  text-align: center;
+  padding: 12rem 5%;
+  overflow: hidden;
+  transition: background 1.8s ease;
+}
+
+.brand-story.night {
+  background: linear-gradient(180deg, #151515 0%, #1a1a1a 60%, #202020 100%);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* ==================================
+ ✨ 光のドリフト
+================================= */
+.brand-story::before,
+.brand-story::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  mix-blend-mode: soft-light;
+  animation: moveLight 18s ease-in-out infinite alternate;
+}
+.brand-story::before {
+  background: radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.25), transparent 60%);
+}
+.brand-story::after {
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0) 100%);
+}
+@keyframes moveLight {
+  0% { transform: translateX(-10%) translateY(-4%); }
+  100% { transform: translateX(10%) translateY(4%); }
+}
+
+/* ==================================
+ 🌫️ Particle Layer
+================================= */
+#storyParticles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 1;
+  background: transparent;
+  filter: blur(1px) brightness(1.3);
+}
+
+/* ==================================
+ 💎 Floating Glass (背景装飾)
+================================= */
+.floating-glass {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+.floating-glass img {
+  position: absolute;
+  width: 180px;
+  opacity: 0.4;
+  filter: brightness(1.1) blur(0.3px);
+  animation: floatGlass 28s ease-in-out infinite;
+  transform-origin: center;
+  transition: filter 1.5s ease;
+}
+.brand-story.night .floating-glass img {
+  filter: hue-rotate(35deg) brightness(1.25) blur(0.4px);
+  opacity: 0.5;
+}
+/* 配置ランダム */
+.floating-glass img:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
+.floating-glass img:nth-child(2) { top: 80%; left: 80%; animation-delay: 5s; }
+.floating-glass img:nth-child(3) { top: 75%; left: 8%; animation-delay: 10s; }
+.floating-glass img:nth-child(4) { top: 15%; left: 70%; animation-delay: 15s; }
+/* アニメーション */
+@keyframes floatGlass {
+  0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.35; }
+  25% { transform: translateY(-25px) rotate(6deg) scale(1.03); opacity: 0.5; }
+  50% { transform: translateY(0) rotate(10deg) scale(1); opacity: 0.45; }
+  75% { transform: translateY(20px) rotate(-6deg) scale(0.98); opacity: 0.4; }
+  100% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.35; }
+}
+@keyframes glassShine {
+  0%, 90%, 100% { filter: brightness(1.1) blur(0.3px); }
+  95% { filter: brightness(1.7) blur(0.2px); }
+}
+.floating-glass img:nth-child(odd) {
+  animation: floatGlass 30s ease-in-out infinite, glassShine 12s ease-in-out infinite;
+}
+.floating-glass img:nth-child(even) {
+  animation: floatGlass 26s ease-in-out infinite, glassShine 18s ease-in-out infinite;
+}
+
+/* ==================================
+ 📖 Story Content
+================================= */
+.story-inner {
+  position: relative;
+  z-index: 5; /* 最前面 */
+  max-width: 960px;
+  margin: 0 auto;
+  animation: breathe 6s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(-3px); opacity: 0.98; }
+}
+
+.story-title {
+  font-family: "Shippori Mincho B1", serif;
+  font-size: 2.3rem;
+  margin-bottom: 2rem;
+  letter-spacing: 0.12em;
+  background: linear-gradient(90deg, #bba07a, #2e2e2e);
+  -webkit-background-clip: text;
+  color: transparent;
+  transition: background 1s ease;
+}
+.brand-story.night .story-title {
+  background: linear-gradient(90deg, #f2d7a2, #fff);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* ==================================
+ 🌗 朝／夜 切替
+================================= */
+.story-lead {
+  font-family: "Shippori Mincho B1", serif;
+  font-size: 1.2rem;
+  line-height: 2;
+  margin-bottom: 3.5rem;
+  opacity: 0.9;
+  transition: opacity 1.4s ease;
+}
+
+/* ==================================
+ 🪶 Story Body
+================================= */
+.story-body p {
+  line-height: 2.2;
+  margin-bottom: 2rem;
+  color: rgba(0, 0, 0, 0.85);
+  transition: color 1.4s ease;
+}
+.brand-story.night .story-body p {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* ==================================
+ 🖼️ Images
+================================= */
+.story-images {
+  display: flex;
+  justify-content: center;
+  gap: 5rem;
+  margin: 4rem 0;
+}
+.story-images img {
+  width: 50%;
+  border-radius: 0.7rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  transition: transform 0.8s ease, opacity 1s ease;
+  filter: brightness(0.95) contrast(1.05) saturate(1.1);
+}
+.story-images img:hover {
+  transform: scale(1.05);
+  opacity: 0.95;
+}
+
+/* ==================================
+ 💫 CTA
+================================= */
+.story-cta.fusion {
+  margin-top: 4rem;
+  text-align: center;
+  font-family: "Shippori Mincho B1", serif;
+}
+.cta-text {
+  color: rgba(0, 0, 0, 0.55);
+  font-size: 1rem;
+  margin-bottom: 1.4rem;
+  letter-spacing: 0.05em;
+  transition: color 1.4s ease;
+}
+.brand-story.night .cta-text {
+  color: rgba(255, 255, 255, 0.55);
+}
+.cta-button {
+  position: relative;
+  display: inline-block;
+  padding: 0.8rem 2.4rem;
+  font-size: 1.05rem;
+  letter-spacing: 0.1em;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 999px;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  transition: all 0.6s ease;
+  overflow: hidden;
+  color: rgba(0, 0, 0, 0.7);
+}
+.cta-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.6) 50%, rgba(255, 255, 255, 0) 100%);
+  transform: translateX(-100%);
+  transition: transform 0.8s ease;
+}
+.cta-button:hover {
+  color: #000;
+  border-color: rgba(0, 0, 0, 0.25);
+  background: rgba(255, 255, 255, 0.4);
+}
+.cta-button:hover::before {
+  transform: translateX(100%);
+}
+.brand-story.night .cta-button {
+  color: rgba(255, 255, 255, 0.7);
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+}
+.brand-story.night .cta-button:hover {
+  color: #f6e3b2;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ==================================
+ 🕊️ Fade Animation
+================================= */
+.fade-item {
+  opacity: 0.95;
+  transform: none;
+  transition: opacity 1.6s ease;
+}
+/* ============================================
+ 💎 ブランドリンクにガラス波紋ホバー
+============================================ */
+.brand-link {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #2e2e2e;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 0.12em;
+  transition: all 0.5s ease;
+}
+
+.brand-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.5), transparent 40%);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+
+.brand-link:hover::after {
+  opacity: 1;
+  animation: rippleWave 1.4s ease-out forwards;
+}
+
+@keyframes rippleWave {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}

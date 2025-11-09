@@ -1,0 +1,424 @@
+/* ===========================
+   🌿 Gift Page Style
+=========================== */
+.gift {
+  font-family: "Shippori Mincho B1", serif;
+  color: #2f2f2f;
+  background: #f9f8f5;
+  overflow-x: hidden;
+}
+
+/* ===========================
+   🎁 Hero
+=========================== */
+.gift-hero {
+  position: relative;
+  width: 100%;
+  height: 90vh;
+  overflow: hidden;
+}
+
+.gift-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(90%);
+}
+
+.gift-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.5)
+  );
+}
+
+.gift-hero-content {
+  position: absolute;
+  bottom: 18%;
+  left: 8%;
+  color: #fff;
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 2s ease forwards;
+}
+
+
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===========================
+   🧭 Breadcrumb（現在地）
+=========================== */
+.gift-breadcrumb {
+  position: absolute;
+  top: 2.2rem;
+  left: 8%;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  z-index: 10;
+}
+
+.breadcrumb-link {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.breadcrumb-link:hover {
+  color: #fff;
+}
+
+.breadcrumb-sep {
+  margin: 0 0.4rem;
+  opacity: 0.6;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.breadcrumb-current {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* 🌙 夜モード対応 */
+.gift.night .breadcrumb-link {
+  color: rgba(240, 235, 220, 0.8);
+}
+.gift.night .breadcrumb-link:hover {
+  color: #f8f3e6;
+}
+.gift.night .breadcrumb-sep,
+.gift.night .breadcrumb-current {
+  color: #f8f3e6;
+}
+
+/* ===========================
+   🌸 Feature
+=========================== */
+.gift-feature {
+  text-align: center;
+  padding: 6rem 10%;
+  background: #fffdf9;
+}
+
+.gift-feature h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.2rem;
+  color: #7b6b4b;
+  letter-spacing: 0.05em;
+}
+
+.gift-feature p {
+  font-size: 1.05rem;
+  line-height: 1.9;
+}
+
+.gift-feature span {
+  font-weight: 600;
+  color: #a88050;
+}
+
+/* ===========================
+   🎀 Gift Sets（詳細付き）
+=========================== */
+.gift-sets {
+  padding: 7rem 10%;
+  background: #f8f7f4;
+  text-align: center;
+}
+
+.gift-sets h2 {
+  font-size: 1.9rem;
+  color: #4a4030;
+  margin-bottom: 3rem;
+}
+
+.gift-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 2.5rem;
+}
+
+.gift-card {
+  background: #fff;
+  border-radius: 1.4rem;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.gift-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+.gift-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.gift-card-inner {
+  padding: 1.5rem 1.8rem;
+  text-align: left;
+}
+
+.gift-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.6rem;
+  color: #3b3227;
+}
+
+.set-info {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.8rem;
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.7;
+}
+
+.set-desc {
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.8;
+  margin-bottom: 0.8rem;
+}
+
+.price-tag {
+  display: inline-block;
+  font-weight: 600;
+  color: #a88050;
+  font-size: 0.95rem;
+  background: rgba(168, 128, 80, 0.08);
+  padding: 0.2rem 0.8rem;
+  border-radius: 0.5rem;
+}
+
+/* ===========================
+   🎁 購入特典セクション
+=========================== */
+.gift-bonus {
+  padding: 8rem 10%;
+  background: #fffdf9;
+  text-align: center;
+}
+
+.gift-bonus h2 {
+  font-size: 1.8rem;
+  margin-bottom: 4rem;
+  color: #4a4030;
+}
+
+.bonus-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  justify-content: center;
+}
+
+.bonus-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 420px;
+  text-align: left;
+}
+
+.bonus-item img {
+  width: 100%;
+  border-radius: 1.2rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  margin-bottom: 1.2rem;
+}
+
+.bonus-text h3 {
+  font-size: 1.2rem;
+  color: #7b6b4b;
+  margin-bottom: 0.4rem;
+}
+
+.bonus-text p {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #3f3f3f;
+}
+
+/* 🌙 夜モード */
+.gift.night .gift-bonus {
+  background: #1b1916;
+}
+
+.gift.night .bonus-text h3,
+.gift.night .gift-bonus h2 {
+  color: #f0eadd;
+}
+
+.gift.night .bonus-text p {
+  color: #ddd8cc;
+}
+
+/* ===========================
+   💌 Message
+=========================== */
+.gift-message {
+  text-align: center;
+  padding: 7rem 10%;
+  background: #fffdf9;
+}
+
+.gift-message h2 {
+  font-size: 1.7rem;
+  margin-bottom: 1.3rem;
+  color: #7b6b4b;
+}
+
+.gift-message p {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: #3f3f3f;
+}
+
+/* ===========================
+   🌅 CTA
+=========================== */
+.gift-cta {
+  text-align: center;
+  padding: 8rem 10%;
+  background: #f9f8f5;
+}
+
+.gift-cta h2 {
+  font-size: 1.8rem;
+  color: #3b3227;
+  margin-bottom: 2rem;
+}
+
+.gift-btn {
+  display: inline-block;
+  background: #a88050;
+  color: #fff;
+  padding: 0.9rem 2.4rem;
+  border-radius: 999px;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.gift-btn:hover {
+  background: #8b6a3e;
+  transform: translateY(-3px);
+}
+
+/* ===========================
+   🌙 Night Mode（CTAほか）
+=========================== */
+.gift.night {
+  background: #12100d;
+  color: #eae7e1;
+}
+
+.gift.night .gift-feature,
+.gift.night .gift-message,
+.gift.night .gift-cta {
+  background: #1b1916;
+}
+
+.gift.night h1,
+.gift.night h2,
+.gift.night h3 {
+  color: #f0eadd;
+}
+
+.gift.night .gift-btn {
+  background: #d1b77c;
+  color: #12100d;
+}
+
+.gift.night .gift-btn:hover {
+  background: #c0a864;
+}
+.gift-hero-content h1 {
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  color: #fffdf7; /* 少し柔らかい白 */
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.35),
+               0 0 15px rgba(255, 240, 200, 0.25);
+  letter-spacing: 0.06em;
+  font-weight: 500;
+}
+
+.gift-hero-content p {
+  font-size: 1.1rem;
+  line-height: 1.9;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+}
+#giftLight {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+}
+.gift-philosophy {
+  text-align: center;
+  padding: 3rem 10% 7rem;
+  background: #f9f8f5;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #6b5a3b;
+  letter-spacing: 0.05em;
+  opacity: 0.85;
+}
+.gift.night .gift-philosophy {
+  background: #1b1916;
+  color: #e7dabf;
+}
+.gift-guide {
+  padding: 8rem 10%;
+  background: #fffdf9;
+  text-align: center;
+}
+
+.gift-guide h2 {
+  font-size: 1.8rem;
+  margin-bottom: 3rem;
+  color: #6e5b3c;
+  letter-spacing: 0.06em;
+}
+
+.guide-list {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.guide-item {
+  background: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  padding: 2rem;
+}
+
+.guide-item h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #a88050;
+}

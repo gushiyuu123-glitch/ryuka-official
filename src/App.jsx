@@ -1,3 +1,4 @@
+// src/App.jsx
 import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
@@ -6,6 +7,9 @@ import {
   useLocation,
 } from "react-router-dom";
 
+// ============================
+// 🧩 Components
+// ============================
 import Hero from "./components/Hero";
 import Lead from "./components/Lead";
 import StoreMorning from "./components/StoreMorning";
@@ -19,9 +23,13 @@ import NavbarIndex from "./components/Navbar.jsx";
 import NavbarGlobal from "./components/NavbarGlobal.jsx";
 import Loader from "./components/Loader";
 
-import Store from "./pages/Store.jsx";
-import StoreDetail from "./pages/StoreDetail.jsx";
+// ============================
+// 🪶 Pages
+// ============================
+import Store from "./pages/Store.jsx";        // 旧ページ（保持OK）
 import Workshop from "./pages/Workshop.jsx";
+import Gift from "./pages/Gift.jsx";
+import Boutique from "./pages/Boutique.jsx"; // 新しい独立ページ
 
 import "./style.css";
 
@@ -34,12 +42,14 @@ function AppContent({ visible }) {
   const location = useLocation();
   const isIndex = location.pathname === "/";
 
+  // 🌗 Hero切替ボタン
   const handleToggle = () => {
     setTransitioning(true);
     setTimeout(() => setTransitioning(false), 1000);
     setIsMorning((prev) => !prev);
   };
 
+  // GSAP スクロールフェード
   useEffect(() => {
     let triggers = [];
     (async () => {
@@ -79,6 +89,9 @@ function AppContent({ visible }) {
     };
   }, [isMorning]);
 
+  // ============================================
+  // 💎 ページ構成
+  // ============================================
   return (
     <div
       style={{
@@ -101,6 +114,7 @@ function AppContent({ visible }) {
       <ScrollToTop />
 
       <Routes>
+        {/* 🏠 ホーム */}
         <Route
           path="/"
           element={
@@ -132,9 +146,19 @@ function AppContent({ visible }) {
             </main>
           }
         />
+
+        {/* 🏪 Store（旧） */}
         <Route path="/stores" element={<Store isMorning={isMorning} />} />
-        <Route path="/store/:id" element={<StoreDetail isMorning={isMorning} />} />
+
+        {/* 🛍️ Boutique（新） */}
+        <Route path="/boutique" element={<Boutique isMorning={isMorning} handleToggle={handleToggle} />} />
+
+
+        {/* 🧪 Workshop */}
         <Route path="/workshop" element={<Workshop isMorning={isMorning} />} />
+
+        {/* 🎁 Gift */}
+        <Route path="/gift" element={<Gift isMorning={isMorning} />} />
       </Routes>
 
       <Footer isMorning={isMorning} />
@@ -150,24 +174,23 @@ export default function App() {
   const [showMain, setShowMain] = useState(false);
 
   useEffect(() => {
-    // 🕰 Loader表示期間
-    const fadeTimer = setTimeout(() => setFadeOut(true), 4000); // ← 花が咲く時間
-    const showTimer = setTimeout(() => setShowMain(true), 5000); // ← 裏を遅らせて表示
-    // ローダー消えるのを少し早める（Heroとのクロスフェード）
-const timer = setTimeout(() => setFadeOut(true), 4700);
+    const fadeTimer = setTimeout(() => setFadeOut(true), 4000);
+    const showTimer = setTimeout(() => setShowMain(true), 5000);
+    const timer = setTimeout(() => setFadeOut(true), 4700);
     return () => {
       clearTimeout(fadeTimer);
       clearTimeout(showTimer);
+      clearTimeout(timer);
     };
   }, []);
 
   return (
     <Router>
       <div style={{ position: "relative" }}>
-        {/* 🌸 AppContentは裏で待機してフェードイン */}
+        {/* 🌸 Mainフェード */}
         <AppContent visible={showMain} />
 
-        {/* 🌺 Loaderは最前面で完全にフェードする */}
+        {/* 🌺 Loaderフェード */}
         <div
           style={{
             position: "fixed",

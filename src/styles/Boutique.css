@@ -1,0 +1,327 @@
+/* =====================================
+   🌅 Boutique — 朝と夜の香りギャラリー
+===================================== */
+
+:root {
+  --bg: #f9f8f5;
+  --text: #2f2f2f;
+  --gold: #e8b37e;
+  --mint: #a8d8d1;
+}
+
+/* =============================
+   🌿 Base
+============================= */
+.boutique {
+  font-family: "Shippori Mincho B1", serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  line-height: 1.8;
+  animation: fadeIn 1.2s ease;
+  min-height: 100vh;
+  transition: background 0.6s ease, color 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.boutique.day {
+  background: #f9f8f5;
+  color: #2f2f2f;
+}
+
+.boutique.night {
+  background: #12100d;
+  color: #e8e4dc;
+}
+
+/* =============================
+   🏝️ Hero
+============================= */
+.boutique .boutique-hero {
+  position: relative;
+  height: 88vh;
+  overflow: hidden;
+}
+
+.boutique .boutique-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(92%) saturate(108%);
+  transition: filter 0.8s ease;
+}
+
+.boutique .boutique-hero-text {
+  position: absolute;
+  bottom: 20%;
+  left: 10%;
+  color: #2f2f2f;
+  text-shadow: 0 2px 6px rgba(255, 255, 255, 0.6);
+}
+
+.boutique.night .boutique-hero-text {
+  color: #e8e4dc;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.boutique .boutique-hero-text h1 {
+  font-size: 3rem;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.5rem;
+}
+
+.boutique .boutique-hero-text p {
+  font-size: 1.1rem;
+  opacity: 0.85;
+}
+
+/* =============================
+   🌗 朝夜トグルボタン
+============================= */
+.boutique .mode-toggle-area {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  z-index: 9999;
+}
+
+.boutique .mode-btn {
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  color: #2f2f2f;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.9rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+.boutique .mode-btn:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
+}
+.boutique.night .mode-btn {
+  background: rgba(20, 20, 20, 0.6);
+  color: #e8e4dc;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* =============================
+   🪶 Product Section
+============================= */
+.boutique .product-section {
+  padding: 6.5rem 8% 6rem;
+  text-align: center;
+}
+
+.boutique .product-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 3.5rem;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  position: relative;
+}
+.boutique .product-section h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: var(--gold);
+  margin: 1rem auto 0;
+}
+
+/* =============================
+   🛍️ Product Grid（安定版）
+============================= */
+.boutique .product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 4rem 3rem;
+  justify-items: center;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1100px) {
+  .boutique .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .boutique .product-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =============================
+   💎 Product Card
+============================= */
+.boutique .product-card {
+  width: 100%;
+  max-width: 360px;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  position: relative;
+  cursor: pointer;
+}
+.boutique .product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+/* ✅ 画像トリミング防止 + 中央寄せ */
+.boutique .product-card img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: contain;
+  background: #f8f7f4;
+  transition: transform 0.6s ease;
+}
+.boutique .product-card:hover img {
+  transform: scale(1.03);
+}
+
+/* =============================
+   💰 Overlay（価格など）
+============================= */
+.boutique .product-overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 1rem 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.6),
+    rgba(0, 0, 0, 0.15)
+  );
+  color: #fff;
+  text-align: center;
+  transition: background 0.35s ease;
+}
+.boutique .product-overlay h3 {
+  font-family: "Shippori Mincho B1", serif;
+  font-size: 1.1rem;
+  margin-bottom: 0.2rem;
+}
+.boutique .product-overlay p {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+.boutique .product-card:hover .product-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.72),
+    rgba(0, 0, 0, 0.18)
+  );
+}
+
+/* =============================
+   💌 Postcard 特典
+============================= */
+.boutique .postcard-section {
+  text-align: center;
+  padding: 6rem 10% 8rem;
+  background: #f6f4f0;
+}
+.boutique .postcard-section h2 {
+  font-size: 1.8rem;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+}
+.boutique .postcard-section p {
+  font-family: "Shippori Mincho B1", serif;
+  line-height: 1.9;
+  color: #2f2f2f;
+  margin-bottom: 2rem;
+}
+.boutique .postcard-img {
+  width: 380px;
+  max-width: 92vw;
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
+}
+
+/* =============================
+   🔍 Lightbox
+============================= */
+.boutique .lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.boutique .lightbox.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+.boutique .lightbox img {
+  max-width: 90%;
+  max-height: 80%;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  animation: zoomIn 0.5s ease;
+}
+@keyframes zoomIn {
+  from {
+    transform: scale(0.96);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+/* =============================
+   🎁 Back Link & Footer
+============================= */
+.boutique .back-link {
+  text-align: center;
+  margin: 5.5rem 0 2rem;
+}
+.boutique .back-link a {
+  color: var(--gold);
+  text-decoration: none;
+  font-size: 1.1rem;
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  padding: 0.6rem 1.4rem;
+  transition: all 0.3s ease;
+}
+.boutique .back-link a:hover {
+  background: var(--gold);
+  color: #fff;
+}
+
+.boutique .boutique-footer {
+  text-align: center;
+  padding: 3rem 0;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.9rem;
+  opacity: 0.6;
+}

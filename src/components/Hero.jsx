@@ -1,14 +1,18 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+import "../styles/hero.css";
 
 export default function Hero({ isMorning, setIsMorning }) {
   const canvasRef = useRef(null);
+  const scentRef = useRef(null);
   const heroRef = useRef(null);
+  const textRef = useRef(null);
+  const [showText, setShowText] = useState(false);
 
+  // 🌫️ 香りの泡（下層）
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
-
     const resize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -16,7 +20,6 @@ export default function Hero({ isMorning, setIsMorning }) {
     resize();
     window.addEventListener("resize", resize);
 
-    // 🫧 泡（香りの粒）
     const bubbles = Array.from({ length: 45 }).map(() => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
@@ -35,8 +38,8 @@ export default function Hero({ isMorning, setIsMorning }) {
           b.x = Math.random() * canvas.width;
         }
         const color = isMorning
-          ? `hsla(168, 60%, 75%, ${b.o})` // 朝：ミントガラス
-          : `hsla(38, 75%, 68%, ${b.o})`; // 夜：琥珀の灯
+          ? `hsla(168, 60%, 75%, ${b.o})`
+          : `hsla(38, 80%, 68%, ${b.o})`; // 夜は金色寄り
         const g = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r * 2);
         g.addColorStop(0, color);
         g.addColorStop(1, "transparent");
@@ -48,31 +51,76 @@ export default function Hero({ isMorning, setIsMorning }) {
       animationFrame = requestAnimationFrame(draw);
     };
     draw();
-
     return () => {
       cancelAnimationFrame(animationFrame);
       window.removeEventListener("resize", resize);
     };
   }, [isMorning]);
 
-  // 🌫️ GSAP：Hero全体のモード転換エフェクト
+  // 🌤️ 光に溶ける香り（上層）
   useEffect(() => {
-    if (!heroRef.current) return;
+    const canvas = scentRef.current;
+    const ctx = canvas.getContext("2d");
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener("resize", resize);
 
-    const tl = gsap.timeline();
-    tl.to(heroRef.current, {
-      opacity: 0,
-      duration: 0.5,
-      ease: "power1.out",
-    })
-      .to(heroRef.current, {
-        opacity: 1,
-        duration: 1.0,
-        ease: "power2.out",
+    const particles = Array.from({ length: 50 }).map(() => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height * 0.9,
+      r: Math.random() * 1.8 + 0.8,
+      o: Math.random() * 0.2 + 0.2,
+      c: isMorning
+        ? `hsla(${Math.random() * 40 + 160}, 70%, 80%, 0.6)` // 朝：ミント×白光
+        : `hsla(${Math.random() * 20 + 35}, 80%, 70%, 0.55)`, // 夜：琥珀金
+    }));
+
+    let frame;
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p) => {
+        ctx.beginPath();
+        ctx.fillStyle = p.c;
+        ctx.globalAlpha = p.o;
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+
+        // ゆるく右上へ
+        p.x += 0.03;
+        p.y -= 0.06;
+        p.o -= 0.001;
+        if (p.y < -10 || p.x > canvas.width + 10 || p.o <= 0) {
+          p.x = Math.random() * canvas.width * 0.6;
+          p.y = canvas.height * 0.9;
+          p.o = Math.random() * 0.4 + 0.3;
+        }
       });
+      frame = requestAnimationFrame(draw);
+    };
+    draw();
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("resize", resize);
+    };
   }, [isMorning]);
 
-  // 🌸 モード切替時の光の波
+  // 🌕 テキスト表示タイミング
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowText(true);
+      gsap.fromTo(
+        textRef.current,
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 2.6, ease: "power2.out" }
+      );
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // ☀️ モード切替光波
   const handleModeSwitch = () => {
     const btn = document.getElementById("modeBtn");
     gsap.fromTo(
@@ -93,11 +141,13 @@ export default function Hero({ isMorning, setIsMorning }) {
   return (
     <section
       ref={heroRef}
-      className={`hero ${isMorning ? "day" : "night"}`}
+      className={`hero ${isMorning ? "day" : "night"} ${
+        showText ? "loaded" : ""
+      }`}
       aria-label="琉香ヒーロー"
     >
-      {/* 🫧 泡レイヤー */}
-      <canvas ref={canvasRef} id="bubbles" className="hero-bubbles"></canvas>
+      {/* 泡（下層） */}
+      <canvas ref={canvasRef} className="hero-bubbles"></canvas>
 
       {/* 背景画像 */}
       <img
@@ -111,8 +161,11 @@ export default function Hero({ isMorning, setIsMorning }) {
         alt="Night Aroma"
       />
 
+      {/* 光の香り（上層） */}
+      <canvas ref={scentRef} className="hero-scent"></canvas>
+
       {/* テキスト */}
-      <div className="hero-content">
+      <div ref={textRef} className={`hero-content ${showText ? "show" : ""}`}>
         <h1 className="hero-title">琉香 — RYUKA</h1>
         <h2 className="hero-lead">
           {isMorning

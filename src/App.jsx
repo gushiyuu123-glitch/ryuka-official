@@ -1,4 +1,3 @@
-// src/App.jsx
 import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
@@ -15,11 +14,11 @@ import Exhibit from "./components/Exhibit";
 import BrandStory from "./components/BrandStory";
 import Epilogue from "./components/Epilogue";
 import Footer from "./components/Footer";
-import ScrollToTop from "./components/ScrollToTop"; // ✅ ページトップ制御
+import ScrollToTop from "./components/ScrollToTop";
 import NavbarIndex from "./components/Navbar.jsx";
 import NavbarGlobal from "./components/NavbarGlobal.jsx";
+import Loader from "./components/Loader";
 
-// 🏪 下層ページ群
 import Store from "./pages/Store.jsx";
 import StoreDetail from "./pages/StoreDetail.jsx";
 import Workshop from "./pages/Workshop.jsx";
@@ -29,20 +28,18 @@ import "./style.css";
 // ================================================
 // 💠 ページ構成本体
 // ================================================
-function AppContent() {
+function AppContent({ visible }) {
   const [isMorning, setIsMorning] = useState(true);
   const [transitioning, setTransitioning] = useState(false);
   const location = useLocation();
   const isIndex = location.pathname === "/";
 
-  // 🌗 朝夜トグル
   const handleToggle = () => {
     setTransitioning(true);
     setTimeout(() => setTransitioning(false), 1000);
     setIsMorning((prev) => !prev);
   };
 
-  // 🌬️ スクロール演出＋スムーススクロール
   useEffect(() => {
     let triggers = [];
     (async () => {
@@ -73,21 +70,6 @@ function AppContent() {
           }
         )
       );
-
-      // スムーススクロール（index専用）
-      if (isIndex) {
-        document.querySelectorAll('a[href^="#"]').forEach((link) => {
-          const handleClick = (e) => {
-            e.preventDefault();
-            const target = document.querySelector(link.getAttribute("href"));
-            if (target) {
-              target.scrollIntoView({ behavior: "smooth", block: "start" });
-            }
-          };
-          link.removeEventListener("click", handleClick);
-          link.addEventListener("click", handleClick);
-        });
-      }
     })();
 
     return () => {
@@ -95,33 +77,30 @@ function AppContent() {
         triggers.forEach((t) => t.scrollTrigger?.kill());
       } catch {}
     };
-  }, [isMorning, isIndex]);
+  }, [isMorning]);
 
-  // ================================================
-  // 🌺 JSXレンダリング
-  // ================================================
   return (
-    <>
-      {/* 💫 トランジション */}
+    <div
+      style={{
+        opacity: visible ? 1 : 0,
+        transition: "opacity 3.5s ease-in-out",
+      }}
+    >
       <div
         className={`light-transition ${isMorning ? "" : "night"} ${
           transitioning ? "active" : ""
         }`}
       ></div>
 
-      {/* 🩵 ナビゲーション切替 */}
       {isIndex ? (
         <NavbarIndex isMorning={isMorning} handleToggle={handleToggle} />
       ) : (
         <NavbarGlobal isMorning={isMorning} />
       )}
 
-      {/* ✅ ページ遷移時にトップへ戻る */}
       <ScrollToTop />
 
-      {/* 🪞 ページ構成 */}
       <Routes>
-        {/* 🏝 トップページ */}
         <Route
           path="/"
           element={
@@ -129,12 +108,9 @@ function AppContent() {
               <section id="top">
                 <Hero isMorning={isMorning} />
               </section>
-
               <section id="lead">
                 <Lead isMorning={isMorning} />
               </section>
-
-              {/* 🏪 朝／夜ストア切替 */}
               {isMorning ? (
                 <section id="store">
                   <StoreMorning isMorning={isMorning} />
@@ -144,45 +120,71 @@ function AppContent() {
                   <StoreNight isMorning={isMorning} />
                 </section>
               )}
-
               <section id="exhibit">
                 <Exhibit isMorning={isMorning} />
               </section>
-
               <section id="story">
                 <BrandStory isMorning={isMorning} />
               </section>
-
               <section id="epilogue">
                 <Epilogue isMorning={isMorning} />
               </section>
             </main>
           }
         />
-
-        {/* 🏬 店舗一覧ページ（複数形） */}
         <Route path="/stores" element={<Store isMorning={isMorning} />} />
-
-        {/* 🏬 店舗詳細 */}
         <Route path="/store/:id" element={<StoreDetail isMorning={isMorning} />} />
-
-        {/* 🧪 読谷アトリエ体験ページ */}
         <Route path="/workshop" element={<Workshop isMorning={isMorning} />} />
       </Routes>
 
-      {/* 🌅 共通フッター */}
       <Footer isMorning={isMorning} />
-    </>
+    </div>
   );
 }
 
 // ================================================
-// 🧭 Router 全体
+// 🧭 Router + Loader連動フェード
 // ================================================
 export default function App() {
+  const [fadeOut, setFadeOut] = useState(false);
+  const [showMain, setShowMain] = useState(false);
+
+  useEffect(() => {
+    // 🕰 Loader表示期間
+    const fadeTimer = setTimeout(() => setFadeOut(true), 4000); // ← 花が咲く時間
+    const showTimer = setTimeout(() => setShowMain(true), 5000); // ← 裏を遅らせて表示
+    // ローダー消えるのを少し早める（Heroとのクロスフェード）
+const timer = setTimeout(() => setFadeOut(true), 4700);
+    return () => {
+      clearTimeout(fadeTimer);
+      clearTimeout(showTimer);
+    };
+  }, []);
+
   return (
     <Router>
-      <AppContent />
+      <div style={{ position: "relative" }}>
+        {/* 🌸 AppContentは裏で待機してフェードイン */}
+        <AppContent visible={showMain} />
+
+        {/* 🌺 Loaderは最前面で完全にフェードする */}
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 9999,
+            pointerEvents: fadeOut ? "none" : "auto",
+            transition: "opacity 3.8s ease",
+            opacity: fadeOut ? 0 : 1,
+            background: "#faf7f4",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Loader />
+        </div>
+      </div>
     </Router>
   );
 }

@@ -7,36 +7,42 @@ export default function Exhibit({ isMorning }) {
   const videoRef = useRef(null);
   const [videoVisible, setVideoVisible] = useState(false);
 
-  // 🔹 スクロール時にアイテムをフェードイン
+  /* =============================
+     ✨ 商品フェードイン制御
+  ============================= */
   useEffect(() => {
     const items = exhibitRef.current?.querySelectorAll(".exhibit-item");
     if (!items) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("show");
-        });
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+            observer.unobserve(entry.target); // 一度発火で切る→超軽量
+          }
+        }
       },
-      { threshold: 0.3 }
+      { threshold: 0.25 }
     );
 
     items.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 
-  // 🎥 動画の再生を「見えてる時だけ」に制御
+  /* =============================
+     🎥 背景動画制御（可視範囲のみ再生）
+  ============================= */
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          setVideoVisible(entry.isIntersecting);
-          if (entry.isIntersecting) video.play();
-          else video.pause();
-        });
+      ([entry]) => {
+        const visible = entry.isIntersecting;
+        setVideoVisible(visible);
+        if (visible) video.play();
+        else video.pause();
       },
       { threshold: 0.1 }
     );
@@ -45,10 +51,14 @@ export default function Exhibit({ isMorning }) {
     return () => observer.disconnect();
   }, [isMorning]);
 
+  /* =============================
+     📦 商品データ配列
+  ============================= */
   const products = [
     {
       name: "Gōya Mist",
-      desc: `朝露のゴーヤーを思わせる爽やかなグリーンノート。<br />ミントとシークヮーサーの清涼が、心を静かに整える。`,
+      desc: `朝露のゴーヤーを思わせる爽やかなグリーンノート。<br />
+             ミントとシークヮーサーの清涼が、心を静かに整える。`,
       img: "/image/Goya.webp",
       link: "/collection/goya",
       btn: "Breathe in the Morning",
@@ -83,13 +93,16 @@ export default function Exhibit({ isMorning }) {
     },
   ];
 
+  /* =============================
+     🌿 JSX構成
+  ============================= */
   return (
     <section
-      className={`exhibit ${isMorning ? "day" : "night"}`}
       ref={exhibitRef}
+      className={`exhibit ${isMorning ? "day" : "night"}`}
       aria-label="香りの展示空間"
     >
-      {/* 🎥 背景動画（見えてる時だけ再生） */}
+      {/* 🎥 背景動画 */}
       <video
         ref={videoRef}
         key={isMorning ? "morning-video" : "night-video"}
@@ -97,14 +110,15 @@ export default function Exhibit({ isMorning }) {
         muted
         loop
         playsInline
-        preload="none"
+        preload="auto"
+        poster={isMorning ? "/image/ryuka-morning.webp" : "/image/ryuka-night1.webp"}
       >
         <source
-          src={
-            isMorning
-              ? "/image/ryuka-morning.mp4"
-              : "/image/ryuka-night1.mp4"
-          }
+          src={isMorning ? "/image/ryuka-morning1.webm" : "/image/ryuka-night2.webm"}
+          type="video/webm"
+        />
+        <source
+          src={isMorning ? "/image/ryuka-morning1.mp4" : "/image/ryuka-night1.mp4"}
           type="video/mp4"
         />
       </video>
@@ -116,7 +130,7 @@ export default function Exhibit({ isMorning }) {
         <span>— 香りの記憶をたどる旅 —</span>
       </h2>
 
-      {/* 💐 商品展示 */}
+      {/* 💐 商品展示リスト */}
       <div className="exhibit-list">
         {products.map((item, i) => (
           <div
@@ -126,7 +140,7 @@ export default function Exhibit({ isMorning }) {
           >
             <div className="caption">
               <h3>{item.name}</h3>
-              <p dangerouslySetInnerHTML={{ __html: item.desc }}></p>
+              <p dangerouslySetInnerHTML={{ __html: item.desc }} />
               <a href={item.link} className="brand-link">
                 {item.btn}
               </a>
@@ -135,15 +149,14 @@ export default function Exhibit({ isMorning }) {
               <img
                 src={item.img}
                 alt={`${item.name} の香り`}
-                loading="lazy" // ←★これだけで体感軽くなる
+                loading="lazy"
               />
             </div>
           </div>
         ))}
 
-        {/* 💌 Gift Section */}
+        {/* 💌 Gift セクション */}
         <div className="exhibit-item postcard">
-          <div className="mist-layer"></div>
           <div className="image">
             <img
               src="/image/Postcard1.webp"

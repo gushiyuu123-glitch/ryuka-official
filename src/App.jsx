@@ -26,11 +26,11 @@ import Loader from "./components/Loader";
 // ============================
 // 🪶 Pages
 // ============================
-import Store from "./pages/Store.jsx";        // 旧ページ（保持OK）
+import Store from "./pages/Store.jsx";
 import Workshop from "./pages/Workshop.jsx";
 import Gift from "./pages/Gift.jsx";
-import Boutique from "./pages/Boutique.jsx"; // 新しい独立ページ
-
+import Boutique from "./pages/Boutique.jsx";
+import Diagnosis from "./pages/Diagnosis.jsx";
 import "./style.css";
 
 // ================================================
@@ -42,14 +42,14 @@ function AppContent({ visible }) {
   const location = useLocation();
   const isIndex = location.pathname === "/";
 
-  // 🌗 Hero切替ボタン
+  // 🌗 トグル切り替え
   const handleToggle = () => {
     setTransitioning(true);
     setTimeout(() => setTransitioning(false), 1000);
     setIsMorning((prev) => !prev);
   };
 
-  // GSAP スクロールフェード
+  // 🌿 GSAP スクロールフェード
   useEffect(() => {
     let triggers = [];
     (async () => {
@@ -99,12 +99,14 @@ function AppContent({ visible }) {
         transition: "opacity 3.5s ease-in-out",
       }}
     >
+      {/* ☀️ 夜昼トランジション */}
       <div
         className={`light-transition ${isMorning ? "" : "night"} ${
           transitioning ? "active" : ""
         }`}
       ></div>
 
+      {/* 🌸 ナビゲーション */}
       {isIndex ? (
         <NavbarIndex isMorning={isMorning} handleToggle={handleToggle} />
       ) : (
@@ -114,7 +116,7 @@ function AppContent({ visible }) {
       <ScrollToTop />
 
       <Routes>
-        {/* 🏠 ホーム */}
+        {/* 🏠 トップページ */}
         <Route
           path="/"
           element={
@@ -125,6 +127,7 @@ function AppContent({ visible }) {
               <section id="lead">
                 <Lead isMorning={isMorning} />
               </section>
+
               {isMorning ? (
                 <section id="store">
                   <StoreMorning isMorning={isMorning} />
@@ -134,6 +137,7 @@ function AppContent({ visible }) {
                   <StoreNight isMorning={isMorning} />
                 </section>
               )}
+
               <section id="exhibit">
                 <Exhibit isMorning={isMorning} />
               </section>
@@ -147,20 +151,18 @@ function AppContent({ visible }) {
           }
         />
 
-        {/* 🏪 Store（旧） */}
+        {/* 🛍 各独立ページ */}
         <Route path="/stores" element={<Store isMorning={isMorning} />} />
-
-        {/* 🛍️ Boutique（新） */}
-        <Route path="/boutique" element={<Boutique isMorning={isMorning} handleToggle={handleToggle} />} />
-
-
-        {/* 🧪 Workshop */}
+        <Route
+          path="/boutique"
+          element={<Boutique isMorning={isMorning} handleToggle={handleToggle} />}
+        />
         <Route path="/workshop" element={<Workshop isMorning={isMorning} />} />
-
-        {/* 🎁 Gift */}
         <Route path="/gift" element={<Gift isMorning={isMorning} />} />
+        <Route path="/diagnosis" element={<Diagnosis isMorning={isMorning} />} />
       </Routes>
 
+      {/* 🌿 共通フッター */}
       <Footer isMorning={isMorning} />
     </div>
   );
@@ -187,10 +189,10 @@ export default function App() {
   return (
     <Router>
       <div style={{ position: "relative" }}>
-        {/* 🌸 Mainフェード */}
+        {/* 🕊 メインフェード */}
         <AppContent visible={showMain} />
 
-        {/* 🌺 Loaderフェード */}
+        {/* 🪶 ローダー演出 */}
         <div
           style={{
             position: "fixed",

@@ -25,6 +25,7 @@ export default function NavbarGlobal({ isMorning }) {
           <Link to="/exhibit" className="nav-link">Exhibit</Link>
           <Link to="/story" className="nav-link">Story</Link>
           <Link to="/contact" className="nav-link">Contact</Link>
+          <Link to="/diagnosis" data-text="Diagnosis">Diagnosis</Link>
         </nav>
       </div>
     </header>

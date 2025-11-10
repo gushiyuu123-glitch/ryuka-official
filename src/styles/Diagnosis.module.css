@@ -1,0 +1,320 @@
+/* =======================================
+   🌿 RYUKA Aroma Diagnosis – 完成最終版
+   ======================================= */
+
+.diagnosis {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  font-family: "Shippori Mincho B1", serif;
+  color: #2f2f2f;
+  transition: background 1.5s ease, color 1.5s ease;
+}
+
+/* 🌅 朝・夜テーマ */
+.day {
+  background: linear-gradient(180deg, #f9f8f5 0%, #fffaf0 100%);
+}
+.night {
+  background: linear-gradient(180deg, #0e0d10 0%, #1c1b18 100%);
+  color: #e8e4dc;
+}
+
+/* =============================
+   🌄 背景フェード
+============================= */
+.bgWrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bgImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 2.8s ease, transform 8s ease;
+  filter: brightness(90%) blur(2px);
+}
+.bgImage.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* =============================
+   🌸 コンテンツ本体
+============================= */
+.inner {
+  position: relative;
+  z-index: 1;
+  padding: 8rem 8% 6rem;
+  text-align: center;
+  animation: fadeIn 1s ease;
+}
+
+/* =============================
+   🪶 導入（タイトル）
+============================= */
+.title {
+  font-size: 2.8rem;
+  letter-spacing: 0.06em;
+  margin-bottom: 1.2rem;
+  font-weight: 500;
+  text-shadow: 0 2px 8px rgba(255, 255, 255, 0.35);
+  background: linear-gradient(90deg, #2f2f2f, #7a6b53);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.night .title {
+  background: linear-gradient(90deg, #f6f3eb, #d1c7b2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 8px rgba(255, 255, 255, 0.3);
+}
+
+.subtitle {
+  opacity: 0.85;
+  font-size: 1.05rem;
+  line-height: 1.9;
+  letter-spacing: 0.05em;
+  margin-bottom: 3.8rem;
+  font-family: "Poppins", sans-serif;
+  color: rgba(47, 47, 47, 0.85);
+}
+.night .subtitle {
+  color: rgba(235, 232, 225, 0.9);
+}
+
+/* =============================
+   💭 質問カード
+============================= */
+.questionCard {
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: 20px;
+  padding: 2.8rem 2rem;
+  max-width: 640px;
+  margin: 0 auto;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+}
+.night .questionCard {
+  background: rgba(30, 30, 30, 0.6);
+}
+
+.questionCard h2 {
+  font-size: 1.25rem;
+  margin-bottom: 1.8rem;
+  letter-spacing: 0.03em;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.options button {
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 999px;
+  padding: 0.9rem 1.5rem;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+.options button:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 1);
+}
+.night .options button {
+  background: rgba(60, 60, 60, 0.85);
+  color: #eee9e2;
+}
+.night .options button:hover {
+  background: rgba(80, 80, 80, 1);
+}
+
+/* =============================
+   💫 結果表示
+============================= */
+.resultBox {
+  position: relative;
+  max-width: 760px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.62);
+  padding: 4rem 3rem;
+  border-radius: 24px;
+  backdrop-filter: blur(12px);
+  animation: fadeInUp 0.8s ease;
+  overflow: hidden;
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.15);
+}
+.night .resultBox {
+  background: rgba(20, 20, 20, 0.6);
+}
+
+/* 🌌 パーティクル */
+.particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.8;
+}
+
+/* 🌿 テキスト */
+.resultTitle {
+  font-size: 2.2rem;
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.04em;
+}
+.resultCatch {
+  font-size: 1.15rem;
+  opacity: 0.85;
+  margin-bottom: 1.8rem;
+  letter-spacing: 0.05em;
+}
+
+/* ✨ AI詩（Typewriter表示） */
+.aiText {
+  white-space: pre-line;
+  line-height: 1.9;
+  margin: 1.6rem auto 2.2rem;
+  opacity: 0.9;
+  font-size: 1rem;
+  max-width: 600px;
+  position: relative;
+  animation: textGlow 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes textGlow {
+  0% { text-shadow: 0 0 6px rgba(224,199,159,0.2); }
+  100% { text-shadow: 0 0 16px rgba(224,199,159,0.45); }
+}
+
+/* =============================
+   🕯 おすすめ香りカード
+============================= */
+.recommendCard {
+  margin-top: 2.2rem;
+  text-align: center;
+  animation: fadeInUp 1.2s ease;
+}
+.recommendCard img {
+  width: 140px;
+  height: 140px;
+  border-radius: 14px;
+  object-fit: cover;
+  opacity: 0.9;
+  transition: transform 0.6s ease, opacity 0.4s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+.recommendCard img:hover {
+  transform: scale(1.06);
+  opacity: 1;
+}
+.recommendLabel {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  margin-top: 0.6rem;
+  letter-spacing: 0.05em;
+  font-family: "Poppins", sans-serif;
+}
+
+/* =============================
+   🔗 ボタン群
+============================= */
+.links {
+  margin-top: 2.5rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.btnPrimary,
+.btnGhost {
+  padding: 1rem 2rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 0.04em;
+  font-size: 0.95rem;
+  transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+  cursor: pointer;
+}
+.btnPrimary {
+  background: linear-gradient(90deg, #e0c79f, #f1e4ca);
+  color: #2f2f2f;
+  border: none;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+.btnPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.btnGhost {
+  background: transparent;
+  color: inherit;
+  border: 1px solid currentColor;
+}
+.btnGhost:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* =============================
+   🎞️ アニメーション
+============================= */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(36px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =============================
+   📱 レスポンシブ
+============================= */
+@media (max-width: 560px) {
+  .inner { padding: 7rem 6% 5rem; }
+  .title { font-size: 2.2rem; }
+  .subtitle { font-size: 0.95rem; line-height: 1.7; }
+  .questionCard { padding: 2.2rem 1.4rem; }
+  .resultBox { padding: 3rem 1.6rem; }
+  .recommendCard img { width: 110px; height: 110px; }
+}
+/* Diagnosis.module.css のどこかに追加 */
+.particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+.resultImage {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  margin: 1.2rem auto 0.6rem;
+  opacity: 0.95;
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.15));
+  transition: transform 0.8s ease, opacity 0.8s ease;
+}
+.resultImage:hover {
+  transform: scale(1.04);
+  opacity: 1;
+}
+.resultLabel {
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  opacity: 0.7;
+  margin-bottom: 1.8rem;
+}

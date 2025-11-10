@@ -3,7 +3,7 @@
 ============================== */
 .footer {
   text-align: center;
-  padding: 6rem 0rem 4.5rem;
+  padding: 6rem 0 4.5rem;
   font-family: "Shippori Mincho B1", serif;
   position: relative;
   border-top: 1px solid rgba(200, 200, 200, 0.12);
@@ -24,7 +24,9 @@
   color: #fff4d4;
 }
 
-/* --- ロゴ --- */
+/* ==============================
+   ✴️ ロゴ
+============================== */
 .footer-logo {
   font-size: 1.5rem;
   letter-spacing: 0.24em;
@@ -37,7 +39,9 @@
   filter: brightness(1.08);
 }
 
-/* --- ナビゲーション（スラッシュ区切り） --- */
+/* ==============================
+   🕊 ナビゲーション
+============================== */
 .footer-nav {
   display: flex;
   justify-content: center;
@@ -47,7 +51,7 @@
   margin-bottom: 3.2rem;
 }
 
-/* 各リンクスタイル */
+/* --- 各リンク --- */
 .footer-nav a {
   position: relative;
   font-family: "Poppins", sans-serif;
@@ -60,13 +64,9 @@
     opacity 0.8s ease,
     text-shadow 1.2s ease,
     letter-spacing 1s ease;
-  background: none !important;
-  border: none !important;
-  box-shadow: none !important;
-  cursor: pointer;
 }
 
-/* スラッシュ（柔らかく透ける） */
+/* --- スラッシュ区切り --- */
 .footer-nav a:not(:last-child)::after {
   content: "/";
   margin: 0 0.7rem;
@@ -92,7 +92,31 @@
   letter-spacing: 0.12em;
 }
 
-/* --- クレジット --- */
+/* --- 「香りのご相談」リンク（和文トーン強調） --- */
+.footer-touch {
+  font-family: "Shippori Mincho B1", serif;
+  letter-spacing: 0.07em;
+  opacity: 0.85;
+  transition: opacity 0.4s ease;
+}
+.footer-touch:hover {
+  opacity: 1;
+}
+
+/* --- Homeボタン（シンプル化） --- */
+.footer-home {
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.footer-home:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* ==============================
+   💫 クレジット
+============================== */
 .footer-credit {
   font-size: 0.8rem;
   opacity: 0.72;
@@ -105,7 +129,9 @@
   opacity: 0.9;
 }
 
-/* --- 夜の呼吸光（琥珀の余韻） --- */
+/* ==============================
+   🌌 夜の呼吸光（琥珀の余韻）
+============================== */
 @keyframes footerGlow {
   0% { opacity: 0.04; transform: translateX(-50%) scale(1); }
   50% { opacity: 0.08; transform: translateX(-50%) scale(1.04); }
@@ -127,4 +153,42 @@
   animation: footerGlow 9s ease-in-out infinite;
   pointer-events: none;
   z-index: 0;
+}
+.footer-link.current {
+  opacity: 0.45;
+  pointer-events: none;
+  cursor: default;
+}
+.footer-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.4rem;
+  margin-bottom: 3rem;
+}
+
+.footer-home,
+.footer-link,
+.footer-touch {
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  color: inherit;
+  opacity: 0.7;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.footer-home:hover,
+.footer-link:hover,
+.footer-touch:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.footer-touch {
+  font-family: "Shippori Mincho B1", serif;
+  letter-spacing: 0.06em;
+  font-size: 0.92rem;
 }

@@ -21,8 +21,9 @@ import Workshop from "../pages/Workshop";
 import Gift from "../pages/Gift";
 import Boutique from "../pages/Boutique";
 import Diagnosis from "../pages/Diagnosis";
-import Contact from "../pages/Contact"; // ✅ 追加
-import Story from "../pages/Story"; // ← 追加
+import Contact from "../pages/Contact";
+import Story from "../pages/Story"; // ✅ 正しく一箇所に統一
+
 // =============================================
 // 💠 AppRoutes（主要ルーティング構成）
 // =============================================
@@ -73,7 +74,13 @@ export default function AppRoutes({ isMorning, handleToggle }) {
         path="/boutique"
         element={<Boutique isMorning={isMorning} handleToggle={handleToggle} />}
       />
-      <Route path="/story" element={<Story isMorning={isMorning} handleToggle={handleToggle} />} />
+
+      {/* 🌸 ストーリーページ */}
+      <Route
+        path="/story"
+        element={<Story isMorning={isMorning} handleToggle={handleToggle} />}
+      />
+
       {/* 🛠 工房・体験 */}
       <Route path="/workshop" element={<Workshop isMorning={isMorning} />} />
 
@@ -87,8 +94,7 @@ export default function AppRoutes({ isMorning, handleToggle }) {
       <Route path="/stores" element={<Store isMorning={isMorning} />} />
 
       {/* 💌 お問い合わせ */}
-      <Route path="/contact" element={<Contact isMorning={isMorning} />} /> {/* ✅ 追加 */}
-      <Route path="/story" element={<Story isMorning={isMorning} />} />
+      <Route path="/contact" element={<Contact isMorning={isMorning} />} />
     </Routes>
   );
 }

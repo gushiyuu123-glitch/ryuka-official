@@ -88,14 +88,15 @@ function AppInner({ visible, fadeOut, isMorning, handleToggle }) {
           transition: "opacity 3.5s ease-in-out",
         }}
       >
-        {/* 🕊 ナビゲーション */}
-        {!isStory && ( // 👈 Storyページでは非表示
-          isIndex ? (
-            <NavbarIndex isMorning={isMorning} handleToggle={handleToggle} />
-          ) : (
-            <NavbarGlobal isMorning={isMorning} />
-          )
-        )}
+{/* 🕊 ナビゲーション */}
+{!isStory && ( // Storyページでは非表示
+  isIndex ? (
+    <NavbarIndex isMorning={isMorning} handleToggle={handleToggle} />
+  ) : location.pathname === "/boutique" && !isMorning ? null : (
+    <NavbarGlobal isMorning={isMorning} />
+  )
+)}
+
 
         {/* 📜 ページ構成 */}
         <ScrollToTop />

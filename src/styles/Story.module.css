@@ -1,0 +1,292 @@
+/* ===============================
+   🌸 Base Layout
+=============================== */
+.story {
+  position: relative;
+  min-height: 100vh;
+  padding: 6rem 8%;
+  font-family: "Shippori Mincho B1", serif;
+  line-height: 1.9;
+  transition: background 1.2s ease, color 1.2s ease;
+  overflow-x: hidden;
+}
+
+/* 🌅 朝と🌙 夜のトーン */
+.day {
+  background: linear-gradient(180deg, #f9f8f5, #f2ede5);
+  color: #2f2f2f;
+}
+
+.night {
+  background: linear-gradient(180deg, #0f0d0b, #1b1813);
+  color: #e8e4dc;
+}
+
+/* ===============================
+   🎞 HERO
+=============================== */
+.hero {
+  position: relative;
+  overflow: hidden;
+  height: 90vh; /* 🎬 下10%カットで構図を締める */
+  text-align: center;
+  margin-bottom: 6rem;
+  border-radius: 22px; /* 🍃 優しい角丸 */
+}
+
+/* 🎥 Hero動画（奇跡の香粉が降る背景） */
+.bgVideo {
+  position: absolute;
+  inset: -5vh 0 0 0;
+  width: 100%;
+  height: 110vh;
+  object-fit: cover;
+  object-position: center 60%;
+  z-index: 0;
+  border-radius: 22px;
+  overflow: hidden;
+
+  /* 🎥 疑似的に画質を上げて見せる */
+  filter: brightness(92%) contrast(110%) saturate(115%) blur(0.6px);
+  transform: scale(1.02); /* ← わずかに拡大してピクセル荒れを隠す */
+  will-change: filter, transform;
+  transition: filter 1s ease, transform 1.5s ease;
+}
+
+/* 光の上に重なる透明レイヤー */
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  transition: background 1s ease;
+  pointer-events: none;
+  border-radius: 22px;
+}
+
+.overlayDay {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.overlayNight {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+/* ===============================
+   🌕 HERO TEXT
+=============================== */
+.heroInner {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding-top: 30vh;
+  color: #fff;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  animation: fadeIn 1.8s ease both;
+}
+
+.title {
+  font-size: 2.4rem;
+  letter-spacing: 0.14em;
+}
+
+.lead {
+  margin-top: 1rem;
+  opacity: 0.92;
+  letter-spacing: 0.04em;
+  font-size: 1.08rem;
+  line-height: 1.9;
+}
+
+/* ===============================
+   ☀️🌙 トグルボタン
+=============================== */
+.toggleBtn,
+.soundBtn {
+  margin-top: 1.6rem;
+  padding: 0.7rem 1.8rem;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: all 0.4s ease;
+  letter-spacing: 0.04em;
+}
+
+.toggleBtn:hover,
+.soundBtn:hover {
+  background: rgba(255, 255, 255, 0.45);
+  transform: translateY(-2px);
+}
+
+.soundBtn {
+  display: block;
+  margin-inline: auto;
+}
+
+/* ===============================
+   ✨ Sections
+=============================== */
+.section {
+  display: grid;
+  gap: 2.2rem;
+  grid-template-columns: 1fr;
+  max-width: 1000px;
+  margin: 0 auto 4.5rem;
+}
+@media (min-width: 900px) {
+  .section {
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: start;
+  }
+}
+
+.alt {
+  direction: rtl; /* 交互に流れを反転 */
+}
+.alt > * {
+  direction: ltr;
+}
+
+.block,
+.full {
+  background: transparent;
+}
+
+.h2 {
+  font-size: 1.3rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
+}
+
+.text {
+  opacity: 0.88;
+  letter-spacing: 0.015em;
+  font-size: 1rem;
+  line-height: 1.9;
+}
+
+/* ===============================
+   🧭 Points
+=============================== */
+.points {
+  list-style: none;
+  padding: 0;
+  margin: 0.2rem 0 0;
+}
+.points li {
+  position: relative;
+  padding-left: 1.1rem;
+  margin: 0.4rem 0;
+  opacity: 0.85;
+}
+.points li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0.5;
+}
+
+/* ===============================
+   🕯 Quote
+=============================== */
+.quote {
+  position: relative;
+  padding: 1.3rem 1.2rem 1.2rem 2.6rem;
+  border-left: 1px solid rgba(180, 180, 180, 0.35);
+  opacity: 0.95;
+}
+.mark {
+  position: absolute;
+  left: 0.6rem;
+  top: -0.1rem;
+  font-size: 2rem;
+  line-height: 1;
+  opacity: 0.35;
+}
+
+/* ===============================
+   💫 Phrase / Epilogue
+=============================== */
+.phrase {
+  text-align: center;
+  font-size: 1.08rem;
+  opacity: 0.9;
+  letter-spacing: 0.04em;
+  margin-top: 0.8rem;
+  line-height: 1.9;
+}
+
+.epilogue {
+  margin: 5rem auto 2rem;
+  text-align: center;
+}
+
+.epiText {
+  font-size: 1.1rem;
+  letter-spacing: 0.06em;
+  opacity: 0.9;
+}
+
+/* ===============================
+   🌠 Animation / Fade
+=============================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 700ms ease, transform 700ms ease;
+}
+.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===============================
+   💡 奇跡の香粉 Canvas
+=============================== */
+.lightCanvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: screen;
+  filter: blur(2.5px);
+  opacity: 0.8;
+}
+/* ===============================
+   ✨ Glow Animation（粉が当たる瞬間）
+=============================== */
+.glow {
+  position: relative;
+}
+
+.glow::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: radial-gradient(circle, rgba(255,255,255,0.6) 0%, transparent 60%);
+  mix-blend-mode: screen;
+  filter: blur(6px);
+  opacity: 0;
+  animation: glow-hit 2.5s ease forwards;
+}
+
+@keyframes glow-hit {
+  0% { opacity: 0; transform: scale(0.8); }
+  20% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.3); }
+}

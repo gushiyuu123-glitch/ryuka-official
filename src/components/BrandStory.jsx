@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import "../styles/brandStory.css";
 
 export default function BrandStory({ isMorning }) {
@@ -6,18 +7,15 @@ export default function BrandStory({ isMorning }) {
   const canvasRef = useRef(null);
 
   /* ===============================
-     🕊️ フェードイン制御（確実発火版）
+     🕊️ フェードイン制御（確実発火＋軽量）
   =============================== */
   useEffect(() => {
     const container = storyRef.current;
     if (!container) return;
 
     const elements = container.querySelectorAll(".fade-item");
-
-    // マウント時：すべて即表示（安全策）
     elements.forEach((el) => el.classList.add("show"));
 
-    // スクロール時にも発火
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -27,7 +25,7 @@ export default function BrandStory({ isMorning }) {
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.15 }
     );
 
     elements.forEach((el) => observer.observe(el));
@@ -35,7 +33,7 @@ export default function BrandStory({ isMorning }) {
   }, []);
 
   /* ===============================
-     🌫️ 香りの粒アニメーション（統合版）
+     🌫️ 香りの粒アニメーション（軽量・静寂ver）
   =============================== */
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -44,19 +42,17 @@ export default function BrandStory({ isMorning }) {
 
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
-
     const color = isMorning
-      ? "rgba(168,216,209,0.28)" // 朝：ミント
-      : "rgba(232,179,126,0.28)"; // 夜：琥珀
+      ? "rgba(168,216,209,0.25)" // 朝：ミント
+      : "rgba(232,179,126,0.25)"; // 夜：琥珀
 
-    // 🪶 Storeへ流れる香りパターン
-    let particles = Array.from({ length: 70 }, () => ({
+    let particles = Array.from({ length: 45 }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
-      r: Math.random() * 2 + 0.6,
-      dx: (Math.random() - 0.5) * 0.15,
-      dy: Math.random() * 0.2 + 0.05, // ゆっくり下方向へ
-      opacity: Math.random() * 0.6 + 0.3,
+      r: Math.random() * 2 + 0.8,
+      dx: (Math.random() - 0.5) * 0.1,
+      dy: Math.random() * 0.15 + 0.04,
+      opacity: Math.random() * 0.5 + 0.3,
     }));
 
     const draw = () => {
@@ -68,11 +64,8 @@ export default function BrandStory({ isMorning }) {
         ctx.globalAlpha = p.opacity;
         ctx.fill();
 
-        // 動き
         p.x += p.dx;
         p.y += p.dy;
-
-        // 端リセット
         if (p.x < 0) p.x = width;
         if (p.x > width) p.x = 0;
         if (p.y > height + 10) {
@@ -89,21 +82,20 @@ export default function BrandStory({ isMorning }) {
     };
     loop();
 
-    // リサイズ対応
-    const handleResize = () => {
+    const resize = () => {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
     };
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", resize);
 
     return () => {
       cancelAnimationFrame(id);
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", resize);
     };
   }, [isMorning]);
 
   /* ===============================
-     🌗 朝夜の詩
+     🌗 朝夜テキスト
   =============================== */
   const storyText = isMorning
     ? {
@@ -133,14 +125,6 @@ export default function BrandStory({ isMorning }) {
     >
       {/* 🌫️ 香りの粒 */}
       <canvas id="storyParticles" ref={canvasRef}></canvas>
-
-      {/* 💎 浮遊するガラス */}
-      <div className="floating-glass">
-        <img src="image/glass1.png" alt="Glass layer 1" />
-        <img src="image/glass2.png" alt="Glass layer 2" />
-        <img src="image/glass3.png" alt="Glass layer 3" />
-        <img src="image/glass4.png" alt="Glass layer 4" />
-      </div>
 
       {/* 📖 本文 */}
       <div className="story-inner">
@@ -173,27 +157,22 @@ export default function BrandStory({ isMorning }) {
           />
         </div>
 
-        {/* 💫 ボタン */}
-        <div className="story-cta fusion fade-item">
-
-     {/* 💫 ボタン */}
-<div className="story-cta fusion fade-item">
-  <p className="cta-text">— 香りの奥にある、琉香の物語をもっと知る —</p>
-  <a
-    href="#"
-    className="cta-button brand-link"
-    onMouseMove={(e) => {
-      const rect = e.target.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      e.target.style.setProperty("--x", `${x}%`);
-      e.target.style.setProperty("--y", `${y}%`);
-    }}
-  >
-    About RYUKA
-  </a>
-</div>
-
+        {/* 💫 CTA */}
+        <div className="story-cta fade-item">
+          <p className="cta-text">— 琉香の物語をもっと読む —</p>
+          <Link
+            to="/story"
+            className="cta-button"
+            onMouseMove={(e) => {
+              const rect = e.target.getBoundingClientRect();
+              const x = ((e.clientX - rect.left) / rect.width) * 100;
+              const y = ((e.clientY - rect.top) / rect.height) * 100;
+              e.target.style.setProperty("--x", `${x}%`);
+              e.target.style.setProperty("--y", `${y}%`);
+            }}
+          >
+            ブランドストーリーを見る
+          </Link>
         </div>
       </div>
     </section>

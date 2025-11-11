@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import "../styles/footer.css";
+import styles from "./Footer.module.css";
 
 export default function Footer({ isMorning }) {
   const location = useLocation();
@@ -10,52 +10,76 @@ export default function Footer({ isMorning }) {
   // 🕊 Homeクリック → トップページへスムース遷移
   const handleHomeClick = (e) => {
     e.preventDefault();
-    // すでにHomeならスクロールのみ、それ以外ならナビゲート
+
     if (current === "/") {
+      // すでにホームにいる場合：スクロールトップ
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
-      navigate("/"); // ← トップページへ遷移
+      // 他ページからの遷移：ナビゲート後に軽いスクロールアニメ
+      navigate("/");
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }, 100);
     }
   };
 
   return (
-    <footer className={`footer ${isMorning ? "day" : "night"}`}>
-      <div className="footer-inner">
-        {/* 🌸 ブランドロゴ（控えめな存在感） */}
-        <p className="footer-logo">琉香 — Ryuka Fragrance</p>
+    <footer
+      className={`${styles.footer} ${isMorning ? styles.day : styles.night}`}
+    >
+      <p className={styles.logo}>琉香 — Ryuka Fragrance</p>
 
-        {/* 🌿 最小限で上品なナビゲーション */}
-        <nav className="footer-nav">
-          {/* 🏠 Home（トップページへ戻る） */}
-          <a href="/" onClick={handleHomeClick} className="footer-home">
-            Home
-          </a>
+      <nav className={styles.nav}>
+        {/* 🏠 ホーム */}
+        <button
+          onClick={handleHomeClick}
+          className={`${styles.home} ${current === "/" ? styles.current : ""}`}
+        >
+          ホーム
+        </button>
 
-          {/* 🕯 Collection（商品一覧） */}
-          {current !== "/boutique" && (
-            <Link to="/boutique" className="footer-link">
-              Collection
-            </Link>
-          )}
+        {/* 🕯 商品一覧 */}
+        <Link
+          to="/boutique"
+          className={`${styles.link} ${
+            current === "/boutique" ? styles.current : ""
+          }`}
+        >
+          商品一覧
+        </Link>
 
-          {/* 🔮 Diagnosis（香り診断） */}
-          {current !== "/diagnosis" && (
-            <Link to="/diagnosis" className="footer-link">
-              Diagnosis
-            </Link>
-          )}
+        {/* 🔮 香り診断 */}
+        <Link
+          to="/diagnosis"
+          className={`${styles.link} ${
+            current === "/diagnosis" ? styles.current : ""
+          }`}
+        >
+          香り診断
+        </Link>
 
-          {/* 💌 香りのご相談（日本語トーン） */}
-          {current !== "/contact" && (
-            <Link to="/contact" className="footer-touch">
-              香りのご相談
-            </Link>
-          )}
-        </nav>
+        {/* 🎁 ギフト */}
+        <Link
+          to="/gift"
+          className={`${styles.link} ${
+            current === "/gift" ? styles.current : ""
+          }`}
+        >
+          ギフトページ
+        </Link>
 
-        {/* 🪞 クレジット */}
-        <p className="footer-credit">© 2025 Ryuka Fragrance</p>
-      </div>
+        {/* 💌 お問い合わせ */}
+        <Link
+          to="/contact"
+          className={`${styles.touch} ${
+            current === "/contact" ? styles.current : ""
+          }`}
+        >
+          香りのご相談
+        </Link>
+      </nav>
+
+      <p className={styles.credit}>© 2025 Ryuka Fragrance</p>
     </footer>
   );
 }

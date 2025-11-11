@@ -3,7 +3,7 @@
 ============================= */
 .exhibit {
   position: relative;
-  padding: 10rem 8%;
+  padding: 10rem;
   overflow: hidden;
   background: #f9f8f5;
   transition: background 1.3s ease, color 1.3s ease;
@@ -14,42 +14,45 @@
   background: #12100d;
   color: #e8e4dc;
 }
+.exhibit {
+  background: rgba(255, 255, 255, 0.03); /* ほぼ透明だけど呼吸感あり */
+  backdrop-filter: blur(1.2px) saturate(108%);
+}
 
 /* =============================
-   🎥 背景動画
+   🎥 背景動画（構図＋質感調整・完全版）
 ============================= */
 .product-bg {
   position: absolute;
-  inset: 0;
-  width: 1%;
-  height: 1%;
-  object-fit: cover;
-  z-index: 0;
-  opacity: 0.3;
-  filter: blur(1.5px) brightness(1.05);
-  pointer-events: none;
-  transition: opacity 2s ease, filter 2s ease;
-}
-.product-bg.morning {
-  opacity: 0.36;
-  filter: blur(1.2px) brightness(1.1) saturate(0.95);
-}
-.product-bg.night {
-  opacity: 0.25;
-  filter: blur(1.8px) brightness(0.9) saturate(0.85);
-}
-.product-bg {
-  position: absolute;
-  inset: 0;
+  inset: -4vh 0 0 0;          /* ← 上方向に4vhずらして下を少しカット */
   width: 100%;
-  height: 100%;
+  height: 470vh;              /* ← 全体を少し拡大して白帯防止 */
   object-fit: cover;
-  transition: opacity 1.8s ease-in-out;
+  object-position: center 55%; /* ← 視点をやや下寄せに（自然な構図） */
   z-index: 0;
   pointer-events: none;
+  opacity: 0.32;
+  filter: brightness(0.98) contrast(110%) saturate(105%) blur(1.2px);
+  transition: opacity 1.8s ease-in-out, filter 1.8s ease-in-out;
+  border-radius: 0 0 12px 12px; /* ← 下端をほんのりラウンド */
 }
 
-.morning, .night {
+/* 🌅 朝：透明感と清涼感を最適化 */
+.product-bg.morning {
+  opacity: 0.34;
+  filter: brightness(1.05) contrast(106%) saturate(110%) blur(0.8px);
+}
+
+/* 🌙 夜：深みと静けさを最適化 */
+.product-bg.night {
+  opacity: 0.25;
+  filter: brightness(0.9) contrast(112%) saturate(98%) blur(1.2px);
+}
+
+
+/* ✨ フェード用クラス */
+.morning,
+.night {
   opacity: 1;
 }
 
@@ -103,19 +106,25 @@
   opacity: 0;
   transition: transform 1.4s ease, opacity 1.4s ease;
 }
+
 .exhibit-item[data-dir="left"] .image {
   transform: translateX(-60px);
   opacity: 0;
   transition: transform 1.4s ease, opacity 1.4s ease;
 }
+
+/* ✅ フェードイン有効化 */
 .exhibit-item.show {
   opacity: 1;
+  transform: translateX(0); /* ← これがポイント */
 }
+
 .exhibit-item.show[data-dir="right"] .image,
 .exhibit-item.show[data-dir="left"] .image {
   transform: translateX(0);
   opacity: 1;
 }
+
 
 /* =============================
    📜 テキスト
@@ -187,7 +196,7 @@
   justify-content: center;
   flex-direction: row;
   position: relative;
-  margin: 6rem auto 0;
+  margin: 14rem auto 0;
   padding: 5rem 8rem;
   max-width: 1380px;
   border-radius: 1rem;
@@ -358,37 +367,7 @@
   100% { transform: translateY(1%) scale(1.02); opacity: 0.35; }
 }
 
-/* =============================
-   🫧 ウォーターマーク除去
-============================= */
-.exhibit::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 3%;
-  background: radial-gradient(
-    circle at 90% 95%,
-    rgba(255,255,255,0.9) 0%,
-    rgba(255,255,255,0.55) 35%,
-    rgba(255,255,255,0.15) 70%,
-    transparent 100%
-  );
-  mix-blend-mode: lighten;
-  pointer-events: none;
-  z-index: 3;
-}
-.exhibit.night::after {
-  background: radial-gradient(
-    circle at 90% 95%,
-    rgba(18,16,13,0.8) 0%,
-    rgba(18,16,13,0.55) 40%,
-    rgba(18,16,13,0.3) 90%,
-    transparent 100%
-  );
-  mix-blend-mode: multiply;
-}
+
 /* ==============================
    💎 Exhibit End Signature
 ============================== */
@@ -402,7 +381,7 @@
   color: #bca77e;
   opacity: 0.9;
   margin-top: 8rem;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   position: relative;
   z-index: 3;
   animation: exhibitEndFade 2.5s ease 0.4s both;
@@ -440,7 +419,7 @@
 ============================= */
 .fragrance-nav {
   text-align: center;
-  margin-top: 6rem;
+  margin-top: -10rem;
   font-family: "Shippori Mincho B1", serif;
   color: #5c5c5c;
   opacity: 0;
@@ -454,7 +433,7 @@
 .fragrance-nav p {
   font-size: 1.1rem;
   letter-spacing: 0.06em;
-  margin-bottom: 1.8rem;
+  margin-bottom: 3rem;
   opacity: 0.8;
 }
 .nav-links {
@@ -487,4 +466,54 @@
 }
 .exhibit.night .nav-link:hover {
   background: rgba(232, 179, 126, 0.2);
+}
+.exhibit-item:not(.postcard) {
+  max-width: 1600px;
+  margin: 0 -4.5rem 8rem auto;
+}
+/* =============================
+   💎 Lightbox Overlay
+============================= */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55); /* 透明度で雰囲気変わる */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* ← 最前面 */
+  margin-top: 3rem;
+}
+
+/* =============================
+   📦 Lightbox 内容
+============================= */
+.lightbox-content {
+  background: #fff;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 80%;
+  padding: 2rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeIn 0.4s ease;
+}
+
+.lightbox-content img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

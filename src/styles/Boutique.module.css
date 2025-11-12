@@ -728,3 +728,134 @@
 .productCard:hover::before {
   opacity: 1;
 }
+/* ==========================================
+   🛡️ Lightbox透過防止・完全制御バージョン
+========================================== */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  cursor: pointer;
+  pointer-events: auto; /* ← 背面クリック防止 */
+}
+
+/* ✨ 背景レイヤーを別に作りクリックブロック */
+.lightbox::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1;
+  pointer-events: auto;
+}
+
+/* 💎 コンテンツは上層に配置 */
+.lightboxContent,
+.navArrow,
+.closeBtn {
+  position: relative;
+  z-index: 2;
+}
+
+/* 🔒 背景クリックのみ閉じる／内部クリックは通す */
+.lightboxContent,
+.navArrow,
+.closeBtn {
+  pointer-events: auto;
+}
+
+/* 🌗 ライトボックス本体 */
+.lightboxContent {
+  cursor: default;
+  background: #fff;
+  color: #2f2f2f;
+  padding: 2rem;
+  border-radius: 20px;
+  max-width: 640px;
+  width: min(90vw, 640px);
+  text-align: center;
+  animation: zoomIn 0.4s ease forwards;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+.night .lightboxContent {
+  background: #181714;
+  color: #e8e4dc;
+}
+
+/* 🌙 画像（呼吸の光エフェクト） */
+.lightboxImg {
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  margin-bottom: 1.2rem;
+  object-fit: cover;
+  box-shadow: 0 0 0 rgba(255, 220, 160, 0);
+  transition: box-shadow 0.6s ease-in-out;
+}
+
+/* ✖ 閉じるボタン */
+.closeBtn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
+  color: #111;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.closeBtn:hover {
+  transform: scale(1.1) rotate(90deg);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* ← → 矢印 */
+.navArrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  font-size: 40px;
+  line-height: 0;
+  display: grid;
+  place-items: center;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: transform 0.25s ease, background 0.25s ease;
+  z-index: 12;
+}
+.navArrow:hover {
+  transform: translateY(-50%) scale(1.08);
+  background: rgba(255, 255, 255, 0.22);
+}
+.night .navArrow {
+  color: #e8b37e;
+  border-color: rgba(232, 179, 126, 0.4);
+}
+.navPrev { left: 23vw; }
+.navNext { right: 23vw; }
+
+@media (max-width: 640px) {
+  .navArrow {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+  .navPrev { left: 3vw; }
+  .navNext { right: 3vw; }
+}

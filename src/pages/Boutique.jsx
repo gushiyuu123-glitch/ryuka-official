@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { gsap } from "gsap";
 import styles from "../styles/Boutique.module.css";
 
+
 export default function Boutique({ isMorning, handleToggle }) {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const boutiqueRef = useRef(null);
@@ -154,22 +155,41 @@ useEffect(() => {
       }
     }
   }, [location]);
+// 🔑 キーボード: ← → Esc ／ ✨ 画像に呼吸の光
+useEffect(() => {
+  if (!selectedProduct) return;
+
+  const onKey = (e) => {
+    if (e.key === "Escape") setSelectedProduct(null);
+    if (e.key === "ArrowRight") {
+      const i = products[line].findIndex(p => p.id === selectedProduct.id);
+      setSelectedProduct(products[line][(i + 1) % products[line].length]);
+    }
+    if (e.key === "ArrowLeft") {
+      const i = products[line].findIndex(p => p.id === selectedProduct.id);
+      setSelectedProduct(products[line][(i - 1 + products[line].length) % products[line].length]);
+    }
+  };
+  window.addEventListener("keydown", onKey);
+
+  // ✨ 呼吸の光（画像の縁がふっと光る）
+  gsap.fromTo(
+    `.${styles.lightboxImg}`,
+    { boxShadow: "0 0 0 rgba(255,220,160,0)" },
+    {
+      boxShadow: "0 0 28px rgba(255,220,160,0.55)",
+      duration: 0.8,
+      yoyo: true,
+      repeat: 1,
+      ease: "power2.inOut",
+    }
+  );
+
+  return () => window.removeEventListener("keydown", onKey);
+}, [selectedProduct, line]);
 
   return (
     <main ref={boutiqueRef} className={`${styles.boutique} ${isMorning ? styles.day : styles.night}`}>
-      {/* 🧭 パンくず */}
-      <nav className={styles.breadcrumb}>
-        <Link to="/" className={styles.breadcrumbLink}>Home</Link> &gt;{" "}
-        <Link to="/gift" className={styles.breadcrumbLink}>Gift</Link> &gt;{" "}
-        <span className={styles.breadcrumbCurrent}>Boutique</span>
-      </nav>
-
-      {/* 🌗 朝夜トグル */}
-      <div className={styles.modeToggleArea}>
-        <button className={styles.modeBtn} onClick={handleToggle}>
-          {isMorning ? "🌙 Night" : "🌅 Morning"}
-        </button>
-      </div>
 
       {/* 🌅/🌙 Hero */}
       <section className={styles.hero}>
@@ -214,27 +234,70 @@ useEffect(() => {
           </Link>
         </div>
       </section>
+{selectedProduct && (
+  <div
+    className={styles.lightbox}
+    onClick={(e) => {
+      // 背景（黒幕）クリックのみ閉じる
+      if (e.target === e.currentTarget) setSelectedProduct(null);
+    }}
+  >
+    {/* ← 左矢印 */}
+    <button
+      className={`${styles.navArrow} ${styles.navPrev}`}
+      aria-label="前へ"
+      onClick={(e) => {
+        e.stopPropagation();
+        const currentIndex = products[line].findIndex(p => p.id === selectedProduct.id);
+        const prevIndex = (currentIndex - 1 + products[line].length) % products[line].length;
+        setSelectedProduct(products[line][prevIndex]);
+      }}
+    >
+      ‹
+    </button>
 
-      {/* 💎 Lightbox */}
-      {selectedProduct && (
-        <div className={styles.lightbox} onClick={() => setSelectedProduct(null)}>
-          <div className={styles.lightboxContent} onClick={(e) => e.stopPropagation()}>
-            <button
-              className={styles.closeBtn}
-              onClick={() => setSelectedProduct(null)}
-              aria-label="閉じる"
-            >
-              ✕
-            </button>
-            <img src={selectedProduct.img} alt={selectedProduct.name} />
-            <div className={styles.lightboxText}>
-              <h2>{selectedProduct.name}</h2>
-              <p className={styles.lightboxPrice}>{selectedProduct.price}</p>
-              <p className={styles.lightboxDesc}>{selectedProduct.desc}</p>
-            </div>
-          </div>
-        </div>
-      )}
+    {/* → 右矢印 */}
+    <button
+      className={`${styles.navArrow} ${styles.navNext}`}
+      aria-label="次へ"
+      onClick={(e) => {
+        e.stopPropagation();
+        const currentIndex = products[line].findIndex(p => p.id === selectedProduct.id);
+        const nextIndex = (currentIndex + 1) % products[line].length;
+        setSelectedProduct(products[line][nextIndex]);
+      }}
+    >
+      ›
+    </button>
+
+    {/* 💎 本体 */}
+    <div
+      className={styles.lightboxContent}
+      onClick={(e) => e.stopPropagation()}
+    >
+      <button
+        className={styles.closeBtn}
+        onClick={() => setSelectedProduct(null)}
+        aria-label="閉じる"
+      >
+        ✕
+      </button>
+
+      <img
+        src={selectedProduct.img}
+        alt={selectedProduct.name}
+        className={styles.lightboxImg}
+      />
+      <div className={styles.lightboxText}>
+        <h2>{selectedProduct.name}</h2>
+        <p className={styles.lightboxPrice}>{selectedProduct.price}</p>
+        <p className={styles.lightboxDesc}>{selectedProduct.desc}</p>
+      </div>
+    </div>
+  </div>
+)}
+
+
 
       <div className={styles.backLink}>
         <Link to="/gift"> Giftページへ戻る</Link>

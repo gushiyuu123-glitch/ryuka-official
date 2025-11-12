@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "../styles/workshop.css";
 import { Link, useLocation } from "react-router-dom";
-import PageLocation from "../components/PageLocation";
+
 
 export default function Workshop() {
   const location = useLocation();
@@ -30,8 +30,7 @@ export default function Workshop() {
 
   return (
     <main className="workshop-page">
-      {/* 🧭 現在地 */}
-      <PageLocation currentPath={location.pathname} />
+
 
 
       {/* 🌿 Hero */}

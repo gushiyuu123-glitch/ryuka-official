@@ -465,3 +465,10 @@ body.night-mode .hero-text p {
     transform: translateY(0);
   }
 }
+.store-hero,
+.wave-layer {
+  pointer-events: none; /* Hero全体でクリックを透過 */
+}
+.hero-text {
+  pointer-events: auto; /* Hero内のテキストは触れる */
+}

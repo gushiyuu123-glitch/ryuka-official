@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../styles/exhibit.css";
 import { Link } from "react-router-dom";
+import ReactDOM from "react-dom";
 
 export default function Exhibit({ isMorning }) {
   const exhibitRef = useRef(null);
@@ -278,27 +279,63 @@ useEffect(() => {
         </div>
       </div>
 
-      {/* 🪞 ライトボックス */}
-      {lightboxData && (
-        <div className="lightbox" onClick={() => setLightboxData(null)}>
-          <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
-            <img src={lightboxData.img} alt={lightboxData.name} />
-            <div className="lightbox-text">
-              <h3>{lightboxData.name}</h3>
-              <p>{lightboxData.details}</p>
-              <p className="price subtle">
-                価格：<span>{lightboxData.price}</span>
-              </p>
-              <button
-                className="close-btn"
-                onClick={() => setLightboxData(null)}
-              >
-                ✕ 閉じる
-              </button>
-            </div>
-          </div>
+  {lightboxData &&
+  ReactDOM.createPortal(
+    <div
+      className="lightbox"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) setLightboxData(null);
+      }}
+    >
+      {/* ← 左矢印 */}
+      <button
+        className="nav-arrow nav-prev"
+        onClick={(e) => {
+          e.stopPropagation();
+          const currentIndex = products.findIndex((p) => p.name === lightboxData.name);
+          const prevIndex = (currentIndex - 1 + products.length) % products.length;
+          setLightboxData(products[prevIndex]);
+        }}
+      >
+        ‹
+      </button>
+
+      {/* → 右矢印 */}
+      <button
+        className="nav-arrow nav-next"
+        onClick={(e) => {
+          e.stopPropagation();
+          const currentIndex = products.findIndex((p) => p.name === lightboxData.name);
+          const nextIndex = (currentIndex + 1) % products.length;
+          setLightboxData(products[nextIndex]);
+        }}
+      >
+        ›
+      </button>
+
+      <div
+        className="lightbox-content"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          className="close-btn"
+          onClick={() => setLightboxData(null)}
+        >
+          ✕
+        </button>
+        <img src={lightboxData.img} alt={lightboxData.name} className="lightbox-img" />
+        <div className="lightbox-text">
+          <h3>{lightboxData.name}</h3>
+          <p>{lightboxData.details}</p>
+          <p className="price subtle">
+            価格：<span>{lightboxData.price}</span>
+          </p>
         </div>
-      )}
+      </div>
+    </div>,
+    document.body // ✅ ← ここが重要！
+  )}
+
 
       {/* 🪞 サイン */}
       <p className="exhibit-end">MADE IN OKINAWA — RYUKA Aroma & Candle</p>

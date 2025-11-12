@@ -75,14 +75,6 @@ export default function Gift({ isMorning }) {
         />
         <div className="gift-hero-overlay"></div>
 
-        {/* 🧭 現在地 */}
-        <div className="gift-breadcrumb">
-          <Link to="/" className="breadcrumb-link">
-            RYUKA
-          </Link>
-          <span className="breadcrumb-sep">／</span>
-          <span className="breadcrumb-current">Gift</span>
-        </div>
 
         <div className="gift-hero-content">
           <h1>香りで、沖縄を贈る。</h1>

@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import "../styles/store.css";
 import { Link } from "react-router-dom";
-import PageLocation from "../components/PageLocation";
+
 import StoreHero from "../components/StoreHero"; // ← 追加
 
 export default function Store() {
@@ -77,7 +77,7 @@ export default function Store() {
 
   return (
     <main className="store-page">
-      <PageLocation />
+
       <StoreHero /> {/* ← ここで海風ヒーローを呼び出す */}
 
       {/* 🗺️ 香りの地図 */}

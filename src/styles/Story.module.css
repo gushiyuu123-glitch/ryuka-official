@@ -1,5 +1,5 @@
 /* ===============================
-   🌸 Base Layout
+   🌸 Base Layout — Story全体の空気
 =============================== */
 .story {
   position: relative;
@@ -7,34 +7,37 @@
   padding: 6rem 8%;
   font-family: "Shippori Mincho B1", serif;
   line-height: 1.9;
-  transition: background 1.2s ease, color 1.2s ease;
+  transition: background 1.4s ease, color 1.4s ease;
   overflow-x: hidden;
+  letter-spacing: 0.03em;
 }
 
-/* 🌅 朝と🌙 夜のトーン */
+/* 🌅 朝と🌙 夜のトーン（光の温度） */
 .day {
-  background: linear-gradient(180deg, #f9f8f5, #f2ede5);
+  background: linear-gradient(180deg, #faf9f6 0%, #f2ede5 100%);
   color: #2f2f2f;
 }
 
 .night {
-  background: linear-gradient(180deg, #0f0d0b, #1b1813);
+  background: linear-gradient(180deg, #0d0b09 0%, #1b1813 100%);
   color: #e8e4dc;
 }
 
 /* ===============================
-   🎞 HERO
+   🎞 HERO — 世界観の幕開け
 =============================== */
 .hero {
   position: relative;
   overflow: hidden;
-  height: 90vh; /* 🎬 下10%カットで構図を締める */
+  height: 90vh;
   text-align: center;
   margin-bottom: 6rem;
-  border-radius: 22px; /* 🍃 優しい角丸 */
+  border-radius: 24px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
+  isolation: isolate;
 }
 
-/* 🎥 Hero動画（奇跡の香粉が降る背景） */
+/* 🎥 Hero動画（奇跡の香粉） */
 .bgVideo {
   position: absolute;
   inset: -5vh 0 0 0;
@@ -43,36 +46,41 @@
   object-fit: cover;
   object-position: center 60%;
   z-index: 0;
-  border-radius: 22px;
-  overflow: hidden;
-
-  /* 🎥 疑似的に画質を上げて見せる */
-  filter: brightness(92%) contrast(110%) saturate(115%) blur(0.6px);
-  transform: scale(1.02); /* ← わずかに拡大してピクセル荒れを隠す */
+  border-radius: 24px;
+  filter: brightness(90%) contrast(112%) saturate(118%) blur(0.4px);
+  transform: scale(1.015);
   will-change: filter, transform;
-  transition: filter 1s ease, transform 1.5s ease;
+  transition: filter 1.2s ease, transform 1.8s ease;
 }
 
-/* 光の上に重なる透明レイヤー */
+/* 🌫 光の層（空気の膜） */
 .overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
   transition: background 1s ease;
   pointer-events: none;
-  border-radius: 22px;
+  border-radius: 24px;
 }
 
 .overlayDay {
-  background: rgba(255, 255, 255, 0.25);
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.05)
+  );
 }
 
 .overlayNight {
-  background: rgba(0, 0, 0, 0.35);
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.35),
+    rgba(0, 0, 0, 0.6)
+  );
 }
 
 /* ===============================
-   🌕 HERO TEXT
+   🌕 HERO TEXT — 光と記憶の言葉
 =============================== */
 .heroInner {
   position: relative;
@@ -85,39 +93,43 @@
 }
 
 .title {
-  font-size: 2.4rem;
-  letter-spacing: 0.14em;
+  font-size: 2.6rem;
+  letter-spacing: 0.16em;
+  margin-bottom: 0.6rem;
 }
 
 .lead {
-  margin-top: 1rem;
-  opacity: 0.92;
-  letter-spacing: 0.04em;
-  font-size: 1.08rem;
-  line-height: 1.9;
+  margin-top: 1.2rem;
+  opacity: 0.94;
+  letter-spacing: 0.05em;
+  font-size: 1.1rem;
+  line-height: 2;
+  transition: opacity 1s ease;
 }
 
 /* ===============================
-   ☀️🌙 トグルボタン
+   ☀️🌙 トグル・サウンドボタン
 =============================== */
 .toggleBtn,
 .soundBtn {
-  margin-top: 1.6rem;
-  padding: 0.7rem 1.8rem;
+  margin-top: 1.8rem;
+  padding: 0.75rem 1.9rem;
   font-size: 0.9rem;
   border: none;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.22);
   color: #fff;
   cursor: pointer;
-  backdrop-filter: blur(6px);
+  backdrop-filter: saturate(120%) blur(8px);
   transition: all 0.4s ease;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
+  font-family: "Poppins", sans-serif;
+  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.12);
 }
 
 .toggleBtn:hover,
 .soundBtn:hover {
-  background: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.4);
   transform: translateY(-2px);
 }
 
@@ -127,14 +139,15 @@
 }
 
 /* ===============================
-   ✨ Sections
+   ✨ Sections — 物語の章構成
 =============================== */
 .section {
   display: grid;
-  gap: 2.2rem;
+  gap: 2.4rem;
   grid-template-columns: 1fr;
   max-width: 1000px;
-  margin: 0 auto 4.5rem;
+  margin: 0 auto 5.2rem;
+  animation: fadeUp 1.4s ease both;
 }
 @media (min-width: 900px) {
   .section {
@@ -143,44 +156,56 @@
   }
 }
 
+/* 🎋 交互構成：左右に流れる物語 */
 .alt {
-  direction: rtl; /* 交互に流れを反転 */
+  direction: rtl;
 }
 .alt > * {
   direction: ltr;
 }
 
+/* テキストブロック */
 .block,
 .full {
   background: transparent;
 }
 
 .h2 {
-  font-size: 1.3rem;
-  letter-spacing: 0.08em;
-  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.2rem;
+  color: #c6a67a;
+  font-family: "Poppins", sans-serif;
 }
 
 .text {
-  opacity: 0.88;
-  letter-spacing: 0.015em;
+  opacity: 0.9;
+  letter-spacing: 0.02em;
   font-size: 1rem;
-  line-height: 1.9;
+  line-height: 2;
+  transition: opacity 0.8s ease;
+}
+/* =============================
+   🌤 Story → Philosophy の間を呼吸させる
+============================= */
+.section:last-of-type {
+  margin-bottom: clamp(8rem, 16vh, 18rem);
 }
 
 /* ===============================
-   🧭 Points
+   🧭 Points — 哲学的箇条書き
 =============================== */
 .points {
   list-style: none;
   padding: 0;
-  margin: 0.2rem 0 0;
+  margin: 0.3rem 0 0;
 }
 .points li {
   position: relative;
-  padding-left: 1.1rem;
+  padding-left: 1.2rem;
   margin: 0.4rem 0;
   opacity: 0.85;
+  font-size: 0.95rem;
 }
 .points li::before {
   content: "—";
@@ -188,16 +213,22 @@
   left: 0;
   top: 0;
   opacity: 0.5;
+  color: #c6a67a;
 }
 
 /* ===============================
-   🕯 Quote
+   🕯 Quote — 物語の断章
 =============================== */
 .quote {
   position: relative;
-  padding: 1.3rem 1.2rem 1.2rem 2.6rem;
-  border-left: 1px solid rgba(180, 180, 180, 0.35);
+  padding: 2rem 1.2rem 1.2rem 2.8rem;
+  border-left: 1px solid rgba(180, 180, 180, 0.3);
   opacity: 0.95;
+  font-style: italic;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  line-height: 1.9;
 }
 .mark {
   position: absolute;
@@ -208,27 +239,69 @@
   opacity: 0.35;
 }
 
+
 /* ===============================
-   💫 Phrase / Epilogue
+   💫 Phrase / Epilogue — 左寄せ演出版
 =============================== */
 .phrase {
-  text-align: center;
-  font-size: 1.08rem;
+  
+  font-size: 1.1rem;
   opacity: 0.9;
-  letter-spacing: 0.04em;
-  margin-top: 0.8rem;
-  line-height: 1.9;
+  letter-spacing: 0.05em;
+  margin: 0 auto;
+  margin-top: 1.2rem;
+  line-height: 2;
+  font-style: italic;
+  max-width: 720px; /* ← 🕯 中央ラインにバランスを保つ */
+  padding-left: 2rem; /* ← ✨ ほんの少し右余白を作って「静けさ」演出 */
 }
 
+/* 🌙 夜モードの微調整（光の当たり方を柔らかく） */
+.night .phrase {
+  color: #e8e4dc;
+  text-shadow: 0 0 12px rgba(232, 179, 126, 0.12);
+}
+
+
 .epilogue {
-  margin: 5rem auto 2rem;
+  margin: 6rem auto 2.5rem;
   text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 1.8s 0.6s ease forwards;
 }
 
 .epiText {
   font-size: 1.1rem;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   opacity: 0.9;
+  line-height: 2;
+  font-family: "Shippori Mincho B1", serif;
+}
+
+/* ===============================
+   🌤️ Animation
+=============================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ===============================
@@ -289,4 +362,345 @@
   0% { opacity: 0; transform: scale(0.8); }
   20% { opacity: 1; transform: scale(1); }
   100% { opacity: 0; transform: scale(1.3); }
+}
+/* =============================
+   🌿 Philosophy Section (完璧版)
+   Art of Rebirth — breathing design
+============================= */
+
+.philosophy {
+  position: relative;
+  padding: 6rem 8%;
+  text-align: center;
+  overflow: hidden;
+  z-index: 2;
+  transition: background 1.5s ease, color 1.5s ease;
+}
+
+/* ☀ 朝：光と静のグラデーション */
+.day .philosophy {
+  background: linear-gradient(to bottom, #faf9f6 0%, #f4f1ea 100%);
+  color: #2f2f2f;
+}
+
+/* 🌙 夜：琥珀光と影の呼吸 */
+.night .philosophy {
+  background: linear-gradient(to bottom, #161310 0%, #0d0c0a 100%);
+  color: #e8e4dc;
+}
+
+/* 🪶 内部コンテナ */
+.philosophyInner {
+  max-width: 960px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 3;
+}
+
+/* ✨ タイトル */
+.philosophyTitle {
+  font-family: "Shippori Mincho B1", serif;
+  font-size: 2rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 2.6rem;
+  position: relative;
+}
+.philosophyTitle span {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.9rem;
+  opacity: 0.6;
+  display: block;
+  letter-spacing: 0.15em;
+  margin-top: 0.3rem;
+}
+
+/* 🌫 リード文（理念文） */
+.philosophyLead {
+  font-family: "Shippori Mincho B1", serif;
+  line-height: 2.2;
+  font-size: 1.05rem;
+  opacity: 0.9;
+  margin-bottom: 4rem;
+  transition: opacity 1s ease;
+}
+.philosophyLead strong {
+  color: #c6a67a;
+  font-weight: 600;
+}
+.night .philosophyLead strong {
+  color: #e8b37e;
+}
+
+/* 🌾 Valuesリスト（核心哲学） */
+.values {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto 4rem;
+  display: grid;
+  gap: 1.2rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  text-align: center;
+  max-width: 640px;
+}
+
+.values li {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1.2s ease;
+  line-height: 1.9;
+}
+.show .values li {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ✅ 英語タイトルと日本語の整列＋リズム補正 */
+.values li strong {
+  display: inline-block;
+  min-width: 140px;
+  text-align: right;
+  margin-right: 0.4rem;
+  margin-left: -4rem; /* ⚖️ 視覚軸補正 */
+  color: #c6a67a;
+  font-weight: 600;
+  letter-spacing: 0.04em; /* 呼吸のリズム */
+  opacity: 0.92;
+  transition: opacity 0.4s ease, color 0.6s ease;
+}
+.night .values li strong {
+  color: #e8b37e;
+  opacity: 0.88;
+}
+
+/* 🌸 日本語側 — 柔らかい呼吸 */
+.values li span {
+  display: inline-block;
+  text-align: left;
+  opacity: 0.9;
+  font-family: "Shippori Mincho B1", serif;
+  letter-spacing: 0.02em;
+  transition: opacity 0.4s ease;
+}
+
+/* 🪞 Hover時 — 光が差すような変化 */
+.values li:hover strong,
+.values li:hover span {
+  opacity: 1;
+  color: #d6b98a;
+  transition: all 0.4s ease;
+}
+
+/* ✨ 英文クォート */
+.philosophyQuote {
+  font-family: "Poppins", sans-serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  opacity: 0.7;
+  margin-top: 4rem;
+  line-height: 1.8;
+  letter-spacing: 0.06em;
+}
+
+/* 🌫 柔光層 — 朝夜で変わる呼吸 */
+.lightLayer {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 0%,
+    rgba(255, 255, 255, 0.25),
+    transparent 70%
+  );
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 1;
+}
+.night .lightLayer {
+  background: radial-gradient(
+    circle at 50% 0%,
+    rgba(232, 179, 126, 0.08),
+    transparent 80%
+  );
+}
+
+/* =============================
+   🌌 Epilogue Transition — 静寂の余香
+============================= */
+.epilogue {
+  position: relative;
+  text-align: center;
+  padding: 6rem 3rem 3rem 5rem;
+  overflow: hidden;
+}
+
+.epiText {
+  font-family: "Shippori Mincho B1", serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.08em;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 2.8s ease 0.6s forwards;
+}
+
+/* ✨ 光が消えながら詩が浮かぶ演出 */
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+    filter: blur(6px);
+  }
+  70% {
+    opacity: 0.9;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 🪶 英詩部分 */
+.epilogueQuote {
+  margin-top: 3rem;
+  font-family: "Poppins", sans-serif;
+  font-style: italic;
+  font-size: 1rem;
+  opacity: 0;
+  color: #c6a67a;
+  letter-spacing: 0.08em;
+  animation: glowFadeIn 4s ease 2.5s forwards;
+}
+
+@keyframes glowFadeIn {
+  0% { opacity: 0; filter: blur(4px); text-shadow: none; }
+  100% { 
+    opacity: 1; 
+    filter: blur(0); 
+    text-shadow: 0 0 18px rgba(232, 179, 126, 0.35),
+                 0 0 40px rgba(232, 179, 126, 0.1);
+  }
+}
+
+/* 🌫️ 柔光の残香 */
+.epilogue::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 80%,
+    rgba(255, 230, 190, 0.08),
+    transparent 70%
+  );
+  opacity: 0.7;
+  animation: epilogueGlow 6s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes epilogueGlow {
+  0% { opacity: 0.4; transform: scale(1); }
+  100% { opacity: 0.8; transform: scale(1.03); }
+}
+.philosophyQuote {
+  animation: quoteBreath 6s ease-in-out infinite alternate;
+}
+@keyframes quoteBreath {
+  0% { opacity: 0.7; text-shadow: 0 0 10px rgba(232,179,126,0.12); }
+  100% { opacity: 0.9; text-shadow: 0 0 20px rgba(232,179,126,0.25); }
+}
+.philosophy {
+  padding: 8rem 8% 10rem; /* ← 下余白＋2remで呼吸の余韻 */
+}
+.epilogue {
+  padding-top: 4rem; /* ← 6rem → 8rem に変更で詩が浮かぶ間を作る */
+}
+/* ===============================
+   🌊 Scroll Light Overlay — 流れる光の層
+=============================== */
+.scrollLight {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 240, 200, 0.04) 0%,
+    rgba(255, 255, 255, 0.1) 25%,
+    rgba(255, 200, 150, 0.05) 60%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  mix-blend-mode: screen;
+  opacity: 0.4;
+  transition: opacity 1.5s ease;
+  will-change: background-position;
+}
+/* 🕊 Heroキャッチコピー（ブランドの神話） */
+.catch {
+  font-family: "Shippori Mincho B1", serif;
+  font-size: 1.05rem;
+  letter-spacing: 0.12em;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 1.8s 0.3s ease forwards;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  margin-bottom: 1.4rem;
+}
+.scrollLight {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: screen;
+  opacity: 0.4;
+  transition: opacity 1.5s ease, background 1.5s ease;
+  will-change: background-position;
+}
+/* ===============================
+   🌅 Hero 光の波動層（呼吸する淡金）
+=============================== */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 225, 180, 0.15),
+    transparent 70%
+  );
+  mix-blend-mode: screen;
+  animation: heroPulse 6s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes heroPulse {
+  0% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.9;
+    transform: scale(1.04);
+  }
+}
+/* =============================
+   ✨ Philosophy フェードイン演出
+============================= */
+
+/* 🔹 初期状態：透明＋下に少しずらす */
+.philosophyFade {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1.8s ease, transform 1.8s ease;
+}
+
+/* 🔹 表示時：上がりながら光に包まれる */
+.showPhilosophy {
+  opacity: 1;
+  transform: translateY(0);
+  text-shadow: 0 0 12px rgba(232, 179, 126, 0.25),
+               0 0 24px rgba(232, 179, 126, 0.12);
 }

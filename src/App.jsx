@@ -13,6 +13,7 @@ import NavbarGlobal from "./components/NavbarGlobal";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import Loader from "./components/Loader";
+import PageLocation from "./components/PageLocation";
 
 // ==============================
 // 💠 Routes
@@ -39,6 +40,11 @@ export default function App() {
     setTimeout(() => setTransitioning(false), 1000);
     setIsMorning((prev) => !prev);
   };
+useEffect(() => {
+  const handleToggleMode = () => handleToggle();
+  window.addEventListener("toggleMode", handleToggleMode);
+  return () => window.removeEventListener("toggleMode", handleToggleMode);
+}, []);
 
   // 🕊 初回ローディングフェード
   useEffect(() => {
@@ -76,6 +82,7 @@ export default function App() {
 // ✨ AppInner（構造＋アニメ層）
 // ==========================================
 function AppInner({ visible, fadeOut, isMorning, handleToggle }) {
+  
   const location = useLocation();
   const isIndex = location.pathname === "/";
   const isStory = location.pathname === "/story"; // 🕯 Story専用
@@ -89,13 +96,16 @@ function AppInner({ visible, fadeOut, isMorning, handleToggle }) {
         }}
       >
 {/* 🕊 ナビゲーション */}
-{!isStory && ( // Storyページでは非表示
-  isIndex ? (
-    <NavbarIndex isMorning={isMorning} handleToggle={handleToggle} />
-  ) : location.pathname === "/boutique" && !isMorning ? null : (
-    <NavbarGlobal isMorning={isMorning} />
-  )
+{isIndex && (
+  <NavbarIndex isMorning={isMorning} handleToggle={handleToggle} />
 )}
+
+{/* 🧭 現在地バー（StoryとDiagnosis以外で表示） */}
+{!["/story", "/diagnosis"].includes(location.pathname) &&
+  location.pathname !== "/" && (
+    <PageLocation isMorning={isMorning} />
+)}
+
 
 
         {/* 📜 ページ構成 */}

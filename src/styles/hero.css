@@ -13,7 +13,7 @@
   text-align: left;
   padding-left: 9%;
   padding-bottom: 19.5%;
-  isolation: isolate;
+
   background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.4), rgba(250,250,247,0.8));
   transition: background 1.2s ease, filter 2s ease;
 }
@@ -55,26 +55,21 @@
   font-weight: 500;
   margin-bottom: 0.7rem;
   line-height: 1.4;
-   background: linear-gradient(
+  background: linear-gradient(
     to right,
     rgba(40, 40, 40, 0.88),
     rgba(80, 80, 80, 0.82)
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-   text-shadow:
+  text-shadow:
     0 0 10px rgba(255, 255, 255, 0.4),
     0 2px 6px rgba(0, 0, 0, 0.28);
   filter: brightness(1.08) contrast(1.06);
   transition: all 1s ease;
 }
-.hero h1 span {
-  opacity: 0.92;
-  letter-spacing: 0.25em;
-}
-.hero h1 { letter-spacing: 0.21em; }
 
-/* ☀️ 朝 */
+/* 朝 */
 .hero.day h1 {
   background: linear-gradient(
     to right,
@@ -88,6 +83,7 @@
     0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
+/* 夜 */
 .hero.night h1 {
   background: linear-gradient(
     to right,
@@ -103,7 +99,7 @@
 }
 
 /* ==================================
-   🌿 サブタイトル（香りのレイヤー）
+   🌿 サブタイトル
 ================================== */
 .hero h2 {
   font-family: "Shippori Mincho B1", serif;
@@ -111,34 +107,34 @@
   font-weight: 600;
   letter-spacing: 0.18em;
   opacity: 0.95;
-  color: rgba(40, 40, 40, 0.92);
-  text-shadow:
-    0 0 10px rgba(255, 255, 255, 0.4),
-    0 2px 5px rgba(0, 0, 0, 0.15);
-  transition: all 1s ease;
-    background: linear-gradient(to right, rgba(50,50,50,0.9), rgba(70,70,70,0.7));
+  background: linear-gradient(to right, rgba(50,50,50,0.9), rgba(70,70,70,0.7));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  transition: all 1s ease;
 }
 
-/* ☀️ 朝 */
+/* 朝 */
 .hero.day h2 {
+  background: none;
   color: rgba(45, 45, 45, 0.95);
   text-shadow:
     0 0 12px rgba(255, 255, 255, 0.5),
     0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* 🌙 夜 */
+/* 夜 */
 .hero.night h2 {
-  color: rgba(255, 235, 210, 0.95);
-  text-shadow:
-    0 0 20px rgba(232, 179, 126, 0.5),
-    0 3px 9px rgba(0, 0, 0, 0.35);
+  background: linear-gradient(
+    to right,
+    rgba(232, 179, 126, 0.92),
+    rgba(208, 140, 60, 0.88)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* ==================================
-   🌊 英文キャプション（静かな余韻）
+   🌊 英文キャプション
 ================================== */
 .hero p {
   font-family: "Poppins", sans-serif;
@@ -154,21 +150,24 @@
   transition: all 1s ease;
 }
 
-/* ☀️ 朝 */
+/* 朝 */
 .hero.day p {
   color: rgba(30, 30, 30, 0.8);
 }
 
-/* 🌙 夜 */
+/* 夜 */
 .hero.night p {
-  color: rgba(255, 235, 215, 0.9);
-  text-shadow:
-    0 0 14px rgba(232, 179, 126, 0.4),
-    0 2px 8px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(
+    to right,
+    rgba(232, 179, 126, 0.92),
+    rgba(208, 140, 60, 0.88)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* ==================================
-   ☀️ 朝夜トグルボタン（質感を抑える）
+   ☀️ 朝夜トグルボタン
 ================================== */
 .mode-toggle {
   margin-top: 2rem;
@@ -188,7 +187,7 @@
 }
 
 /* ==================================
-   🫧 泡（香りの粒）上品Ver.
+   🫧 泡（香りの粒）
 ================================== */
 .hero-bubbles {
   position: absolute;
@@ -198,122 +197,8 @@
   mix-blend-mode: screen;
 }
 
-.bubble {
-  position: absolute;
-  bottom: -120px;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  animation: float 12s infinite ease-in;
-  background: radial-gradient(circle, rgba(255,255,255,0.7), rgba(255,255,255,0));
-  filter: blur(4px);
-  opacity: 0.4;
-}
-
-.hero.day .bubble {
-  background: radial-gradient(
-    circle,
-    rgba(168, 216, 209, 0.65),   /* 中心：ミントガラス */
-    rgba(170, 210, 200, 0.15),
-    rgba(255, 255, 255, 0) 85%
-  );
-  filter: blur(6px) saturate(1.2);
-  opacity: 0.4;
-  animation: float 13s ease-in infinite, breathe 7s ease-in-out infinite alternate;
-  mix-blend-mode: screen;
-}
-
-@keyframes breathe {
-  0% { filter: blur(6px) brightness(1) saturate(1.1); }
-  50% { filter: blur(9px) brightness(1.2) saturate(1.3); }
-  100% { filter: blur(6px) brightness(1) saturate(1.1); }
-}
-
-/* ☀️ 朝の光を包むベール */
-.hero.day::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    circle at 60% 40%,
-    rgba(200, 255, 250, 0.15),
-    rgba(255, 255, 255, 0) 75%
-  );
-  mix-blend-mode: screen;
-  filter: blur(40px);
-  opacity: 0.8;
-  pointer-events: none;
-  z-index: 2;
-}
-
-.hero.night .bubble {
-  background: radial-gradient(
-    circle,
-    rgba(238, 192, 124, 0.65),     /* 中心：金香 */
-    rgba(150, 90, 40, 0.08),       /* 外縁：暖かい影 */
-    rgba(0, 0, 0, 0) 85%           /* 空気に溶ける境界 */
-  );
-  filter: blur(6px) saturate(1.15);
-  opacity: 0.38;
-  animation: float 14s ease-in infinite, shimmer 6s ease-in-out infinite alternate;
-  mix-blend-mode: screen;
-}
-.hero.night::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    circle at 40% 60%,
-    rgba(238, 192, 124, 0.06),
-    rgba(40, 25, 15, 0.6) 80%
-  );
-  mix-blend-mode: soft-light;
-  filter: blur(40px);
-  opacity: 0.7;
-  pointer-events: none;
-  z-index: 2;
-}
-
-@keyframes shimmer {
-  0% { filter: blur(6px) brightness(1) saturate(1); }
-  50% { filter: blur(8px) brightness(1.2) saturate(1.2); }
-  100% { filter: blur(6px) brightness(1) saturate(1); }
-}
-
-
-@keyframes float {
-  0% {
-    transform: translateY(0) scale(1);
-    opacity: 0.2;
-  }
-  40% {
-    opacity: 0.6;
-  }
-  100% {
-    transform: translateY(-120vh) scale(1.25);
-    opacity: 0;
-  }
-}
-.hero.night .hero-content h2 {
-  background: linear-gradient(
-    to right,
-    rgba(232, 179, 126, 0.92),
-    rgba(208, 140, 60, 0.88)
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.hero.night .hero-content p {
-  background: linear-gradient(
-    to right,
-    rgba(232, 179, 126, 0.92),
-    rgba(208, 140, 60, 0.88)
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
 /* ==================================
-   ✨ 光のベール
+   ✨ 光のベール & 上層粒子
 ================================== */
 .hero::before {
   content: "";
@@ -324,6 +209,7 @@
   mix-blend-mode: soft-light;
   pointer-events: none;
 }
+
 .hero-scent {
   position: absolute;
   inset: 0;
@@ -332,4 +218,18 @@
   mix-blend-mode: screen;
   opacity: 0.6;
   filter: blur(2px);
+}
+
+/* ==================================
+   🚫 Night透明バグ防止（最終保証）
+================================== */
+#top,
+.hero {
+  opacity: 1 !important;
+  transform: none !important;
+  min-height: 100vh !important;
+}
+.hero {
+  min-height: 100vh !important;
+  height: 100vh !important;
 }

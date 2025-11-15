@@ -137,6 +137,19 @@ export default function Hero({ isMorning, setIsMorning }) {
     );
     setIsMorning();
   };
+useEffect(() => {
+  const hero = document.querySelector(".hero");
+  hero.style.minHeight = window.innerHeight + "px";
+}, []);
+useEffect(() => {
+  const hero = heroRef.current;
+  const fixHeight = () => {
+    hero.style.height = window.innerHeight + "px";
+  };
+  fixHeight();
+  window.addEventListener("resize", fixHeight);
+  return () => window.removeEventListener("resize", fixHeight);
+}, []);
 
   return (
     <section

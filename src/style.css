@@ -18,7 +18,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px; /* ナビバー分の余白 */
+  
 }
 
 body {
@@ -390,29 +390,6 @@ a:hover, button:hover, .cta-button:hover, .brand-link:hover {
 }
 
 /* ==================================
-   💫 光の余韻トランジション
-================================== */
-.light-transition {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(circle at 50% 50%, rgba(168, 216, 209, 0.4), transparent 70%);
-  opacity: 0;
-  transition: opacity 1.8s ease, background 1.8s ease;
-  z-index: 9998;
-  mix-blend-mode: screen;
-  filter: blur(12px) brightness(1.1);
-}
-.light-transition.night {
-  background: radial-gradient(circle at 50% 50%, rgba(232, 179, 126, 0.35), transparent 70%);
-  filter: blur(18px) brightness(1.05);
-}
-.light-transition.active {
-  opacity: 1;
-  transform: scale(1.02);
-}
-
-/* ==================================
    🌞 Fix: トグル・層管理
 ================================== */
 #modeBtn, .time-toggle {
@@ -423,9 +400,7 @@ a:hover, button:hover, .cta-button:hover, .brand-link:hover {
   right: 1.2rem !important;
   mix-blend-mode: normal !important;
 }
-.light-transition {
-  z-index: 9998 !important;
-}
+
 .app-wrapper {
   isolation: isolate;
   position: relative;
@@ -434,21 +409,7 @@ a:hover, button:hover, .cta-button:hover, .brand-link:hover {
   position: relative;
   z-index: 1;
 }
-.light-transition {
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle at center, rgba(255,255,255,0.6), transparent 70%);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 1.2s ease;
-  z-index: 9999;
-}
-.light-transition.active {
-  opacity: 1;
-}
-.light-transition.night {
-  background: radial-gradient(circle at center, rgba(50,30,10,0.6), transparent 70%);
-}
+
 .page-location {
   background: transparent;
   color: #7d7d7d;
@@ -524,39 +485,7 @@ a:hover, button:hover, .cta-button:hover, .brand-link:hover {
     transform: scaleX(0.2);
   }
 }
-/* ==============================
-   🌗 Light Transition Layer
-============================== */
-.light-transition {
-  position: fixed;
-  inset: 0;
-  z-index: 5000;
-  pointer-events: none;
-  opacity: 0;
-  background: radial-gradient(
-    circle at 50% 60%,
-    rgba(255, 240, 210, 0.4),
-    rgba(250, 245, 235, 0.8) 30%,
-    rgba(255, 255, 255, 0.95) 100%
-  );
-  transition: opacity 1.2s ease, background 2.4s ease;
-}
 
-/* 🌙 夜モード用 */
-.light-transition.night {
-  background: radial-gradient(
-    circle at 50% 40%,
-    rgba(90, 70, 40, 0.2),
-    rgba(20, 18, 15, 0.8) 70%,
-    rgba(10, 10, 10, 1) 100%
-  );
-}
-
-/* ✨ トグル時の発光 */
-.light-transition.active {
-  opacity: 1;
-  transition: opacity 0.8s ease;
-}
 .navbar-center {
   display: flex;
   gap: 2.4rem;
@@ -576,3 +505,48 @@ a:hover, button:hover, .cta-button:hover, .brand-link:hover {
 .nav-link:hover {
   opacity: 0.6;
 }
+/* ==================================
+   🌕 統一 Light Transition（完全版）
+================================== */
+.light-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 1999;
+  pointer-events: none !important;
+  opacity: 0;
+  transition: opacity 1.2s ease, background 1.6s ease;
+  mix-blend-mode: normal;
+}
+
+/* ☀️ 朝 */
+.light-transition.day {
+  background: radial-gradient(
+    circle at 50% 60%,
+    rgba(255, 240, 210, 0.45),
+    rgba(250, 245, 235, 0.7) 40%,
+    rgba(255, 255, 255, 0.9) 100%
+  );
+  filter: blur(10px);
+}
+
+/* 🌙 夜 */
+.light-transition.night {
+  background: radial-gradient(
+    circle at 50% 40%,
+    rgba(90, 70, 40, 0.25),
+    rgba(20, 18, 15, 0.85) 70%,
+    rgba(10, 10, 10, 1) 100%
+  );
+  filter: blur(14px);
+}
+
+/* ⚠️ light-transition が “残り影” を作るのを完全禁止 */
+.light-transition,
+.light-transition.night,
+.light-transition.active {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: none !important;
+}
+

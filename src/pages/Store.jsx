@@ -11,7 +11,7 @@ export default function Store() {
       id: "miyako",
       title: "宮古島店 — 光と潮の香り",
       image: "/image/store_miyako.webp",
-      product: "/image/product_coralsun.webp",
+      product: "/image/product_coralsun.png",
       productName: "Coral Sun — オードパルファム",
       description:
         "南国の陽光と潮風に包まれた宮古島店。珊瑚の砂とガラスが溶け合う空間で、琉香の原点となる『Coral Sun』シリーズが香ります。",
@@ -23,7 +23,7 @@ export default function Store() {
       id: "airport",
       title: "那覇空港店 — 旅の記憶を香りに",
       image: "/image/store_airport1.webp",
-      product: "/image/product_travel.webp",
+      product: "/image/product_travel.png",
       productName: "トラベルライン — オードトワレ",
       description:
         "出発前のひとときに、沖縄の香りを。小瓶のオードトワレやポストカードなど、旅の余韻を持ち帰るギフトラインを展開しています。",
@@ -35,7 +35,7 @@ export default function Store() {
       id: "kokusaidori",
       title: "国際通り店 — 灯と香りのリラックス空間",
       image: "/image/store_kokusaidori.webp",
-      product: "/image/product_yukuruba.webp",
+      product: "/image/product_yukuruba.png",
       productName: "ゆくる場 — キャンドル",
       description:
         "琉球ランプの灯がゆらめく夜の店舗。キャンドル『ゆくる場』シリーズを中心に、香りと光の深い癒しをお届けします。",
@@ -47,7 +47,7 @@ export default function Store() {
       id: "chatan",
       title: "北谷美浜店 — 海と風の香りラウンジ",
       image: "/image/store_chatan.webp",
-      product: "/image/product_seawhisper.webp",
+      product: "/image/product_seawhisper.png",
       productName: "Sea Whisper — ディフューザー",
       description:
         "海辺の風と香りが出会うリゾートラウンジ。ミントとサンダルウッドを基調にした香りで、波音のように穏やかな時間を演出します。",

@@ -119,22 +119,25 @@ function AppInner({ visible, fadeOut, isMorning, handleToggle }) {
       </div>
 
       {/* 🪶 ローディング */}
-      <div
-        style={{
-          position: "fixed",
-          inset: 0,
-          zIndex: 9999,
-          pointerEvents: fadeOut ? "none" : "auto",
-          transition: "opacity 3.8s ease",
-          opacity: fadeOut ? 0 : 1,
-          background: "#faf7f4",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Loader />
-      </div>
+{/* 🪶 ローディング */}
+<div
+  style={{
+    position: "fixed",
+    inset: 0,
+    zIndex: 9999,
+    pointerEvents: "none", // ← Reactはこれで正しく動く
+    opacity: fadeOut ? 0 : 1,
+    transition: "opacity 3.8s ease",
+    background: "#faf7f4",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  }}
+>
+  <Loader />
+</div>
+
+
     </>
   );
 }

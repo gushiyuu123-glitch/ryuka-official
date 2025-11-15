@@ -2,57 +2,49 @@ import React, { useEffect, useState } from "react";
 import "../styles/navbar.css";
 
 export default function Navbar({ isMorning, handleToggle }) {
-  const [visible, setVisible] = useState(false);
   const [activeSection, setActiveSection] = useState("top");
+  const [visible, setVisible] = useState(false); // ← トップで非表示にする
 
-  // 🌫️ スクロールでフェードイン & 現在セクション検知
-  useEffect(() => {
-    const handleScroll = () => {
-      setVisible(window.scrollY > 60);
-      const sections = ["top", "store", "exhibit", "story"];
-      let current = "top";
+  // 🌫️ スクロール光エフェクト（navGlow）
+useEffect(() => {
+  const handleScroll = () => {
+    const topSection = document.getElementById("top");
 
-      for (let id of sections) {
-        const el = document.getElementById(id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          const middle = window.innerHeight * 0.4;
-          if (rect.top <= middle && rect.bottom >= middle) {
-            current = id;
-            break;
-          }
-        }
-      }
-      setActiveSection(current);
-    };
+    if (topSection) {
+      const rect = topSection.getBoundingClientRect();
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+      // rect.top はズレがないので確実に判定できる
+      setVisible(rect.top < 0); // ← 80px 上に行ったら Navbar を表示
+    }
 
-  // 🌬️ スクロールに応じた光量変化
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const max = 600;
-      const glow = Math.min(scrollY / max, 1);
-      document.documentElement.style.setProperty("--navGlow", glow.toFixed(2));
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    // navGlow（追加）
+    const scrollY = window.scrollY;
+    const glow = Math.min(scrollY / 600, 1);
+    document.documentElement.style.setProperty("--navGlow", glow.toFixed(2));
+  };
 
-  // ✨ ページ内スムーススクロール
+  window.addEventListener("scroll", handleScroll);
+  handleScroll();
+
+  return () => window.removeEventListener("scroll", handleScroll);
+}, []);
+
+
+
+  // 🟧 朝/夜でStoreのIDを切り替え
+  const storeId = isMorning ? "store" : "store-night";
+
+  // ✨ スムーススクロール
   const handleNavClick = (e, id) => {
     e.preventDefault();
-    const target = document.getElementById(id);
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
       setActiveSection(id);
     }
   };
 
-  // 🌿 ロゴクリックでTopへ戻る（確実に反応）
+  // 🔙 ロゴクリック
   const handleLogoClick = (e) => {
     e.preventDefault();
     const top = document.getElementById("top");
@@ -69,7 +61,7 @@ export default function Navbar({ isMorning, handleToggle }) {
       }`}
     >
       <div className="navbar-inner">
-        {/* 🌿 左ロゴ（クリックでTopへ戻る） */}
+        {/* ロゴ */}
         <button
           className="navbar-left"
           onClick={handleLogoClick}
@@ -88,7 +80,7 @@ export default function Navbar({ isMorning, handleToggle }) {
           <span className="brand-name">Ryuka Fragrance</span>
         </button>
 
-        {/* ✴️ 中央メニュー */}
+        {/* メニュー */}
         <nav className="navbar-center">
           <a
             href="#top"
@@ -97,13 +89,17 @@ export default function Navbar({ isMorning, handleToggle }) {
           >
             Top
           </a>
+
           <a
-            href="#store"
-            onClick={(e) => handleNavClick(e, "store")}
-            className={`nav-link ${activeSection === "store" ? "active" : ""}`}
+            href={`#${storeId}`}
+            onClick={(e) => handleNavClick(e, storeId)}
+            className={`nav-link ${
+              activeSection === storeId ? "active" : ""
+            }`}
           >
             Store
           </a>
+
           <a
             href="#exhibit"
             onClick={(e) => handleNavClick(e, "exhibit")}
@@ -113,6 +109,7 @@ export default function Navbar({ isMorning, handleToggle }) {
           >
             Exhibit
           </a>
+
           <a
             href="#story"
             onClick={(e) => handleNavClick(e, "story")}
@@ -122,7 +119,7 @@ export default function Navbar({ isMorning, handleToggle }) {
           </a>
         </nav>
 
-        {/* ☀️🌙 トグル */}
+        {/* トグル */}
         <div className="navbar-right">
           <span className="toggle-label" onClick={handleToggle}>
             {isMorning ? "Night — 琥珀の香" : "Morning — 白露の香"}

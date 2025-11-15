@@ -5,21 +5,25 @@ export default function Header({ isMorning }) {
   const location = useLocation();
   const current = location.pathname;
 
-  const linkStyle = {
-    margin: "0 1rem",
-    textDecoration: "none",
-    color: isMorning ? "#2f2f2f" : "#fff",
-    opacity: 0.7,
-    transition: "opacity 0.3s ease",
-    fontSize: "0.9rem",
-    letterSpacing: "0.15em",
-  };
-
-  const activeStyle = {
-    opacity: 1,
-    borderBottom: `1px solid ${isMorning ? "#2f2f2f" : "#fff"}`,
-    paddingBottom: "2px",
-  };
+  const navItem = (path, label) => (
+    <Link
+      to={path}
+      style={{
+        padding: "0.3rem 0.6rem",
+        textDecoration: "none",
+        color: isMorning ? "#2f2f2f" : "#fff",
+        opacity: current === path ? 1 : 0.6,
+        borderBottom: current === path
+          ? `1px solid ${isMorning ? "#2f2f2f" : "#fff"}`
+          : "none",
+        transition: "0.3s ease",
+        letterSpacing: "0.12em",
+        fontSize: "0.9rem",
+      }}
+    >
+      {label}
+    </Link>
+  );
 
   return (
     <header
@@ -28,50 +32,35 @@ export default function Header({ isMorning }) {
         top: 0,
         left: 0,
         width: "100%",
-        padding: "1rem 0",
-        textAlign: "center",
-        background:
-          current === "/"
-            ? isMorning
-              ? "rgba(255, 255, 255, 0.3)"
-              : "rgba(255, 255, 255, 0.1)"
-            : isMorning
-            ? "rgba(255, 255, 255, 0.9)"
-            : "rgba(0, 0, 0, 0.6)",
-        backdropFilter: "blur(6px)",
+        height: "64px",           // ← ★固定高さ（かぶり防止）
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+
+        background: isMorning
+          ? "rgba(255,255,255,0.7)"
+          : "rgba(0,0,0,0.4)",
+
+        backdropFilter: "blur(8px)",
         zIndex: 100,
-        color: isMorning ? "#2f2f2f" : "#fff",
         fontFamily: "Shippori Mincho B1, serif",
-        transition: "background 0.6s ease, color 0.6s ease",
+
+        padding: "0",             // ← ★高さが暴れない
       }}
     >
-      <h1
+      <nav
         style={{
-          fontSize: "1rem",
-          fontWeight: "400",
-          letterSpacing: "0.2em",
-          marginBottom: "0.4rem",
+          display: "flex",
+          gap: "1.2rem",
+          alignItems: "center",
         }}
       >
-        琉香 — RYUKA
-      </h1>
-
-      <nav>
-        <Link to="/" style={current === "/" ? { ...linkStyle, ...activeStyle } : linkStyle}>
-          Home
-        </Link>
-        <Link to="/boutique" style={current === "/boutique" ? { ...linkStyle, ...activeStyle } : linkStyle}>
-          Boutique
-        </Link>
-        <Link to="/gift" style={current === "/gift" ? { ...linkStyle, ...activeStyle } : linkStyle}>
-          Gift
-        </Link>
-        <Link to="/story" style={current === "/story" ? { ...linkStyle, ...activeStyle } : linkStyle}>
-          Story
-        </Link>
-        <Link to="/contact" style={current === "/contact" ? { ...linkStyle, ...activeStyle } : linkStyle}>
-          Contact
-        </Link>
+        {navItem("/", "Home")}
+        {navItem("/boutique", "Boutique")}
+        {navItem("/gift", "Gift")}
+        {navItem("/story", "Story")}
+        {navItem("/contact", "Contact")}
       </nav>
     </header>
   );

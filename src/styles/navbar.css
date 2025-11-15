@@ -1,27 +1,26 @@
 /* =============================
-   🌿 NAVBAR BASE
+   🌿 NAVBAR — FIXED VERSION
 ============================= */
 .navbar {
   position: fixed;
-  top: -0.3px;
+  top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 99999;
+  backdrop-filter: blur(14px) saturate(140%);
   opacity: 0;
   transform: translateY(-40px);
-  transition: opacity 1s ease, transform 1s ease, background 1.2s ease;
-  backdrop-filter: blur(14px) saturate(140%);
+  transition: opacity 0.8s ease, transform 0.8s ease, background 1.2s ease;
 }
 
-/* スクロール後にフェードイン */
+/* ⭐ visible の時だけ表示 */
 .navbar.visible {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 1.8s ease, transform 1.8s cubic-bezier(0.25, 1, 0.3, 1);
 }
 
 /* =============================
-   ☀️ 🌙 朝夜カラー（背景透明）
+   ☀️ 🌙 カラー
 ============================= */
 .navbar.day {
   color: #2f2f2f;
@@ -29,19 +28,18 @@
 
 .navbar.night {
   color: #fff4d4;
-  text-shadow: 0 0 8px rgba(255, 220, 170, 0.15);
+  text-shadow: 0 0 8px rgba(255,220,170,0.15);
 }
 
 /* =============================
-   📐 LAYOUT GRID
+   📐 内部レイアウト
 ============================= */
 .navbar-inner {
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
   width: 100%;
-  padding: 0.1rem 3rem;
-  margin: 0;
+  padding: 0 5%;   /* ← 今 4〜6% くらいなので 12% に変更 */
 }
 
 /* 左ロゴ */
@@ -49,21 +47,12 @@
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  justify-self: start;
-  margin-left: 2rem;
+  margin-left: -1rem;   /* ← 左に寄りすぎる防止 */
 }
 
-.logo-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.4rem;
-}
-/* 🔸 ロゴ画像拡大 */
 .navbar-logo {
-  width: 100px; /* ← 上品な存在感 */
+  width: 100px;
   height: auto;
-  transform: translateY(1px);
   transition: transform 0.6s ease, filter 0.6s ease;
 }
 .navbar-logo:hover {
@@ -71,44 +60,46 @@
   filter: brightness(1.1);
 }
 
-/* 🔸 ブランド名 “Ryuka Fragrance” */
 .brand-name {
   font-family: "Shippori Mincho B1", serif;
-  font-size: 1.10rem; /* ← わずかに拡大 */
+  font-size: 1.1rem;
   letter-spacing: 0.28em;
-  font-weight: 400;
-  color: inherit;
   opacity: 0.85;
   transition: opacity 0.6s ease, text-shadow 1.2s ease;
 }
 .brand-name:hover {
   opacity: 1;
-  text-shadow: 0 0 10px rgba(232, 179, 126, 0.25);
+  text-shadow: 0 0 10px rgba(232,179,126,0.25);
 }
-/* 中央ナビ */
+
+/* =============================
+   中央ナビゲーション
+============================= */
 .navbar-center {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1.5rem; /* ← わずかに詰める */
-  transform: translateX(-1.3rem);
+  gap: 1rem;
+  margin-right: 4.5rem;  /* ← 右に寄りすぎる防止 */
 }
 /* =============================
-   ✴️ LINK STYLING（文字のみ）
+   🔵 ナビ項目のボタン背景を完全透明にする
 ============================= */
 .navbar a {
+  background: none !important;   /* ← ボタン背景を強制無効化 */
+  border: none !important;       /* ← 念のため枠も削除 */
+  box-shadow: none !important;   /* ← 影が残っていた場合も消える */
+
   font-family: "Poppins", "Shippori Mincho B1", serif;
-  font-size: 1rem;
-  letter-spacing: 0.15em;
-  text-decoration: none;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
   color: inherit;
+  text-decoration: none;
   position: relative;
-  transition: color 0.4s ease, opacity 0.4s ease;
-  background: none !important;  /* ✅ 背景を完全削除 */
-  box-shadow: none !important;  /* ✅ 影も削除 */
+  
 }
 
-/* 下線アニメーション */
+/* 下線アニメ */
 .navbar a::after {
   content: "";
   position: absolute;
@@ -120,255 +111,61 @@
   transform: scaleX(0);
   transform-origin: right;
   transition: transform 0.5s ease;
-  opacity: 0.6;
 }
-
 .navbar a:hover::after {
   transform: scaleX(1);
   transform-origin: left;
 }
 
-/* hover 色変化（背景なし） */
+/* Hover */
 .navbar.day .navbar-center a:hover {
-  background: none !important;
-  box-shadow: none !important;
   color: #7fc4be;
-  opacity: 1;
 }
-
 .navbar.night .navbar-center a:hover {
-  background: none !important;
-  box-shadow: none !important;
   color: #ffd996;
-  opacity: 1;
 }
 
-/* active 状態 */
+/* Active */
 .navbar-center a.active::after {
   width: 80%;
-  opacity: 0.8;
-}
-
-/* 押下時 */
-.navbar-center a:active {
-  text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
-  transform: scale(0.98);
-  transition: all 0.2s ease;
+  opacity: 0.85;
 }
 
 /* =============================
-   💠 Fragrance Toggle (琉香スタイル)
+   💠 朝夜トグルボタン
 ============================= */
 .toggle-label {
-  position: relative;
-  display: inline-block;
   padding: 0.7rem 1.5rem;
   border-radius: 80px;
+  cursor: pointer;
+  backdrop-filter: blur(16px) saturate(160%);
+  transition: 0.6s ease;
+  text-align: center;
   font-family: "Shippori Mincho B1", serif;
   font-size: 0.95rem;
-  letter-spacing: 0.18em;
-  cursor: pointer;
-  text-align: center;
-  user-select: none;
-  overflow: hidden;
-  isolation: isolate;
-  backdrop-filter: blur(16px) saturate(160%);
-  transition: all 0.6s ease;
-  border: 1px solid transparent;
-  box-shadow:
-    inset 0 0 0 rgba(255, 255, 255, 0),
-    0 0 0 rgba(0, 0, 0, 0);
+  margin-right: 0.5rem;  /* ← 右に寄りすぎる防止 */
 }
 
-/* ✨ 内側の淡いガラス層 */
-.toggle-label::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(145deg,
-    rgba(255, 255, 255, 0.5) 0%,
-    rgba(255, 255, 255, 0.1) 40%,
-    rgba(255, 255, 255, 0.3) 100%);
-  opacity: 0.2;
-  pointer-events: none;
-  mix-blend-mode: screen;
-  z-index: 0;
-}
-
-/* 🌤 朝モード（白露の香） */
+/* 朝 */
 .navbar.day .toggle-label {
-  background: radial-gradient(
-    circle at 50% 0%,
-    rgba(250, 250, 250, 0.85),
-    rgba(210, 240, 230, 0.3) 60%,
-    rgba(255, 255, 255, 0.1)
-  );
-  border-color: rgba(170, 230, 215, 0.6);
+  background: radial-gradient(circle at 50% 0%, rgba(250,250,250,0.9), rgba(210,240,230,0.3));
+  border: 1px solid rgba(170,230,215,0.6);
   color: #245b52;
-  box-shadow:
-    0 2px 20px rgba(180, 240, 230, 0.25),
-    inset 0 2px 8px rgba(255, 255, 255, 0.3);
-}
-.navbar.day .toggle-label:hover {
-  background: radial-gradient(
-    circle at 60% 0%,
-    rgba(255, 255, 255, 0.9),
-    rgba(190, 240, 230, 0.45) 60%,
-    rgba(255, 255, 255, 0.15)
-  );
-  transform: translateY(-1px) scale(1.02);
-  box-shadow:
-    0 0 26px rgba(160, 235, 220, 0.45),
-    inset 0 2px 12px rgba(255, 255, 255, 0.45);
 }
 
-/* 🌙 夜モード（琥珀の香） */
+/* 夜 */
 .navbar.night .toggle-label {
-  background: radial-gradient(
-    circle at 50% 100%,
-    rgba(70, 50, 30, 0.65),
-    rgba(20, 15, 10, 0.95)
-  );
-  border-color: rgba(232, 179, 126, 0.3);
+  background: radial-gradient(circle at 50% 100%, rgba(70,50,30,0.6), rgba(20,15,10,0.9));
+  border: 1px solid rgba(232,179,126,0.3);
   color: #fff4d4;
-  box-shadow:
-    0 0 22px rgba(232, 179, 126, 0.15),
-    inset 0 0 14px rgba(232, 179, 126, 0.05);
 }
-.navbar.night .toggle-label:hover {
-  background: radial-gradient(
-    circle at 50% 120%,
-    rgba(120, 80, 40, 0.6),
-    rgba(30, 20, 10, 0.9)
-  );
-  transform: translateY(-1px) scale(1.02);
-  box-shadow:
-    0 0 28px rgba(232, 179, 126, 0.4),
-    inset 0 0 14px rgba(232, 179, 126, 0.2);
-}
-
-/* 💫 ゆらめく反射層 */
-@keyframes glassShine {
-  0% { background-position: 0% 50%; opacity: 0.2; }
-  50% { background-position: 100% 50%; opacity: 0.45; }
-  100% { background-position: 0% 50%; opacity: 0.2; }
-}
-
-.toggle-label::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  background: linear-gradient(
-    120deg,
-    rgba(255, 255, 255, 0.4) 0%,
-    rgba(255, 255, 255, 0.05) 50%,
-    rgba(255, 255, 255, 0.4) 100%
-  );
-  background-size: 300% 300%;
-  animation: glassShine 12s ease-in-out infinite;
-  z-index: 1;
-}
-
 
 /* =============================
-   🌫️ スクロール連動フェード
+   ✨ 夜モードのトップ完全非表示
+   （唯一必要なルール）
 ============================= */
-body.scrolled .navbar {
-  pointer-events: all;
-}
-/* 🚫 ナビメニューの余分な枠や光を完全除去 */
-.navbar-center a {
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-  background: none !important;
-}
-
-.navbar-center a:hover,
-.navbar-center a:focus,
-.navbar-center a:active {
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-  background: none !important;
-}
-
-/* Safari用フォーカスリング防止 */
-.navbar-center a::-moz-focus-inner {
-  border: 0 !important;
-}
-/* =============================
-   🫧 Glow / Near 変数の初期値
-============================= */
-:root {
-  --navGlow: 0;   /* 0〜1: スクロールでGSAPが更新 */
-}
-.navbar .nav-link {
-  /* 0〜1: マウス接近でJSが更新 */
-  --near: 0;
-  /* 視覚効果：上に1〜2pxだけふわっと */
-  transform: translateY(calc(-2px * var(--near)));
-  transition: transform 0.2s ease, color 0.35s ease, opacity 0.35s ease;
-}
-
-/* 🫧 スクロール量に応じて淡い光を増やす（朝：ミント / 夜：ゴールド）*/
-.navbar.day .nav-link {
-  text-shadow:
-    0 0 calc(6px + 10px * var(--navGlow)) rgba(127,196,190, calc(0.15 + 0.25 * var(--navGlow))),
-    0 0 calc(2px + 6px * var(--near)) rgba(127,196,190, calc(0.10 + 0.20 * var(--near)));
-}
-.navbar.night .nav-link {
-  text-shadow:
-    0 0 calc(6px + 12px * var(--navGlow)) rgba(255,217,150, calc(0.18 + 0.28 * var(--navGlow))),
-    0 0 calc(2px + 6px * var(--near)) rgba(255,217,150, calc(0.10 + 0.22 * var(--near)));
-}
-
-/* 文字だけのhover（下線は既存のまま） */
-.navbar.day .navbar-center a:hover,
-.navbar.night .navbar-center a:hover {
-  background: none !important;
-  box-shadow: none !important;
-}
-
-/* “近づいた時の空気のゆらぎ”を少し強める（hover時は+α） */
-.navbar .nav-link:hover {
-  --near: calc(var(--near) + 0.20);
-}
-.navbar .nav-link {
-  text-shadow: 0 0 calc(4px + 6px * var(--navGlow))
-    rgba(168, 216, 209, calc(0.15 + 0.3 * var(--navGlow)));
-  transition: color 0.4s ease, text-shadow 0.4s ease;
-}
-
-.navbar.night .nav-link {
-  text-shadow: 0 0 calc(6px + 8px * var(--navGlow))
-    rgba(232, 179, 126, calc(0.18 + 0.25 * var(--navGlow)));
-}
-/* --- ブランド名（Ryuka Fragrance） --- */
-.header-logo {
-  font-family: "Shippori Mincho B1", serif;
-  font-size: 1.4rem;          /* ← 少し大きく（旧:1rem前後なら+40%） */
-  letter-spacing: 0.22em;     /* ← 品のある広がり */
-  font-weight: 400;
-  color: inherit;
-  opacity: 0.9;
-  transition: opacity 0.6s ease, text-shadow 1.2s ease, transform 1s ease;
-  text-decoration: none;
-}
-
-/* ☀️ 朝モード：柔らかい光 */
-.header.day .header-logo:hover {
-  opacity: 1;
-  text-shadow: 0 0 8px rgba(155, 210, 202, 0.25);
-  transform: scale(1.03);
-}
-
-/* 🌙 夜モード：琥珀の残光 */
-.header.night .header-logo:hover {
-  opacity: 1;
-  text-shadow: 0 0 12px rgba(232, 179, 126, 0.25);
-  transform: scale(1.03);
+.navbar.night:not(.visible) {
+  opacity: 0 !important;
+  transform: translateY(-80px) !important;
+  pointer-events: none !important;
 }

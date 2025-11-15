@@ -10,6 +10,7 @@ import Epilogue from "../components/Epilogue";
 import "../styles/base.css";
 
 export default function Index({ isMorning }) {
+
   useEffect(() => {
     (async () => {
       const { gsap } = await import("gsap");
@@ -20,7 +21,8 @@ export default function Index({ isMorning }) {
         ? { duration: 1.8, ease: "power2.out", y: 50 }
         : { duration: 2.2, ease: "power1.out", y: 70 };
 
-      gsap.utils.toArray("main > section").forEach((sec) => {
+      // 🟩 Hero (#top) を完全除外する fade-in
+      gsap.utils.toArray("section:not(#top)").forEach((sec) => {
         gsap.fromTo(
           sec,
           { opacity: 0, y: fadeSettings.y },
@@ -32,7 +34,6 @@ export default function Index({ isMorning }) {
             scrollTrigger: {
               trigger: sec,
               start: "top 90%",
-              toggleActions: "play none none none",
               once: true,
             },
           }
@@ -44,30 +45,37 @@ export default function Index({ isMorning }) {
   return (
     <div className={`index-page ${isMorning ? "day" : "night"}`}>
       <main>
-        <ResponsiveWrapper
-          mobile={
-            <>
-              <section id="top"><Hero isMorning={isMorning} /></section>
-              <section id="lead"><Lead isMorning={isMorning} /></section>
-              <section id="store"><StoreMorning isMorning={isMorning} /></section>
-              <section id="store-night"><StoreNight isMorning={isMorning} /></section>
-              <section id="exhibit"><Exhibit isMorning={isMorning} /></section>
-              <section id="story"><BrandStory isMorning={isMorning} /></section>
-              <section id="epilogue"><Epilogue isMorning={isMorning} /></section>
-            </>
-          }
-          desktop={
-            <>
-              <section id="top"><Hero isMorning={isMorning} /></section>
-              <section id="lead"><Lead isMorning={isMorning} /></section>
-              <section id="store"><StoreMorning isMorning={isMorning} /></section>
-              <section id="store-night"><StoreNight isMorning={isMorning} /></section>
-              <section id="exhibit"><Exhibit isMorning={isMorning} /></section>
-              <section id="story"><BrandStory isMorning={isMorning} /></section>
-              <section id="epilogue"><Epilogue isMorning={isMorning} /></section>
-            </>
-          }
-        />
+
+        {/* 🟩 Hero は section の外に出して独立させる */}
+        <div id="top-anchor"></div>
+        <Hero isMorning={isMorning} />
+
+        <section id="lead">
+          <Lead isMorning={isMorning} />
+        </section>
+
+        {isMorning ? (
+          <section id="store">
+            <StoreMorning isMorning={isMorning} />
+          </section>
+        ) : (
+          <section id="store-night">
+            <StoreNight isMorning={isMorning} />
+          </section>
+        )}
+
+        <section id="exhibit">
+          <Exhibit isMorning={isMorning} />
+        </section>
+
+        <section id="story">
+          <BrandStory isMorning={isMorning} />
+        </section>
+
+        <section id="epilogue">
+          <Epilogue isMorning={isMorning} />
+        </section>
+
       </main>
     </div>
   );

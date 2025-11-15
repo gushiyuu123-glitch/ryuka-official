@@ -1,16 +1,17 @@
+// ===============================
+// 🌅 Ryuka — Index Page (Complete Optimized Version)
+// ===============================
 import React, { useEffect } from "react";
 import Hero from "../components/Hero";
 import Lead from "../components/Lead";
 import StoreMorning from "../components/StoreMorning";
 import StoreNight from "../components/StoreNight";
-import ResponsiveWrapper from "../components/ResponsiveWrapper";
 import Exhibit from "../components/Exhibit";
 import BrandStory from "../components/BrandStory";
 import Epilogue from "../components/Epilogue";
 import "../styles/base.css";
 
 export default function Index({ isMorning }) {
-
   useEffect(() => {
     (async () => {
       const { gsap } = await import("gsap");
@@ -18,11 +19,11 @@ export default function Index({ isMorning }) {
       gsap.registerPlugin(ScrollTrigger);
 
       const fadeSettings = isMorning
-        ? { duration: 1.8, ease: "power2.out", y: 50 }
-        : { duration: 2.2, ease: "power1.out", y: 70 };
+        ? { duration: 1.6, ease: "power2.out", y: 45 }
+        : { duration: 2.0, ease: "power1.out", y: 65 };
 
-      // 🟩 Hero (#top) を完全除外する fade-in
-      gsap.utils.toArray("section:not(#top)").forEach((sec) => {
+      // ⭐ 全セクションのフェードイン（Hero を除外）
+      gsap.utils.toArray("section[data-animate]").forEach((sec) => {
         gsap.fromTo(
           sec,
           { opacity: 0, y: fadeSettings.y },
@@ -33,7 +34,7 @@ export default function Index({ isMorning }) {
             ease: fadeSettings.ease,
             scrollTrigger: {
               trigger: sec,
-              start: "top 90%",
+              start: "top 85%",
               once: true,
             },
           }
@@ -46,33 +47,50 @@ export default function Index({ isMorning }) {
     <div className={`index-page ${isMorning ? "day" : "night"}`}>
       <main>
 
-        {/* 🟩 Hero は section の外に出して独立させる */}
+        {/* ===============================
+            🌅 HERO — 完全独立
+        =============================== */}
         <div id="top-anchor"></div>
         <Hero isMorning={isMorning} />
 
-        <section id="lead">
+        {/* ===============================
+            🌿 LEAD
+        =============================== */}
+        <section id="lead" data-animate>
           <Lead isMorning={isMorning} />
         </section>
 
+        {/* ===============================
+            🛍 STORE（Morning / Night）
+        =============================== */}
         {isMorning ? (
-          <section id="store">
+          <section id="store" data-animate>
             <StoreMorning isMorning={isMorning} />
           </section>
         ) : (
-          <section id="store-night">
+          <section id="store-night" data-animate>
             <StoreNight isMorning={isMorning} />
           </section>
         )}
 
-        <section id="exhibit">
+        {/* ===============================
+            💎 EXHIBIT
+        =============================== */}
+        <section id="exhibit" data-animate>
           <Exhibit isMorning={isMorning} />
         </section>
 
-        <section id="story">
+        {/* ===============================
+            📖 STORY
+        =============================== */}
+        <section id="story" data-animate>
           <BrandStory isMorning={isMorning} />
         </section>
 
-        <section id="epilogue">
+        {/* ===============================
+            🌕 EPILOGUE
+        =============================== */}
+        <section id="epilogue" data-animate>
           <Epilogue isMorning={isMorning} />
         </section>
 

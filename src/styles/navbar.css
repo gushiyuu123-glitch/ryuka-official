@@ -169,3 +169,112 @@
   transform: translateY(-80px) !important;
   pointer-events: none !important;
 }
+/* =============================
+   📱 スマホ最適化（〜640px）
+============================= */
+@media (max-width: 640px) {
+  .navbar-inner {
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    padding: 0 1.2rem;
+    row-gap: 0.6rem;
+  }
+
+  /* ロゴ */
+  .navbar-left {
+    margin-left: 0;
+  }
+
+  .navbar-logo {
+    width: 70px;
+  }
+
+  .brand-name {
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+  }
+
+  /* トグル */
+  .navbar-right {
+    justify-self: end;
+  }
+
+  .toggle-label {
+    padding: 0.4rem 0.9rem;
+    font-size: 0.8rem;
+    border-radius: 50px;
+    margin-right: 0;
+  }
+
+  /* 中央ナビを下段に移動 */
+  .navbar-center {
+    grid-column: 1 / -1;
+    justify-content: space-around;
+    margin-right: 0;
+    gap: 0.5rem;
+  }
+
+  .navbar-center a {
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+  }
+
+  /* 下線の位置調整 */
+  .navbar a::after {
+    bottom: -3px;
+    height: 1px;
+  }
+}
+/* =============================
+   📱 スマホ最適化
+============================= */
+@media (max-width: 640px) {
+  .pc-nav {
+    display: none !important;
+  }
+
+  .hamburger {
+    display: flex !important;
+  }
+
+  .navbar-inner {
+    padding: 0 1.4rem;
+    grid-template-columns: auto 1fr auto;
+  }
+
+  .toggle-label {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.8rem;
+    margin-right: 0.6rem;
+  }
+}
+
+/* =============================
+   🍔 ハンバーガー本体
+============================= */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  width: 26px;
+}
+
+.hamburger span {
+  display: block;
+  height: 1.6px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: 0.4s;
+}
+
+/* 変形（×） */
+.hamburger.open span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.open span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}

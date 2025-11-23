@@ -1,0 +1,78 @@
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(12px) saturate(150%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  z-index: 999999;
+}
+
+.mobile-menu.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 背景色（朝/夜） */
+.mobile-menu.day {
+  background: rgba(240, 255, 250, 0.15);
+}
+.mobile-menu.night {
+  background: rgba(20, 15, 10, 0.35);
+}
+
+/* 中央光 */
+.menu-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, rgba(255,255,255,0.7), transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0.3);
+  opacity: 0;
+  animation: glow 0.8s ease forwards;
+}
+
+@keyframes glow {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(5); }
+}
+
+/* メニュー項目 */
+.menu-items {
+  position: absolute;
+  top: 28%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  text-align: center;
+}
+
+.menu-items a {
+  font-family: "Poppins", "Shippori Mincho B1", serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.15em;
+  color: inherit;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards;
+}
+
+.menu-items a:nth-child(1) { animation-delay: 0.25s; }
+.menu-items a:nth-child(2) { animation-delay: 0.35s; }
+.menu-items a:nth-child(3) { animation-delay: 0.45s; }
+.menu-items a:nth-child(4) { animation-delay: 0.55s; }
+
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* 閉じるエリア */
+.menu-close {
+  position: absolute;
+  inset: 0;
+}

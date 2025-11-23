@@ -754,3 +754,180 @@
 .night .close-btn:hover {
   background: rgba(232, 179, 126, 0.25);
 }
+/* =======================================================
+   📱 Exhibit Section — Smartphone Optimization 完全版
+======================================================= */
+@media (max-width: 768px) {
+
+  /* Exhibit全体 */
+  .exhibit {
+    padding: 5rem 1.6rem;
+    overflow: visible;
+  }
+
+  /* 🎥 背景動画 */
+  .product-bg {
+    height: 260vh;
+    inset: -2vh 0 0 0;
+    object-position: center 60%;
+    filter: brightness(0.95) contrast(105%) saturate(102%) blur(1px);
+  }
+
+  /* 朝夜 */
+  .product-bg.morning {
+    filter: brightness(1.03) contrast(104%) saturate(106%) blur(0.8px);
+  }
+  .product-bg.night {
+    filter: brightness(0.88) contrast(112%) saturate(95%) blur(1.1px);
+  }
+
+  /* タイトル */
+  .exhibit-title {
+    font-size: 1.4rem;
+    margin-bottom: 4rem;
+  }
+  .exhibit-title span {
+    font-size: 0.8rem;
+  }
+
+  /* ===============================
+      商品展示本体（交互フェード）
+  ================================ */
+
+  .exhibit-item {
+    flex-direction: column;
+    gap: 2.4rem;
+    margin-bottom: 6rem;
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  .exhibit-item.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .exhibit-item.reverse {
+    flex-direction: column;
+  }
+
+  /* 画像 */
+  .exhibit-item .image img {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0.6rem;
+    box-shadow:
+      0 10px 24px rgba(0,0,0,0.12),
+      0 0 40px rgba(198,166,122,0.10);
+    animation: scentDrift 10s ease-in-out infinite;
+  }
+
+  /* 説明文 */
+  .exhibit-item .caption {
+    padding: 0 0.5rem;
+    text-align: left;
+  }
+  .exhibit-item .caption h3 {
+    font-size: 1.2rem;
+  }
+  .exhibit-item .caption p {
+    font-size: 0.95rem;
+    line-height: 1.9;
+  }
+
+  /* =============================
+      Postcard（ギフトコレクション）
+  ============================== */
+
+  .exhibit-item.postcard {
+    flex-direction: column;
+    margin: 6rem auto 0;
+    padding: 3rem 1.6rem;
+    border-radius: 1rem;
+  }
+
+  .exhibit-item.postcard .image img {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0.6rem;
+  }
+
+  .exhibit-item.postcard .caption {
+    padding-left: 0;
+    margin-top: 2rem;
+    text-align: left;
+  }
+  .exhibit-item.postcard .caption h3 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .exhibit-item.postcard .caption p {
+    font-size: 0.95rem;
+    text-align: left;
+  }
+
+  .exhibit-item.postcard .brand-link {
+    padding: 0.7rem 1.6rem;
+    font-size: 0.85rem;
+    margin-top: 1.6rem;
+  }
+
+  /* =============================
+      Fragrance Navigation
+  ============================== */
+  .fragrance-nav {
+    margin-top: -3rem;
+    padding: 0 1rem;
+  }
+  .fragrance-nav p {
+    font-size: 1rem;
+  }
+  .nav-links {
+    gap: 1rem;
+  }
+  .nav-link {
+    padding: 0.7rem 1.4rem;
+    font-size: 0.85rem;
+  }
+
+  /* =============================
+      Exhibit END テキスト
+  ============================== */
+  .exhibit-end {
+    font-size: 0.8rem;
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+  }
+
+  /* =============================
+      Lightbox （完全スマホ対応）
+  ============================== */
+  .lightbox-content {
+    max-width: 94%;
+    padding: 1.4rem;
+    border-radius: 16px;
+  }
+
+  .lightbox-content img {
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.25);
+  }
+
+  .close-btn {
+    width: 34px;
+    height: 34px;
+    top: 0.6rem;
+    right: 0.6rem;
+    font-size: 1.1rem;
+  }
+
+  .nav-arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 1.3rem;
+    top: 50%;
+  }
+  .nav-prev { left: 4vw; }
+  .nav-next { right: 4vw; }
+}

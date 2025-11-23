@@ -179,3 +179,98 @@
   mix-blend-mode: screen;
   filter: blur(2px);
 }
+/* ============================================================
+   📱 Contact – Smartphone Optimization 完全版
+============================================================ */
+@media (max-width: 768px) {
+
+  /* ページ全体余白 */
+  .contact {
+    padding: 5rem 6% 6rem;
+    line-height: 1.75;
+  }
+
+  /* Hero */
+  .hero {
+    margin-bottom: 4rem;
+  }
+  .hero h1 {
+    font-size: 1.9rem;
+    letter-spacing: 0.12em;
+  }
+  .hero p {
+    font-size: 0.9rem;
+    margin-top: 0.9rem;
+    opacity: 0.72;
+    padding: 0 6%;
+  }
+
+  /* FAQ 全体 */
+  .faq {
+    margin-top: 4.5rem;
+    max-width: 90%;
+  }
+
+  .faq h2 {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    letter-spacing: 0.08em;
+  }
+
+  .faqItem {
+    padding: 1.1rem 0;
+  }
+
+  .faqQuestion {
+    font-size: 0.95rem;
+    letter-spacing: 0.015em;
+  }
+
+  .faqAnswer p {
+    font-size: 0.88rem;
+    line-height: 1.65;
+    opacity: 0.85;
+  }
+
+  /* Info */
+  .info {
+    margin-top: 4.5rem;
+    font-size: 0.82rem;
+    opacity: 0.82;
+    padding: 0 8%;
+  }
+  .sns {
+    margin-top: 0.6rem;
+  }
+  .sns a {
+    font-size: 0.92rem;
+  }
+
+  /* Form */
+  .form {
+    margin: 4.5rem auto 5.5rem;
+    gap: 1.3rem;
+  }
+  .form label {
+    font-size: 0.8rem;
+    opacity: 0.78;
+  }
+  .form input,
+  .form textarea {
+    font-size: 0.95rem;
+    padding: 0.45rem 0;
+  }
+
+  .sendBtn {
+    padding: 0.7rem 2rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    border-radius: 40px;
+  }
+
+  /* Sparkle layer */
+  .sparkle {
+    filter: blur(1.5px);
+    opacity: 0.8;
+  }
+}

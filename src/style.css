@@ -549,3 +549,67 @@ a:hover, button:hover, .cta-button:hover, .brand-link:hover {
   transform: none !important;
 }
 
+/* ==================================
+   📱 Smartphone Optimization（完全版）
+================================== */
+@media (max-width: 768px) {
+
+  /* --- 全体の余白を最適化 --- */
+  .lead {
+    padding: 5rem 8%;
+  }
+  .store {
+    flex-direction: column;
+    gap: 3rem;
+    padding: 5rem 8%;
+  }
+
+  /* --- 文字サイズを最適化 --- */
+  .lead h2 {
+    font-size: 1.35rem;
+    letter-spacing: 0.1em;
+  }
+  .lead p {
+    font-size: 0.95rem;
+    line-height: 2;
+  }
+
+  .store-text {
+    margin-left: 0;
+    text-align: center;
+    max-width: 90%;
+  }
+  .store-text h2 {
+    font-size: 1.6rem;
+  }
+  .store-text p {
+    font-size: 1rem;
+  }
+
+  /* --- 画像サイズ調整 --- */
+  .store-visual img {
+    max-width: 100%;
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 0.4rem;
+  }
+
+  /* --- ボタンのサイズ/間隔 --- */
+  .store-text a,
+  .brand-link {
+    padding: 0.7rem 1.8rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+  }
+
+  /* --- ページ位置（パンくず）が大きすぎる問題 --- */
+  .page-location {
+    font-size: 0.75rem;
+    padding: 0.8rem 8%;
+  }
+
+  /* --- ナビのリンク間隔をスマホ用に圧縮 --- */
+  .navbar-center {
+    gap: 1.2rem;
+  }
+}

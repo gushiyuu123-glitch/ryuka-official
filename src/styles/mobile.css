@@ -40,3 +40,32 @@
     transform: translateY(0);
   }
 }
+/* =======================================================
+   📱 Floral Loader — Smartphone Optimization 完全版
+======================================================= */
+@media (max-width: 768px) {
+
+  /* 全画面ローダー */
+  .loader.floral {
+    background: linear-gradient(to bottom, #fffdfb, #fcf6f1);
+    padding: 0 1.5rem;
+  }
+
+  /* ブラー軽減（負荷最適化） */
+  .loader-canvas {
+    filter: blur(1.6px) brightness(1.06) saturate(1.1);
+    opacity: 0.85;
+  }
+
+  /* ロゴ */
+  .loader-logo img {
+    width: 150px;                 /* ← PCの260px → SPは150px黄金比 */
+    filter: drop-shadow(0 0 8px rgba(255, 220, 210, 0.45));
+    animation: fadeInLogo 2.4s ease forwards 0.7s; /* 表示を早く＆短く */
+  }
+
+  /* フェードアウトをスマホ向けに短縮 */
+  .loader.floral.fade-out {
+    transition: opacity 2s ease, visibility 2s ease;
+  }
+}

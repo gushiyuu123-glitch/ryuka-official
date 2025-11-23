@@ -465,3 +465,153 @@ body {
   position: relative;
   z-index: 2; /* ← 🔥文字を前面へ */
 }
+/* =======================================================
+   📱 RYUKA WORKSHOP — Smartphone Optimization 完全版
+======================================================= */
+@media (max-width: 768px) {
+
+  /* ------------------------------
+     HERO
+  ------------------------------ */
+  .workshop-hero {
+    height: 70vh;
+    background-position: center top;
+  }
+
+  .workshop-hero .overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.35),
+      rgba(255, 255, 255, 0.08)
+    );
+    backdrop-filter: blur(3px);
+  }
+
+  .hero-text h1 {
+    font-size: 1.9rem;
+    line-height: 1.25;
+    margin-bottom: 1rem;
+  }
+
+  .hero-text p {
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+  }
+
+  /* ------------------------------
+     Section Global Spacing
+  ------------------------------ */
+  .concept,
+  .experience,
+  .gallery,
+  .price,
+  .reservation,
+  .access {
+    padding: 4rem 8%;
+  }
+
+  /* ------------------------------
+     Concept
+  ------------------------------ */
+  .concept-inner h2 {
+    font-size: 1.6rem;
+  }
+  .concept-inner p {
+    font-size: 0.95rem;
+  }
+
+  /* ------------------------------
+     Experience
+  ------------------------------ */
+  .experience {
+    flex-direction: column;
+    text-align: center;
+    gap: 2.5rem;
+  }
+
+  .experience-image {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  }
+
+  .experience-content h2 {
+    font-size: 1.35rem;
+  }
+  .experience-content p {
+    font-size: 0.95rem;
+  }
+
+  .btn.reserve-btn {
+    padding: 0.7rem 1.4rem;
+    font-size: 0.9rem;
+  }
+
+  /* ------------------------------
+     Gallery
+  ------------------------------ */
+  .gallery-grid {
+    gap: 1rem;
+  }
+  .gallery-grid img {
+    border-radius: 0.8rem;
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.05);
+  }
+
+  /* ------------------------------
+     Price
+  ------------------------------ */
+  .price p {
+    font-size: 0.95rem;
+  }
+  .price .small-note {
+    font-size: 0.85rem;
+  }
+
+  /* ------------------------------
+     Reservation Form
+  ------------------------------ */
+  .reserve-form label {
+    font-size: 0.9rem;
+  }
+
+  .reserve-form input,
+  .reserve-form select,
+  .reserve-form textarea {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .btn.submit-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  /* ------------------------------
+     Access
+  ------------------------------ */
+  .access p {
+    font-size: 0.95rem;
+  }
+
+  .map-frame {
+    margin-top: 1.5rem;
+  }
+  .map-frame img {
+    border-radius: 0.8rem;
+    filter: grayscale(20%) opacity(0.95);
+  }
+
+  /* ------------------------------
+     Footer
+  ------------------------------ */
+  .workshop-footer {
+    padding: 2.4rem 8%;
+    font-size: 0.85rem;
+  }
+  .workshop-footer .back-link {
+    margin-top: 0.8rem;
+    font-size: 0.85rem;
+  }
+}

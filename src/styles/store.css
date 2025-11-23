@@ -472,3 +472,143 @@ body.night-mode .hero-text p {
 .hero-text {
   pointer-events: auto; /* Hero内のテキストは触れる */
 }
+/* =======================================================
+   📱 RYUKA STORE — Smartphone Optimization 完全版
+======================================================= */
+@media (max-width: 768px) {
+
+  /* ------------------------------
+     ページ位置
+  ------------------------------ */
+  .page-location {
+    padding: 0.7rem 6%;
+    font-size: 0.78rem;
+  }
+
+  /* ------------------------------
+     HERO セクション
+  ------------------------------ */
+  .store-hero {
+    height: 70vh;
+    background-position: center top;
+  }
+
+  .hero-text h1 {
+    font-size: 1.85rem;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.6rem;
+  }
+
+  .hero-text p {
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+  }
+
+  /* wave-layer 透過を抑えて見やすく */
+  .wave-layer {
+    opacity: 0.65;
+  }
+
+  /* ------------------------------
+     香りの地図
+  ------------------------------ */
+  .store-map-nav {
+    padding: 3.5rem 6% 2.5rem;
+  }
+
+  .map-title {
+    font-size: 1.35rem;
+  }
+
+  .map-item {
+    width: 68px;
+    height: 68px;
+    font-size: 1.3rem;
+  }
+
+  .map-item::after {
+    font-size: 0.72rem;
+    bottom: -1.2rem;
+  }
+
+  .map-links {
+    gap: 1.2rem;
+  }
+
+  /* ------------------------------
+     店舗シーン（Miyako/Airport/etc）
+  ------------------------------ */
+  .scene {
+    flex-direction: column !important;
+    gap: 2rem;
+    padding: 3rem 6%;
+  }
+
+  .scene-bg {
+    width: 100%;
+    height: auto;
+    max-height: 260px;
+    border-radius: 0.8rem;
+  }
+
+  /* product-card の内側余白を最適化 */
+  .product-card {
+    padding: 0;
+    text-align: center;
+  }
+
+  .product-bottle {
+    width: 85px;
+    margin: 0 auto 0.8rem;
+  }
+
+  .product-meta h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .product-meta p {
+    font-size: 0.92rem;
+    line-height: 1.75;
+  }
+
+  /* シーン背景切り替え（even 行） */
+  .scene:nth-of-type(even) {
+    flex-direction: column !important;
+  }
+
+  /* ------------------------------
+     読谷アトリエ
+  ------------------------------ */
+  .atelier-section {
+    flex-direction: column;
+    padding: 3.5rem 6%;
+    gap: 2rem;
+  }
+
+  .atelier-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .atelier-content p {
+    font-size: 0.95rem;
+    line-height: 1.75;
+  }
+
+  .atelier-content ul {
+    font-size: 0.88rem;
+  }
+
+  .btn.atelier-btn {
+    padding: 0.65rem 1.4rem;
+    font-size: 0.85rem;
+  }
+
+  /* ------------------------------
+     Footer
+  ------------------------------ */
+  .store-footer {
+    padding: 2.4rem 6%;
+    font-size: 0.82rem;
+  }
+}

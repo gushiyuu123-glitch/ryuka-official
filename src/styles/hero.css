@@ -236,3 +236,84 @@
   min-height: 100vh !important;
   height: 100vh !important;
 }
+/* =======================================================
+   📱 HERO — Smartphone Optimization 完全版
+======================================================= */
+@media (max-width: 768px) {
+
+  /* Hero本体 */
+  .hero {
+    height: 85vh;                 /* ← 100vhはスマホだと圧迫するので少し下げる */
+    padding-left: 6%;
+    padding-bottom: 22%;
+    justify-content: flex-end;    /* ← スマホは下寄せの方が圧倒的に美しい */
+  }
+
+  /* 背景画像 */
+  .hero .bg {
+    filter: brightness(0.94) contrast(1.03) saturate(0.98);
+    object-position: center 40%;
+  }
+  .hero.night .bg.night-bg {
+    filter: brightness(0.82) contrast(1.06);
+  }
+
+  /* タイトル */
+  .hero h1 {
+    font-size: 1.9rem;
+    letter-spacing: 0.18em;
+    line-height: 1.35;
+    margin-bottom: 0.4rem;
+  }
+
+  .hero.day h1 {
+    text-shadow: 
+      0 0 10px rgba(255,255,255,0.5),
+      0 2px 6px rgba(0,0,0,0.22);
+  }
+
+  .hero.night h1 {
+    text-shadow:
+      0 0 14px rgba(232,179,126,0.45),
+      0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  /* サブタイトル */
+  .hero h2 {
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.3rem;
+  }
+
+  /* 英文キャプション */
+  .hero p {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    opacity: 0.85;
+  }
+
+  /* Toggleボタン位置 */
+  .mode-toggle {
+    font-size: 0.85rem;
+    margin-top: 1.2rem;
+  }
+
+  /* 泡エフェクト（軽量化） */
+  .hero-bubbles {
+    opacity: 0.55;
+  }
+
+  /* 光のベール（SPだと濃くなるため軽減） */
+  .hero::before {
+    background: radial-gradient(
+      circle at 50% 28%,
+      rgba(255,255,255,0.24),
+      transparent 70%
+    );
+  }
+
+  .hero-scent {
+    opacity: 0.45;
+    filter: blur(1.5px);
+  }
+}

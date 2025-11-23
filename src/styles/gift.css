@@ -422,3 +422,158 @@
   margin-bottom: 0.5rem;
   color: #a88050;
 }
+/* =======================================================
+   📱 Gift Page — Smartphone Optimization 完全版
+======================================================= */
+@media (max-width: 768px) {
+
+  /* 全体の文字サイズ補正 */
+  .gift {
+    font-size: 0.95rem;
+  }
+
+  /* =========================
+     🎁 HERO（スマホ最適化）
+  ========================== */
+  .gift-hero {
+    height: 75vh;
+  }
+
+  .gift-hero-img {
+    filter: brightness(92%);
+    object-position: center 45%;
+  }
+
+  .gift-hero-content {
+    bottom: 14%;     /* ← 高さを下げて被写体との距離を確保 */
+    left: 6%;
+  }
+
+  .gift-hero-content h1 {
+    font-size: 1.9rem;   /* ← SPの黄金比 */
+    line-height: 1.35;
+  }
+
+  .gift-hero-content p {
+    font-size: 0.92rem;
+    width: 90%;
+  }
+
+  /* Breadcrumb */
+  .gift-breadcrumb {
+    top: 1.4rem;
+    left: 6%;
+    font-size: 0.75rem;
+  }
+
+  /* =========================
+     🌸 Feature
+  ========================== */
+  .gift-feature {
+    padding: 4rem 8%;
+  }
+
+  .gift-feature h2 {
+    font-size: 1.4rem;
+  }
+
+  .gift-feature p {
+    font-size: 0.95rem;
+  }
+
+  /* =========================
+     🎀 Gift Sets
+  ========================== */
+  .gift-sets {
+    padding: 5rem 8%;
+  }
+
+  .gift-sets h2 {
+    font-size: 1.5rem;
+  }
+
+  .gift-card img {
+    height: 180px;     /* SPは比率を安定させる */
+  }
+
+  .gift-card-inner {
+    padding: 1.4rem;
+  }
+
+  .gift-card h3 {
+    font-size: 1.1rem;
+  }
+
+  /* =========================
+     🎁 Bonus
+  ========================== */
+  .gift-bonus {
+    padding: 5.5rem 8%;
+  }
+
+  .bonus-item {
+    max-width: 100%;
+  }
+
+  .bonus-text h3 {
+    font-size: 1.05rem;
+  }
+
+  .bonus-text p {
+    font-size: 0.9rem;
+  }
+
+  /* =========================
+     💌 Message
+  ========================== */
+  .gift-message {
+    padding: 5rem 8%;
+  }
+
+  .gift-message h2 {
+    font-size: 1.4rem;
+  }
+
+  /* =========================
+     🌅 CTA
+  ========================== */
+  .gift-cta {
+    padding: 6rem 8%;
+  }
+
+  .gift-cta h2 {
+    font-size: 1.5rem;
+  }
+
+  .gift-btn {
+    padding: 0.8rem 2rem;
+    font-size: 0.95rem;
+  }
+
+  /* =========================
+     ✨ Philosophy
+  ========================== */
+  .gift-philosophy {
+    padding: 2.5rem 8% 5rem;
+    font-size: 1rem;
+  }
+
+  /* =========================
+     📘 Guide
+  ========================== */
+  .gift-guide {
+    padding: 6rem 8%;
+  }
+
+  .gift-guide h2 {
+    font-size: 1.5rem;
+  }
+
+  .guide-item {
+    padding: 1.6rem;
+  }
+
+  .guide-item h3 {
+    font-size: 1.1rem;
+  }
+}

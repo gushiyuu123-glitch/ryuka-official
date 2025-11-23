@@ -40,3 +40,35 @@
     transform: translateY(0) scale(1);
   }
 }
+/* =======================================================
+   📱 Bloom Loader — Smartphone Optimization 完全版
+======================================================= */
+@media (max-width: 768px) {
+
+  /* ローダー全体 */
+  .loader.bloom {
+    padding: 0 1.5rem;
+    background: linear-gradient(to bottom, #fffdfc, #fcf6f0);
+    transition: opacity 2.4s ease, visibility 2.4s ease; /* ← SP向けに短く */
+  }
+
+  /* キャンバス（背景） */
+  .loader-canvas {
+    filter: brightness(1.06) saturate(1.05);
+    opacity: 0.88;   /* ← スマホ用に薄めて軽く */
+  }
+
+  /* ロゴ */
+  .loader-logo img {
+    width: 160px;     /* ← PC260px → SPでは160pxがベスト */
+    transform: translateY(6px) scale(0.96);
+    animation: fadeInLogo 1.5s ease forwards 0.4s; /* SP：開始早め＋短く */
+    filter: drop-shadow(0 0 10px rgba(255, 230, 210, 0.35))
+            drop-shadow(0 0 6px rgba(255, 240, 225, 0.22));
+  }
+
+  /* fade-out の調整 */
+  .loader.bloom.fade-out {
+    transition: opacity 1.8s ease, visibility 1.8s ease;
+  }
+}

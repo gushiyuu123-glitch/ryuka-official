@@ -532,3 +532,178 @@
     opacity: 0;
   }
 }
+/* =======================================================
+   📱 STORY – Smartphone Optimization 完全版
+======================================================= */
+@media (max-width: 768px) {
+
+  /* ------------------------------
+     全体の余白
+  ------------------------------ */
+  .story {
+    padding: 4rem 6%;
+  }
+
+  /* ------------------------------
+     HERO セクション
+  ------------------------------ */
+  .hero {
+    height: 70vh;
+    margin-bottom: 4rem;
+    border-radius: 18px;
+  }
+
+  .heroBg {
+    transform: scale(1.02);
+    filter: brightness(96%) contrast(108%) saturate(110%);
+  }
+
+  .heroInner {
+    padding-top: 24vh;
+  }
+
+  .catch {
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+  }
+
+  .title {
+    font-size: 1.9rem;
+    letter-spacing: 0.12em;
+  }
+
+  .lead {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    margin-top: 0.8rem;
+  }
+
+  .toggleBtn {
+    margin-top: 1.4rem;
+    padding: 0.65rem 1.6rem;
+    font-size: 0.85rem;
+  }
+
+  /* ------------------------------
+     Section 共通
+  ------------------------------ */
+  .section {
+    grid-template-columns: 1fr !important;
+    margin-bottom: 4rem;
+    gap: 1.8rem;
+  }
+
+  /* 逆並びを解除（自然な縦並びへ） */
+  .alt {
+    direction: ltr;
+  }
+  .alt > * {
+    direction: ltr;
+  }
+
+  /* ------------------------------
+     テキスト系
+  ------------------------------ */
+  .chapter {
+    font-size: 0.7rem;
+  }
+
+  .h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .text {
+    font-size: 0.95rem;
+    line-height: 1.9;
+  }
+
+  .quote {
+    font-size: 0.9rem;
+    margin-top: 1.4rem;
+  }
+
+  /* ------------------------------
+     Visual（画像領域）
+  ------------------------------ */
+  .visualFrame {
+    aspect-ratio: 4 / 3.2;
+    border-radius: 18px;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.22);
+  }
+
+  .visualFrame::before {
+    opacity: 0.1;
+  }
+
+  /* ------------------------------
+     Philosophy セクション
+  ------------------------------ */
+  .philosophy {
+    padding: 6rem 6% 7rem;
+  }
+
+  .philosophyTitle {
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+  }
+
+  .philosophyTitle span {
+    font-size: 0.8rem;
+    margin-top: 0.2rem;
+  }
+
+  .philosophyLead {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    margin-bottom: 3rem;
+  }
+
+  .values {
+    font-size: 0.9rem;
+    gap: 1rem;
+  }
+
+  .values li strong {
+    min-width: 100px;
+    margin-left: 0;
+  }
+
+  /* 背景の粒子負荷を軽くする */
+  .philosophy canvas {
+    opacity: 0.25;
+    filter: blur(2px);
+  }
+
+  .lightLayer {
+    inset: -40%;
+    opacity: 0.2;
+  }
+
+  /* ------------------------------
+     Falling Glass（ガラス片）
+  ------------------------------ */
+  .fallingGlass span {
+    width: 340px;
+    height: 340px;
+    opacity: 0.06;
+    filter: blur(0.4px);
+  }
+
+  /* ------------------------------
+     エピローグ
+  ------------------------------ */
+  .epilogue {
+    padding: 4rem 1.8rem 2.4rem;
+  }
+
+  .epiText {
+    font-size: 1.05rem;
+    letter-spacing: 0.06em;
+  }
+
+  .epilogueQuote {
+    font-size: 0.95rem;
+    margin-top: 2.4rem;
+  }
+}

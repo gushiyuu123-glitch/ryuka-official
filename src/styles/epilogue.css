@@ -114,3 +114,76 @@
   mix-blend-mode: normal !important;
   transition: background 1.8s ease, color 1.8s ease;
 }
+/* ============================================================
+   📱 Epilogue — Smartphone Optimization 完全版
+============================================================ */
+@media (max-width: 768px) {
+
+  /* 全体 */
+  .epilogue {
+    height: auto;          /* ← 高さを固定しない */
+    padding: 4rem 1.6rem 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* 粒子レイヤー */
+  #epilogueLight {
+    inset: 0;
+    opacity: 0.5;
+  }
+
+  /* 朝 */
+  .epilogue.day {
+    background: linear-gradient(
+      to top,
+      #ffffff 0%,
+      #f6fbff 45%,
+      #e4f7ff 100%
+    );
+    filter: brightness(1.03);
+  }
+
+  /* 夜 */
+  .epilogue.night {
+    background: radial-gradient(circle at 50% 20%, #1a1816 0%, #0a0908 85%);
+    box-shadow: inset 0 0 60px rgba(255, 220, 150, 0.12);
+    filter: brightness(1.05);
+  }
+
+  /* 内側のコンテンツ */
+  .epilogue-inner {
+    margin-top: 2rem;
+    padding: 0 1rem;
+    animation: fadeIn 2.2s ease 0.5s forwards;
+  }
+
+  /* ロゴ */
+  .epilogue-logo {
+    width: 170px;          /* ← スマホ用に縮小 */
+    margin: 0 auto;
+    display: block;
+    animation: logoFade 2.4s ease 0.9s forwards;
+  }
+
+  /* テキスト */
+  .epilogue-text {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    margin-top: 1.2rem;
+    padding: 0 0.5rem;
+    animation: textGlow 3s ease 1.4s forwards;
+  }
+
+  /* クレジット */
+  .epilogue-credit {
+    font-size: 0.82rem;
+    margin-top: 1.8rem;
+    line-height: 1.8;
+  }
+
+  .epilogue-credit .fade-in-later {
+    animation: fadeLater 3s ease 2.2s forwards;
+  }
+}

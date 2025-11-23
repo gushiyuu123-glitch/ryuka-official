@@ -613,3 +613,9 @@ a:hover, button:hover, .cta-button:hover, .brand-link:hover {
     gap: 1.2rem;
   }
 }
+@media (max-width: 768px) {
+  /* 朝夜トグルボタンをスマホで非表示 */
+  .toggle-label {
+    display: none !important;
+  }
+}

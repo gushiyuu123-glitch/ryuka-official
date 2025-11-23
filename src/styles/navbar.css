@@ -278,3 +278,24 @@
 .hamburger.open span:nth-child(3) {
   transform: translateY(-6px) rotate(-45deg);
 }
+/* =============================
+   📱 トグルとハンバーガーを縦並びに
+============================= */
+@media (max-width: 640px) {
+
+  .toggle-area {
+    display: flex;
+    flex-direction: column;  /* ← 縦並びにする */
+    align-items: flex-end;
+    gap: 0.4rem;
+  }
+
+  .toggle-label {
+    font-size: 0.8rem;
+    padding: 0.45rem 0.9rem;
+  }
+
+  .hamburger {
+    margin-right: 0.2rem;
+  }
+}

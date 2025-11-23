@@ -1,6 +1,6 @@
-/* =============================
-   🌿 NAVBAR — FIXED VERSION
-============================= */
+/* =======================================================
+   🌿 NAVBAR — Base
+======================================================= */
 .navbar {
   position: fixed;
   top: 0;
@@ -13,46 +13,35 @@
   transition: opacity 0.8s ease, transform 0.8s ease, background 1.2s ease;
 }
 
-/* ⭐ visible の時だけ表示 */
 .navbar.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* =============================
-   ☀️ 🌙 カラー
-============================= */
-.navbar.day {
-  color: #2f2f2f;
-}
+/* Colors */
+.navbar.day { color: #2f2f2f; }
+.navbar.night { color: #fff4d4; }
 
-.navbar.night {
-  color: #fff4d4;
-  text-shadow: 0 0 8px rgba(255,220,170,0.15);
-}
-
-/* =============================
-   📐 内部レイアウト
-============================= */
+/* =======================================================
+   📐 Layout
+======================================================= */
 .navbar-inner {
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
+  padding: 0 5%;
   width: 100%;
-  padding: 0 5%;   /* ← 今 4〜6% くらいなので 12% に変更 */
 }
 
-/* 左ロゴ */
+/* Left logo */
 .navbar-left {
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  margin-left: -1rem;   /* ← 左に寄りすぎる防止 */
 }
 
 .navbar-logo {
   width: 100px;
-  height: auto;
   transition: transform 0.6s ease, filter 0.6s ease;
 }
 .navbar-logo:hover {
@@ -65,42 +54,29 @@
   font-size: 1.1rem;
   letter-spacing: 0.28em;
   opacity: 0.85;
-  transition: opacity 0.6s ease, text-shadow 1.2s ease;
-}
-.brand-name:hover {
-  opacity: 1;
-  text-shadow: 0 0 10px rgba(232,179,126,0.25);
 }
 
-/* =============================
-   中央ナビゲーション
-============================= */
-.navbar-center {
+/* =======================================================
+   🟦 Center Navigation（PC ONLY）
+======================================================= */
+.pc-nav {
   display: flex;
+  gap: 1.4rem;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
-  margin-right: 4.5rem;  /* ← 右に寄りすぎる防止 */
 }
-/* =============================
-   🔵 ナビ項目のボタン背景を完全透明にする
-============================= */
-.navbar a {
-  background: none !important;   /* ← ボタン背景を強制無効化 */
-  border: none !important;       /* ← 念のため枠も削除 */
-  box-shadow: none !important;   /* ← 影が残っていた場合も消える */
 
-  font-family: "Poppins", "Shippori Mincho B1", serif;
-  font-size: 1.1rem;
-  letter-spacing: 0.1em;
-  color: inherit;
-  text-decoration: none;
+.pc-nav a {
   position: relative;
-  
+  text-decoration: none;
+  color: inherit;
+  font-family: "Poppins", serif;
+  font-size: 1.05rem;
+  letter-spacing: 0.1em;
 }
 
-/* 下線アニメ */
-.navbar a::after {
+/* Underline animation */
+.pc-nav a::after {
   content: "";
   position: absolute;
   left: 0;
@@ -112,170 +88,48 @@
   transform-origin: right;
   transition: transform 0.5s ease;
 }
-.navbar a:hover::after {
+.pc-nav a:hover::after {
   transform: scaleX(1);
   transform-origin: left;
 }
 
-/* Hover */
-.navbar.day .navbar-center a:hover {
-  color: #7fc4be;
-}
-.navbar.night .navbar-center a:hover {
-  color: #ffd996;
-}
-
-/* Active */
-.navbar-center a.active::after {
-  width: 80%;
-  opacity: 0.85;
-}
-
-/* =============================
-   💠 朝夜トグルボタン
-============================= */
+/* =======================================================
+   ☀️🌙 Toggle Button（PC ONLY）
+======================================================= */
 .toggle-label {
-  padding: 0.7rem 1.5rem;
+  padding: 0.6rem 1.5rem;
   border-radius: 80px;
   cursor: pointer;
-  backdrop-filter: blur(16px) saturate(160%);
-  transition: 0.6s ease;
-  text-align: center;
   font-family: "Shippori Mincho B1", serif;
   font-size: 0.95rem;
-  margin-right: 0.5rem;  /* ← 右に寄りすぎる防止 */
+  backdrop-filter: blur(16px) saturate(160%);
 }
 
-/* 朝 */
+/* Day */
 .navbar.day .toggle-label {
-  background: radial-gradient(circle at 50% 0%, rgba(250,250,250,0.9), rgba(210,240,230,0.3));
+  background: rgba(250,250,250,0.9);
   border: 1px solid rgba(170,230,215,0.6);
   color: #245b52;
 }
 
-/* 夜 */
+/* Night */
 .navbar.night .toggle-label {
-  background: radial-gradient(circle at 50% 100%, rgba(70,50,30,0.6), rgba(20,15,10,0.9));
+  background: rgba(70,50,30,0.6);
   border: 1px solid rgba(232,179,126,0.3);
   color: #fff4d4;
 }
 
-/* =============================
-   ✨ 夜モードのトップ完全非表示
-   （唯一必要なルール）
-============================= */
-.navbar.night:not(.visible) {
-  opacity: 0 !important;
-  transform: translateY(-80px) !important;
-  pointer-events: none !important;
-}
 /* =======================================================
-   📱 NAVBAR — Smartphone Optimization 完全版
-======================================================= */
-@media (max-width: 768px) {
-
-  /* ────────────────────────────────
-     全体
-  ──────────────────────────────── */
-  .navbar {
-    backdrop-filter: blur(10px) saturate(120%);
-    padding: 0.4rem 0;
-  }
-
-  .navbar-inner {
-    padding: 0 6%;
-    grid-template-columns: auto 1fr auto;
-  }
-
-  /* ────────────────────────────────
-     左ロゴ
-  ──────────────────────────────── */
-  .navbar-left {
-    gap: 0.4rem;
-    margin-left: 0;
-  }
-
-  .navbar-logo {
-    width: 72px;
-    transform: none;
-  }
-
-  .brand-name {
-    font-size: 0.9rem;
-    letter-spacing: 0.2em;
-  }
-
-  /* ────────────────────────────────
-     中央ナビ
-  ──────────────────────────────── */
-  .navbar-center {
-    gap: 0.8rem;
-    margin-right: 0; 
-  }
-
-  .navbar-center a {
-    font-size: 0.85rem;
-    letter-spacing: 0.08em;
-  }
-
-  .navbar-center a::after {
-    bottom: -3px;
-  }
-
-  /* ────────────────────────────────
-     朝夜トグルボタン
-  ──────────────────────────────── */
-  .toggle-label {
-    font-size: 0.8rem;
-    padding: 0.5rem 1.1rem;
-    margin-right: 0;
-    letter-spacing: 0.05em;
-  }
-
-  .navbar.day .toggle-label {
-    background: radial-gradient(
-      circle at 50% 0%,
-      rgba(250,250,250,0.85),
-      rgba(210,240,230,0.25)
-    );
-  }
-
-  .navbar.night .toggle-label {
-    background: radial-gradient(
-      circle at 50% 100%,
-      rgba(70,50,30,0.45),
-      rgba(20,15,10,0.8)
-    );
-  }
-
-  /* ────────────────────────────────
-     visible アニメ軽量化
-  ──────────────────────────────── */
-  .navbar {
-    transform: translateY(-30px);
-  }
-  .navbar.visible {
-    transform: translateY(0);
-  }
-
-  /* ────────────────────────────────
-     下線太すぎ防止
-  ──────────────────────────────── */
-  .navbar a::after {
-    height: 1px;
-  }
-}
-/* =======================================================
-   🌿 Hamburger — Mobile Only
+   🍔 Hamburger（Mobile）
 ======================================================= */
 .hamburger {
   display: none;
   flex-direction: column;
   gap: 6px;
-  cursor: pointer;
   background: none;
   border: none;
-  padding: 0;
+  cursor: pointer;
+  padding: 4px;
   z-index: 100000;
 }
 
@@ -283,11 +137,10 @@
   width: 26px;
   height: 2px;
   background: currentColor;
-  border-radius: 4px;
-  transition: transform 0.4s ease, opacity 0.4s ease;
+  transition: 0.4s;
 }
 
-/* X 変化 */
+/* X animation */
 .hamburger.active span:nth-child(1) {
   transform: translateY(8px) rotate(45deg);
 }
@@ -299,25 +152,24 @@
 }
 
 /* =======================================================
-   🌙 Mobile Menu Panel
+   📱 Mobile Menu
 ======================================================= */
 .mobile-menu {
   position: fixed;
   inset: 0;
   background: rgba(255,255,255,0.85);
-  backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(20px);
+  opacity: 0;
+  pointer-events: none;
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.55s ease;
+  transition: opacity 0.4s ease;
   z-index: 99990;
 }
 
 .mobile-menu.night {
   background: rgba(20,15,10,0.88);
-  backdrop-filter: blur(24px);
 }
 
 .mobile-menu.active {
@@ -325,7 +177,6 @@
   pointer-events: auto;
 }
 
-/* メニューリンク */
 .mobile-menu nav {
   display: flex;
   flex-direction: column;
@@ -334,14 +185,13 @@
 }
 
 .mobile-menu nav a {
-  color: inherit;
   font-family: "Shippori Mincho B1", serif;
   font-size: 1.3rem;
   letter-spacing: 0.16em;
-  text-decoration: none;
+  color: inherit;
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition: 0.6s;
 }
 
 .mobile-menu.active nav a {
@@ -349,13 +199,23 @@
   transform: translateY(0);
 }
 
+/* =======================================================
+   📱 Mobile Rules（重要）
+======================================================= */
 @media (max-width: 768px) {
+
+  /* PC ナビ隠す */
+  .pc-nav {
+    display: none !important;
+  }
+
+  /* ハンバーガー表示 */
   .hamburger {
     display: flex;
   }
 
-  /* PC 中央ナビ非表示 */
-  .navbar-center {
+  /* トグルボタン非表示 */
+  .toggle-label {
     display: none !important;
   }
 }

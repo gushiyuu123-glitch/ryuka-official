@@ -27,12 +27,12 @@ export default function Lead({ isMorning }) {
     // 🫧 Scroll shimmer（文字が淡く光る）
     const onScroll = () => {
       const scrollPos = window.scrollY * 0.002;
-      gsap.to(text.querySelectorAll("span"), {
-        opacity: 0.8 + Math.sin(scrollPos) * 0.2,
-        color: isMorning ? "#2f2f2f" : "#f6e9c8",
-        duration: 1.2,
-        ease: "sine.inOut",
-      });
+     gsap.to(title.querySelectorAll("span"), {
+  filter: `brightness(${1 + Math.sin(scrollPos) * 0.08})`,
+  duration: 1.2,
+  ease: "sine.inOut",
+});
+
     };
     window.addEventListener("scroll", onScroll);
 

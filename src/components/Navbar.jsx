@@ -3,129 +3,152 @@ import "../styles/navbar.css";
 
 export default function Navbar({ isMorning, handleToggle }) {
   const [activeSection, setActiveSection] = useState("top");
-  const [visible, setVisible] = useState(false); // ← トップで非表示にする
+  const [visible, setVisible] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false); // ← ★ 追加
 
-  // 🌫️ スクロール光エフェクト（navGlow）
-useEffect(() => {
-  const handleScroll = () => {
-    const topSection = document.getElementById("top");
+  useEffect(() => {
+    const handleScroll = () => {
+      const topSection = document.getElementById("top");
 
-    if (topSection) {
-      const rect = topSection.getBoundingClientRect();
+      if (topSection) {
+        const rect = topSection.getBoundingClientRect();
+        setVisible(rect.top < 0);
+      }
 
-      // rect.top はズレがないので確実に判定できる
-      setVisible(rect.top < 0); // ← 80px 上に行ったら Navbar を表示
-    }
+      const scrollY = window.scrollY;
+      const glow = Math.min(scrollY / 600, 1);
+      document.documentElement.style.setProperty("--navGlow", glow.toFixed(2));
+    };
 
-    // navGlow（追加）
-    const scrollY = window.scrollY;
-    const glow = Math.min(scrollY / 600, 1);
-    document.documentElement.style.setProperty("--navGlow", glow.toFixed(2));
-  };
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
 
-  window.addEventListener("scroll", handleScroll);
-  handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-  return () => window.removeEventListener("scroll", handleScroll);
-}, []);
-
-
-
-  // 🟧 朝/夜でStoreのIDを切り替え
-  const storeId = isMorning ? "store" : "store-night";
-
-  // ✨ スムーススクロール
+  // 閉じながらスクロール
   const handleNavClick = (e, id) => {
     e.preventDefault();
+
     const el = document.getElementById(id);
     if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      el.scrollIntoView({ behavior: "smooth" });
       setActiveSection(id);
     }
+
+    setMenuOpen(false);
   };
 
-  // 🔙 ロゴクリック
   const handleLogoClick = (e) => {
     e.preventDefault();
     const top = document.getElementById("top");
     if (top) {
-      top.scrollIntoView({ behavior: "smooth", block: "start" });
+      top.scrollIntoView({ behavior: "smooth" });
       setActiveSection("top");
     }
+    setMenuOpen(false);
   };
 
+  // isMorning による ID 切替
+  const storeId = isMorning ? "store" : "store-night";
+
   return (
-    <header
-      className={`navbar ${isMorning ? "day" : "night"} ${
-        visible ? "visible" : ""
-      }`}
-    >
-      <div className="navbar-inner">
-        {/* ロゴ */}
-        <button
-          className="navbar-left"
-          onClick={handleLogoClick}
-          style={{
-            all: "unset",
-            display: "flex",
-            alignItems: "center",
-            cursor: "pointer",
-          }}
-        >
-          <img
-            src="/image/ryuka_logo.png"
-            alt="Ryuka Logo"
-            className="navbar-logo"
-          />
-          <span className="brand-name">Ryuka Fragrance</span>
-        </button>
+    <>
+      {/* ============================ */}
+      {/*            NAVBAR            */}
+      {/* ============================ */}
+      <header
+        className={`navbar ${isMorning ? "day" : "night"} ${
+          visible ? "visible" : ""
+        }`}
+      >
+        <div className="navbar-inner">
 
-        {/* メニュー */}
-        <nav className="navbar-center">
-          <a
-            href="#top"
-            onClick={(e) => handleNavClick(e, "top")}
-            className={`nav-link ${activeSection === "top" ? "active" : ""}`}
+          {/* 左ロゴ */}
+          <button
+            className="navbar-left"
+            onClick={handleLogoClick}
+            style={{
+              all: "unset",
+              display: "flex",
+              alignItems: "center",
+              cursor: "pointer",
+            }}
           >
-            Top
-          </a>
+            <img
+              src="/image/ryuka_logo.png"
+              alt="Ryuka Logo"
+              className="navbar-logo"
+            />
+            <span className="brand-name">Ryuka Fragrance</span>
+          </button>
 
-          <a
-            href={`#${storeId}`}
-            onClick={(e) => handleNavClick(e, storeId)}
-            className={`nav-link ${
-              activeSection === storeId ? "active" : ""
-            }`}
-          >
-            Store
-          </a>
+          {/* PCナビ */}
+          <nav className="navbar-center">
+            <a
+              onClick={(e) => handleNavClick(e, "top")}
+              className={activeSection === "top" ? "active" : ""}
+            >
+              Top
+            </a>
 
-          <a
-            href="#exhibit"
-            onClick={(e) => handleNavClick(e, "exhibit")}
-            className={`nav-link ${
-              activeSection === "exhibit" ? "active" : ""
-            }`}
-          >
-            Exhibit
-          </a>
+            <a
+              onClick={(e) => handleNavClick(e, storeId)}
+              className={activeSection === storeId ? "active" : ""}
+            >
+              Store
+            </a>
 
-          <a
-            href="#story"
-            onClick={(e) => handleNavClick(e, "story")}
-            className={`nav-link ${activeSection === "story" ? "active" : ""}`}
-          >
-            Story
-          </a>
-        </nav>
+            <a
+              onClick={(e) => handleNavClick(e, "exhibit")}
+              className={activeSection === "exhibit" ? "active" : ""}
+            >
+              Exhibit
+            </a>
 
-        {/* トグル */}
-        <div className="navbar-right">
-          <span className="toggle-label" onClick={handleToggle}>
-            {isMorning ? "Night — 琥珀の香" : "Morning — 白露の香"}
-          </span>
+            <a
+              onClick={(e) => handleNavClick(e, "story")}
+              className={activeSection === "story" ? "active" : ""}
+            >
+              Story
+            </a>
+          </nav>
+
+          {/* 右：朝夜トグル & ハンバーガー */}
+          <div className="navbar-right">
+            <span className="toggle-label" onClick={handleToggle}>
+              {isMorning ? "Night — 琥珀の香" : "Morning — 白露の香"}
+            </span>
+
+            {/* 🔥 ハンバーガー */}
+            <button
+              className={`hamburger ${menuOpen ? "active" : ""}`}
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+          </div>
         </div>
+      </header>
+
+      {/* ============================ */}
+      {/*        MOBILE MENU           */}
+      {/* ============================ */}
+
+      <div
+        className={`mobile-menu ${isMorning ? "" : "night"} ${
+          menuOpen ? "active" : ""
+        }`}
+      >
+        <nav>
+          <a onClick={(e) => handleNavClick(e, "top")}>Top</a>
+          <a onClick={(e) => handleNavClick(e, storeId)}>Store</a>
+          <a onClick={(e) => handleNavClick(e, "exhibit")}>Exhibit</a>
+          <a onClick={(e) => handleNavClick(e, "story")}>Story</a>
+        </nav>
       </div>
-    </header>
+    </>
   );
 }

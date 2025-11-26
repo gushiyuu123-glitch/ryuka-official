@@ -242,11 +242,11 @@ useEffect(() => {
         {/* 💌 Gift セクション */}
         <div className="exhibit-item postcard">
           <div className="image">
-            <img
-              src="/image/Postcard1.webp"
-              alt="Gift Collection"
-              loading="lazy"
-            />
+           <img
+  src="/image/Postcard1.webp"
+  alt="Gift Collection"
+/>
+
           </div>
           <div className="caption">
             <h3>Gift Collection — 香りを贈る</h3>

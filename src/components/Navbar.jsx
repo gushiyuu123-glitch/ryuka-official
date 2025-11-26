@@ -116,9 +116,15 @@ export default function Navbar({ isMorning, handleToggle }) {
 
           {/* 🌟 トグル＋ハンバーガー（スマホ） */}
           <div className="navbar-right toggle-area">
-            <span className="toggle-label" onClick={handleToggle}>
-              {isMorning ? "Night — 琥珀の香" : "Morning — 白露の香"}
-            </span>
+      <span
+  className="toggle-label"
+  onClick={() => {
+    setMenuOpen(false);   // ← ★ これを追加（最重要）
+    handleToggle();       // 朝/夜切り替え
+  }}
+>
+  {isMorning ? "Night — 琥珀の香" : "Morning — 白露の香"}
+</span>
 
             {/* 🍔 ハンバーガー（スマホ専用） */}
             <button

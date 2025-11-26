@@ -76,3 +76,20 @@
   position: absolute;
   inset: 0;
 }
+.mobile-menu.hide {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  animation: none !important;
+}
+
+/* メニュー項目のアニメ誤爆防止 */
+.mobile-menu.hide .menu-items a {
+  opacity: 0 !important;
+  animation: none !important;
+}
+
+/* 中央光のアニメ誤爆防止 */
+.mobile-menu.hide .menu-glow {
+  opacity: 0 !important;
+  animation: none !important;
+}

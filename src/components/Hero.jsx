@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import "../styles/hero.css";
 
-export default function Hero({ isMorning, setIsMorning }) {
+export default function Hero({ isMorning, handleToggle }) {
   const canvasRef = useRef(null);
   const scentRef = useRef(null);
   const heroRef = useRef(null);
@@ -39,7 +39,7 @@ export default function Hero({ isMorning, setIsMorning }) {
         }
         const color = isMorning
           ? `hsla(168, 60%, 75%, ${b.o})`
-          : `hsla(38, 80%, 68%, ${b.o})`; // 夜は金色寄り
+          : `hsla(38, 80%, 68%, ${b.o})`;
         const g = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r * 2);
         g.addColorStop(0, color);
         g.addColorStop(1, "transparent");
@@ -74,8 +74,8 @@ export default function Hero({ isMorning, setIsMorning }) {
       r: Math.random() * 1.8 + 0.8,
       o: Math.random() * 0.2 + 0.2,
       c: isMorning
-        ? `hsla(${Math.random() * 40 + 160}, 70%, 80%, 0.6)` // 朝：ミント×白光
-        : `hsla(${Math.random() * 20 + 35}, 80%, 70%, 0.55)`, // 夜：琥珀金
+        ? `hsla(${Math.random() * 40 + 160}, 70%, 80%, 0.6)`
+        : `hsla(${Math.random() * 20 + 35}, 80%, 70%, 0.55)`,
     }));
 
     let frame;
@@ -88,7 +88,6 @@ export default function Hero({ isMorning, setIsMorning }) {
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fill();
 
-        // ゆるく右上へ
         p.x += 0.03;
         p.y -= 0.06;
         p.o -= 0.001;
@@ -135,21 +134,21 @@ export default function Hero({ isMorning, setIsMorning }) {
         repeat: 1,
       }
     );
-    setIsMorning();
+
+    // 🌕 朝/夜トグル（React全体の状態を変更）
+    handleToggle();
   };
-useEffect(() => {
-  const hero = document.querySelector(".hero");
-  hero.style.minHeight = window.innerHeight + "px";
-}, []);
-useEffect(() => {
-  const hero = heroRef.current;
-  const fixHeight = () => {
-    hero.style.height = window.innerHeight + "px";
-  };
-  fixHeight();
-  window.addEventListener("resize", fixHeight);
-  return () => window.removeEventListener("resize", fixHeight);
-}, []);
+
+  // 高さ調整
+  useEffect(() => {
+    const hero = heroRef.current;
+    const fixHeight = () => {
+      hero.style.height = window.innerHeight + "px";
+    };
+    fixHeight();
+    window.addEventListener("resize", fixHeight);
+    return () => window.removeEventListener("resize", fixHeight);
+  }, []);
 
   return (
     <section
@@ -159,10 +158,8 @@ useEffect(() => {
       }`}
       aria-label="琉香ヒーロー"
     >
-      {/* 泡（下層） */}
       <canvas ref={canvasRef} className="hero-bubbles"></canvas>
 
-      {/* 背景画像 */}
       <img
         src="/image/hero-morning1.webp"
         className={`bg morning-bg ${isMorning ? "visible" : ""}`}
@@ -174,10 +171,8 @@ useEffect(() => {
         alt="Night Aroma"
       />
 
-      {/* 光の香り（上層） */}
       <canvas ref={scentRef} className="hero-scent"></canvas>
 
-      {/* テキスト */}
       <div ref={textRef} className={`hero-content ${showText ? "show" : ""}`}>
         <h1 className="hero-title">琉香 — RYUKA</h1>
         <h2 className="hero-lead">

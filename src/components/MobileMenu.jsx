@@ -8,7 +8,12 @@ export default function MobileMenu({
   isMorning,
 }) {
   return (
-    <div className={`mobile-menu ${open ? "show" : ""} ${isMorning ? "day" : "night"}`}>
+    <div
+      className={
+        `mobile-menu ${isMorning ? "day" : "night"} ` +
+        (open ? "show" : "hide")
+      }
+    >
       {/* 中央光 */}
       <div className="menu-glow"></div>
 

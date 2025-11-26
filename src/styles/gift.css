@@ -577,3 +577,34 @@
     font-size: 1.1rem;
   }
 }
+/* =======================================
+   🌙 Night Mode — 贈るシーン（gift-guide）
+======================================= */
+
+/* セクション背景 */
+.gift.night .gift-guide {
+  background: #1b1916 !important;
+}
+
+/* タイトル（贈るシーンから選ぶ） */
+.gift.night .gift-guide h2 {
+  color: #e8d5b2 !important;
+  text-shadow: 0 0 12px rgba(240,220,180,0.25);
+}
+
+/* カードコンテナ */
+.gift.night .guide-item {
+  background: #26231f !important;
+  border: 1px solid rgba(230,200,150,0.15);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.35);
+}
+
+/* カードタイトル */
+.gift.night .guide-item h3 {
+  color: #e2c28c !important;
+}
+
+/* 説明文 */
+.gift.night .guide-item p {
+  color: rgba(255,255,255,0.85) !important;
+}
